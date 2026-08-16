@@ -1,5 +1,16 @@
 <script lang="ts">
 	import { themeState } from '../state/theme.svelte.js';
+
+	function patternStyleToCss(style: Record<string, string | number | undefined> | undefined): string {
+		if (!style) return '';
+		return Object.entries(style)
+			.filter(([_, v]) => v !== undefined && v !== '')
+			.map(([k, v]) => {
+				const cssKey = k.replace(/([A-Z])/g, '-$1').toLowerCase();
+				return `${cssKey}: ${v};`;
+			})
+			.join(' ');
+	}
 </script>
 
 {#if themeState.isAura}
@@ -40,6 +51,24 @@
 		></div>
 		<div
 			class="gradient-overlay-soft"
+			style="position: absolute; inset: 0; pointer-events: none;"
+		></div>
+	</div>
+{:else if themeState.isPattern && themeState.activePatternObject}
+	<div
+		class="aura-pattern-backdrop"
+		aria-hidden="true"
+		style="position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; background-color: var(--bg);"
+	>
+		<div
+			class="pattern-canvas"
+			style={patternStyleToCss(themeState.activePatternObject.style)}
+			style:position="absolute"
+			style:inset="0"
+			style:pointer-events="none"
+		></div>
+		<div
+			class="pattern-overlay-soft"
 			style="position: absolute; inset: 0; pointer-events: none;"
 		></div>
 	</div>

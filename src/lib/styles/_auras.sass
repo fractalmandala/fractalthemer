@@ -4,13 +4,13 @@
 // Format: Indented SASS (strictly single tabs, no braces, no semicolons)
 
 [data-bg-style="plain"]
-	.aura-ambient, .aura-gradient-backdrop
+	.aura-ambient, .aura-gradient-backdrop, .aura-pattern-backdrop
 		display: none !important
 
 [data-bg-style="aura"]
 	.aura-ambient
 		display: block
-	.aura-gradient-backdrop
+	.aura-gradient-backdrop, .aura-pattern-backdrop
 		display: none !important
 	body, html
 		background-color: transparent !important
@@ -23,7 +23,7 @@
 		-webkit-backdrop-filter: blur(12px)
 
 [data-bg-style="gradient"]
-	.aura-ambient
+	.aura-ambient, .aura-pattern-backdrop
 		display: none !important
 	.aura-gradient-backdrop
 		display: block
@@ -37,7 +37,22 @@
 		backdrop-filter: blur(16px)
 		-webkit-backdrop-filter: blur(16px)
 
-.aura-ambient, .aura-gradient-backdrop
+[data-bg-style="pattern"]
+	.aura-ambient, .aura-gradient-backdrop
+		display: none !important
+	.aura-pattern-backdrop
+		display: block
+	body, html
+		background-color: transparent !important
+	.fullwrapper, .appshell, .appshel, .bodywrapper, .appbody, .blume-root, .blume-body
+		background: transparent !important
+		background-color: transparent !important
+		background-image: none !important
+	.appheader
+		backdrop-filter: blur(14px)
+		-webkit-backdrop-filter: blur(14px)
+
+.aura-ambient, .aura-gradient-backdrop, .aura-pattern-backdrop
 	position: fixed
 	inset: 0
 	z-index: -1 !important
@@ -64,6 +79,21 @@
 		pointer-events: none !important
 		background: radial-gradient(circle at 50% 50%, transparent 50%, rgba(0, 0, 0, 0.08) 100%)
 
+.aura-pattern-backdrop
+	background-color: var(--bg)
+	pointer-events: none !important
+	.pattern-canvas
+		position: absolute
+		inset: 0
+		opacity: 0.35
+		pointer-events: none !important
+		transition: opacity 0.4s ease
+	.pattern-overlay-soft
+		position: absolute
+		inset: 0
+		pointer-events: none !important
+		background: radial-gradient(circle at 50% 50%, transparent 50%, rgba(0, 0, 0, 0.06) 100%)
+
 [data-mode="dark"]
 	.aura-gradient-backdrop
 		.gradient-canvas
@@ -71,6 +101,12 @@
 			mix-blend-mode: screen
 		.gradient-overlay-soft
 			background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.5) 100%)
+	.aura-pattern-backdrop
+		.pattern-canvas
+			opacity: 0.45
+			mix-blend-mode: screen
+		.pattern-overlay-soft
+			background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.4) 100%)
 
 [data-mode="light"]
 	.aura-gradient-backdrop
@@ -79,6 +115,12 @@
 			mix-blend-mode: multiply
 		.gradient-overlay-soft
 			background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.6) 100%)
+	.aura-pattern-backdrop
+		.pattern-canvas
+			opacity: 0.32
+			mix-blend-mode: multiply
+		.pattern-overlay-soft
+			background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.5) 100%)
 
 .fullwrapper, .appshell, .appshel
 	position: relative

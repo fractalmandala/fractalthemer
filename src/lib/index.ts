@@ -28,6 +28,12 @@ export { ARTISAN_COLORS, type ArtisanColor } from './data/artisan-colors.js';
 export { COLOURWAY_PRESETS, type ColourwayPreset } from './data/colourways.js';
 export { SILHOUETTE_SHAPES, type SilhouetteShape } from './data/silhouettes.js';
 export { ARRANGEMENT_PRESETS, type ArrangementPreset } from './data/arrangements.js';
+export {
+	PATTERNS,
+	PATTERN_CATEGORIES,
+	type Pattern,
+	type PatternCategory
+} from './data/patterns.js';
 
 // Engines & Calculations
 export { renderEngineToCanvas } from './engines/canvas-shaders.js';

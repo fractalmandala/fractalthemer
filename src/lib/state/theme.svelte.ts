@@ -7,12 +7,14 @@ import {
 import { CORE_TOKENS } from '../data/tokens.js';
 import { AURA_PRESETS, type AuraLayer, type AuraPreset } from '../data/auras.js';
 import { GRADIENT_PRESETS, type GradientPreset } from '../data/gradients.js';
+import { PATTERNS, type Pattern } from '../data/patterns.js';
 
 export class ThemeState {
 	current = $state<string>(DEFAULT_THEME_ID);
 	bgStyle = $state<BgStyle>('plain');
 	activeGradient = $state<string | null>(null);
 	activeAura = $state<string | null>(null);
+	activePattern = $state<string | null>(null);
 	isOpen = $state<boolean>(false);
 	customThemes = $state<ThemeInfo[]>([]);
 	activeCustomOverrides = $state<Record<string, string> | null>(null);
@@ -28,6 +30,10 @@ export class ThemeState {
 
 	get allAuras(): AuraPreset[] {
 		return AURA_PRESETS;
+	}
+
+	get allPatterns(): Pattern[] {
+		return PATTERNS;
 	}
 
 	get currentTheme(): ThemeInfo {
@@ -46,12 +52,20 @@ export class ThemeState {
 		return this.bgStyle === 'gradient';
 	}
 
+	get isPattern(): boolean {
+		return this.bgStyle === 'pattern';
+	}
+
 	get activeGradientPreset(): GradientPreset | null {
 		return GRADIENT_PRESETS.find((g) => g.id === this.activeGradient) ?? null;
 	}
 
 	get activeAuraPreset(): AuraPreset | null {
 		return AURA_PRESETS.find((a) => a.id === this.activeAura) ?? null;
+	}
+
+	get activePatternObject(): Pattern | null {
+		return PATTERNS.find((p) => p.id === this.activePattern) ?? null;
 	}
 
 	init() {
@@ -91,8 +105,13 @@ export class ThemeState {
 			}
 		}
 
+		const savedPattern = localStorage.getItem('pattern');
+		if (savedPattern && PATTERNS.some((p) => p.id === savedPattern)) {
+			this.activePattern = savedPattern;
+		}
+
 		const savedBgStyle = localStorage.getItem('bgStyle') as BgStyle | null;
-		if (savedBgStyle === 'aura' || savedBgStyle === 'plain' || savedBgStyle === 'gradient') {
+		if (savedBgStyle === 'aura' || savedBgStyle === 'plain' || savedBgStyle === 'gradient' || savedBgStyle === 'pattern') {
 			this.bgStyle = savedBgStyle;
 		} else {
 			this.bgStyle = 'plain';
@@ -186,15 +205,39 @@ export class ThemeState {
 		}
 	}
 
+	setPattern(id: string) {
+		const target = PATTERNS.find((p) => p.id === id);
+		if (!target) return;
+		this.activePattern = id;
+		this.bgStyle = 'pattern';
+		if (typeof window !== 'undefined') {
+			try {
+				localStorage.setItem('pattern', id);
+				localStorage.setItem('bgStyle', 'pattern');
+			} catch {}
+			this.apply(this.current, 'pattern');
+		}
+	}
+
+	clearPattern() {
+		this.activePattern = null;
+		if (typeof window !== 'undefined') {
+			try {
+				localStorage.removeItem('pattern');
+			} catch {}
+		}
+		if (this.bgStyle === 'pattern') {
+			this.setBgStyle('plain');
+		}
+	}
+
 	toggleBgStyle() {
 		if (this.bgStyle === 'plain') {
 			this.setBgStyle('aura');
 		} else if (this.bgStyle === 'aura') {
-			if (this.activeGradient) {
-				this.setBgStyle('gradient');
-			} else {
-				this.setBgStyle('plain');
-			}
+			this.setBgStyle('gradient');
+		} else if (this.bgStyle === 'gradient') {
+			this.setBgStyle('pattern');
 		} else {
 			this.setBgStyle('plain');
 		}

@@ -4,6 +4,7 @@
 	import { LIGHT_THEMES, DARK_THEMES, type ThemeInfo } from '../data/themes.js';
 	import { AURA_PRESETS, type AuraPreset } from '../data/auras.js';
 	import { GRADIENT_PRESETS, type GradientPreset } from '../data/gradients.js';
+	import { PATTERNS, PATTERN_CATEGORIES, type Pattern, type PatternCategory } from '../data/patterns.js';
 	import Sun from '../icons/Sun.svelte';
 	import Moon from '../icons/Moon.svelte';
 	import Palette from '../icons/Palette.svelte';
@@ -25,13 +26,25 @@
 		triggerButton
 	}: Props = $props();
 
-	let activeTab = $state<'all' | 'light' | 'dark' | 'auras' | 'gradients' | 'custom'>('all');
+	let activeTab = $state<'all' | 'light' | 'dark' | 'auras' | 'gradients' | 'patterns' | 'custom'>('all');
 	let selectedAuraCategory = $state<string>('all');
+	let selectedPatternCategory = $state<string>('all');
 	let searchFilter = $state<string>('');
 	let pickerEl = $state<HTMLDivElement | null>(null);
 	let showStudioModal = $state<boolean>(false);
 
 	const AURA_CATEGORIES = ['all', 'aura', 'mesh', 'glass', 'grain', 'flux', 'nebula', 'lattice', 'prism'] as const;
+
+	function patternStyleToCss(style: Record<string, string | number | undefined> | undefined): string {
+		if (!style) return '';
+		return Object.entries(style)
+			.filter(([_, v]) => v !== undefined && v !== '')
+			.map(([k, v]) => {
+				const cssKey = k.replace(/([A-Z])/g, '-$1').toLowerCase();
+				return `${cssKey}: ${v};`;
+			})
+			.join(' ');
+	}
 
 	onMount(() => {
 		themeState.init();
@@ -106,6 +119,23 @@
 			(g) => g.name.toLowerCase().includes(q) || g.id.toLowerCase().includes(q)
 		);
 	});
+
+	const filteredPatterns = $derived.by(() => {
+		let list = PATTERNS;
+		if (selectedPatternCategory !== 'all') {
+			list = list.filter((p) => p.category.toLowerCase() === selectedPatternCategory.toLowerCase());
+		}
+		if (!searchFilter.trim()) return list;
+
+		const q = searchFilter.toLowerCase().trim();
+		return list.filter(
+			(p) =>
+				p.name.toLowerCase().includes(q) ||
+				p.id.toLowerCase().includes(q) ||
+				p.category.toLowerCase().includes(q) ||
+				(p.description && p.description.toLowerCase().includes(q))
+		);
+	});
 </script>
 
 <div class="theme-controls" bind:this={pickerEl}>
@@ -155,7 +185,7 @@
 		></div>
 
 		<div class="theme-popover" role="dialog" aria-label="Theme and Aura Background Switcher">
-			<!-- Style Switcher (Plain vs Aura vs Gradient) -->
+			<!-- Style Switcher (Plain vs Aura vs Gradient vs Pattern) -->
 			<div class="theme-style-switcher">
 				<div class="theme-style-toggle-group">
 					<button
@@ -196,6 +226,21 @@
 						title="Vibrant gradient background presets"
 					>
 						<span>🌈</span> Gradient
+					</button>
+					<button
+						type="button"
+						class="theme-style-toggle-btn"
+						class:active={themeState.bgStyle === 'pattern'}
+						onclick={() => {
+							if (!themeState.activePattern && PATTERNS.length > 0) {
+								themeState.setPattern(PATTERNS[0].id);
+							} else {
+								themeState.setBgStyle('pattern');
+							}
+						}}
+						title="Curated CSS background pattern presets"
+					>
+						<span>📐</span> Pattern
 					</button>
 				</div>
 
@@ -269,6 +314,14 @@
 					<button
 						type="button"
 						class="theme-tab-btn"
+						class:active={activeTab === 'patterns'}
+						onclick={() => (activeTab = 'patterns')}
+					>
+						📐 Patterns ({PATTERNS.length})
+					</button>
+					<button
+						type="button"
+						class="theme-tab-btn"
 						class:active={activeTab === 'custom'}
 						onclick={() => (activeTab = 'custom')}
 					>
@@ -301,6 +354,27 @@
 						</button>
 					{/each}
 				</div>
+			{:else if activeTab === 'patterns'}
+				<div class="category-chips">
+					<button
+						type="button"
+						class="category-chip"
+						class:active={selectedPatternCategory === 'all'}
+						onclick={() => (selectedPatternCategory = 'all')}
+					>
+						All ({PATTERNS.length})
+					</button>
+					{#each PATTERN_CATEGORIES as cat}
+						<button
+							type="button"
+							class="category-chip"
+							class:active={selectedPatternCategory === cat.id}
+							onclick={() => (selectedPatternCategory = cat.id)}
+						>
+							{cat.icon} {cat.label} ({cat.count})
+						</button>
+					{/each}
+				</div>
 			{/if}
 
 			<!-- Search Bar -->
@@ -308,12 +382,12 @@
 				<input
 					type="text"
 					class="theme-search-input"
-					placeholder={activeTab === 'auras' ? 'Search 203 aura gradients...' : activeTab === 'gradients' ? 'Search 180+ gradients...' : 'Search themes or auras...'}
+					placeholder={activeTab === 'auras' ? 'Search 203 aura gradients...' : activeTab === 'gradients' ? 'Search gradients...' : activeTab === 'patterns' ? 'Search 257 CSS patterns...' : 'Search themes...'}
 					bind:value={searchFilter}
 				/>
 			</div>
 
-			<!-- Grid Container (Themes, Auras, or Gradients) -->
+			<!-- Grid Container (Themes, Auras, Gradients, or Patterns) -->
 			<div class="theme-grid-container">
 				{#if activeTab === 'auras'}
 					{#each filteredAuras as aura (aura.id)}
@@ -326,7 +400,7 @@
 								themeState.setAura(aura.id);
 							}}
 						>
-							<div class="aura-card-preview" style="background-color: {aura.baseColor};">
+							<div class="aura-card-preview" style="background-color: {aura.baseColor}; pointer-events: none !important;">
 								{#each aura.layers as layer, idx (idx)}
 									<div
 										class="aura-card-layer"
@@ -334,6 +408,7 @@
 										style:mix-blend-mode={layer.blendMode || 'normal'}
 										style:filter={`blur(${Math.min(layer.blur || 18, 22)}px)`}
 										style:opacity={layer.opacity !== undefined ? layer.opacity : 1}
+										style:pointer-events="none !important"
 									></div>
 								{/each}
 							</div>
@@ -357,7 +432,7 @@
 								themeState.setGradient(grad.id);
 							}}
 						>
-							<div class="gradient-card-bar" style:background={grad.css}>
+							<div class="gradient-card-bar" style:background={grad.css} style:pointer-events="none !important">
 								<div class="gradient-card-colors">
 									{#each grad.colors as col}
 										<span class="gradient-dot" style:background-color={col}></span>
@@ -368,6 +443,29 @@
 								<span class="theme-card-name">{grad.name}</span>
 								<span class="theme-card-badge">{grad.colors.length}c</span>
 							</div>
+						</button>
+					{/each}
+				{:else if activeTab === 'patterns'}
+					{#each filteredPatterns as pat (pat.id)}
+						<button
+							type="button"
+							class="theme-aura-card"
+							class:active={themeState.isPattern && themeState.activePattern === pat.id}
+							title="{pat.name} ({pat.category}) — {pat.description || ''}"
+							onclick={() => themeState.setPattern(pat.id)}
+						>
+							<div class="aura-card-preview" style="background-color: var(--bg); position: relative; overflow: hidden; pointer-events: none !important;">
+								<div
+									style="position: absolute; inset: 0; pointer-events: none !important; {patternStyleToCss(pat.style)}"
+								></div>
+							</div>
+							<div class="theme-card-header">
+								<span class="theme-card-name">{pat.name}</span>
+								<span class="theme-card-badge">{pat.category}</span>
+							</div>
+							{#if pat.description}
+								<span class="theme-card-sub">{pat.description}</span>
+							{/if}
 						</button>
 					{/each}
 				{:else}
