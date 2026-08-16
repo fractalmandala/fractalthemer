@@ -12,9 +12,16 @@
 <div class="themer-app">
 	<header class="themer-header">
 		<div class="themer-header-left">
-			<span class="themer-logo">✨</span>
-			<span class="themer-title">fractalthemer</span>
-			<span class="themer-badge">v0.1.0</span>
+			<a href="/" class="themer-brand-link">
+				<span class="themer-logo">✨</span>
+				<span class="themer-title">fractalthemer</span>
+			</a>
+			<span class="themer-badge">v0.1.6</span>
+
+			<nav class="themer-nav-links">
+				<a href="/" class="themer-nav-link">Showcase</a>
+				<a href="/dev" class="themer-nav-link">🛠️ Dev Builder</a>
+			</nav>
 		</div>
 
 		<div class="themer-header-right">
@@ -78,15 +85,34 @@
 		color: var(--text-primary);
 	}
 
-	.themer-badge {
-		font-size: 10px;
-		font-weight: 600;
-		text-transform: uppercase;
-		padding: 2px 6px;
-		border-radius: 4px;
-		background: var(--bg-panel);
-		color: var(--text-muted);
-		border: 1px solid var(--border-subtle);
+	.themer-brand-link {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		text-decoration: none;
+		color: var(--text-primary);
+	}
+
+	.themer-nav-links {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		margin-left: 16px;
+	}
+
+	.themer-nav-link {
+		padding: 6px 12px;
+		font-size: 13px;
+		font-weight: 500;
+		text-decoration: none;
+		color: var(--text-secondary);
+		border-radius: 6px;
+		transition: all 0.15s ease;
+	}
+
+	.themer-nav-link:hover {
+		color: var(--text-primary);
+		background: var(--state-hover);
 	}
 
 	.themer-header-right {
