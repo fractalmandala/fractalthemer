@@ -201,11 +201,12 @@
 					</button>
 				</div>
 
-				<label class="palette-col-footer" style="cursor: pointer;" title="Click to change hue/color">
+				<div class="palette-col-footer">
 					<input
 						type="color"
 						value={col.hex}
-						style="opacity: 0; width: 0; height: 0; position: absolute; pointer-events: none;"
+						class="palette-col-color-input"
+						title="Click to change {col.token} color"
 						oninput={(e) => updateColumnColor(idx, e.currentTarget.value)}
 					/>
 					<span class="palette-col-token" title={col.label}>{col.token}</span>
@@ -220,7 +221,7 @@
 						<span>•</span>
 						<span>B: {col.contrastBlack}</span>
 					</div>
-				</label>
+				</div>
 			</div>
 		{/each}
 	</div>
