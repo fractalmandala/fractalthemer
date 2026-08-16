@@ -26,14 +26,11 @@
 		triggerButton
 	}: Props = $props();
 
-	let activeTab = $state<'all' | 'light' | 'dark' | 'auras' | 'gradients' | 'patterns' | 'custom'>('all');
-	let selectedAuraCategory = $state<string>('all');
-	let selectedPatternCategory = $state<string>('all');
+	let currentView = $state<'plain' | 'aura' | 'gradient' | 'pattern'>('plain');
+	let themeSubFilter = $state<'all' | 'light' | 'dark' | 'custom'>('all');
 	let searchFilter = $state<string>('');
 	let pickerEl = $state<HTMLDivElement | null>(null);
 	let showStudioModal = $state<boolean>(false);
-
-	const AURA_CATEGORIES = ['all', 'aura', 'mesh', 'glass', 'grain', 'flux', 'nebula', 'lattice', 'prism'] as const;
 
 	function patternStyleToCss(style: Record<string, string | number | undefined> | undefined): string {
 		if (!style) return '';
@@ -48,6 +45,10 @@
 
 	onMount(() => {
 		themeState.init();
+		if (themeState.bgStyle === 'aura') currentView = 'aura';
+		else if (themeState.bgStyle === 'gradient') currentView = 'gradient';
+		else if (themeState.bgStyle === 'pattern') currentView = 'pattern';
+		else currentView = 'plain';
 
 		function handleClickOutside(e: MouseEvent) {
 			if (themeState.isOpen && pickerEl && !pickerEl.contains(e.target as Node)) {
@@ -72,11 +73,11 @@
 
 	const filteredThemes = $derived.by(() => {
 		let list: ThemeInfo[] = [];
-		if (activeTab === 'light') {
+		if (themeSubFilter === 'light') {
 			list = LIGHT_THEMES;
-		} else if (activeTab === 'dark') {
+		} else if (themeSubFilter === 'dark') {
 			list = DARK_THEMES;
-		} else if (activeTab === 'custom') {
+		} else if (themeSubFilter === 'custom') {
 			list = themeState.customThemes;
 		} else {
 			list = themeState.allThemes;
@@ -96,9 +97,6 @@
 
 	const filteredAuras = $derived.by(() => {
 		let list = AURA_PRESETS;
-		if (selectedAuraCategory !== 'all') {
-			list = list.filter((a) => a.category.toLowerCase() === selectedAuraCategory.toLowerCase());
-		}
 		if (!searchFilter.trim()) return list;
 
 		const q = searchFilter.toLowerCase().trim();
@@ -122,9 +120,6 @@
 
 	const filteredPatterns = $derived.by(() => {
 		let list = PATTERNS;
-		if (selectedPatternCategory !== 'all') {
-			list = list.filter((p) => p.category.toLowerCase() === selectedPatternCategory.toLowerCase());
-		}
 		if (!searchFilter.trim()) return list;
 
 		const q = searchFilter.toLowerCase().trim();
@@ -143,13 +138,13 @@
 	{#if showModeToggle}
 		<button
 			type="button"
-			class="theme-icon-btn"
+			class="is-icon"
 			title={themeState.isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
 			aria-label={themeState.isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
 			onclick={() => themeState.toggleMode()}
 		>
 			{#if themeState.isDark}
-				<Sun />
+				<Sun/>
 			{:else}
 				<Moon />
 			{/if}
@@ -162,12 +157,18 @@
 	{:else}
 		<button
 			type="button"
-			class="theme-icon-btn"
+			class="is-icon"
 			aria-haspopup="dialog"
 			aria-expanded={themeState.isOpen}
 			title="Choose theme and aura background"
 			onclick={(e) => {
 				e.stopPropagation();
+				if (!themeState.isOpen) {
+					if (themeState.bgStyle === 'aura') currentView = 'aura';
+					else if (themeState.bgStyle === 'gradient') currentView = 'gradient';
+					else if (themeState.bgStyle === 'pattern') currentView = 'pattern';
+					else currentView = 'plain';
+				}
 				themeState.togglePicker();
 			}}
 		>
@@ -184,61 +185,43 @@
 			aria-hidden="true"
 		></div>
 
-		<div class="theme-popover" role="dialog" aria-label="Theme and Aura Background Switcher">
-			<!-- Style Switcher (Plain vs Aura vs Gradient vs Pattern) -->
+		<div class="theme-popover" role="dialog" aria-label="Theme and Background Switcher">
+			<!-- 1 Unified System Top Header (Plain vs Aura vs Gradient vs Pattern) -->
 			<div class="theme-style-switcher">
 				<div class="theme-style-toggle-group">
 					<button
 						type="button"
 						class="theme-style-toggle-btn"
-						class:active={themeState.bgStyle === 'plain'}
-						onclick={() => themeState.setBgStyle('plain')}
-						title="Clean distraction-free flat backgrounds"
+						class:active={currentView === 'plain'}
+						onclick={() => (currentView = 'plain')}
+						title="Explore 42 curated and custom color themes"
 					>
 						<span>◻</span> Plain
 					</button>
 					<button
 						type="button"
 						class="theme-style-toggle-btn"
-						class:active={themeState.bgStyle === 'aura'}
-						onclick={() => {
-							if (!themeState.activeAura && AURA_PRESETS.length > 0) {
-								themeState.setAura(AURA_PRESETS[0].id);
-							} else {
-								themeState.setBgStyle('aura');
-							}
-						}}
-						title="Atmospheric gradient blend aura"
+						class:active={currentView === 'aura'}
+						onclick={() => (currentView = 'aura')}
+						title="Explore 203 atmospheric aura gradients"
 					>
 						<span>✨</span> Aura
 					</button>
 					<button
 						type="button"
 						class="theme-style-toggle-btn"
-						class:active={themeState.bgStyle === 'gradient'}
-						onclick={() => {
-							if (!themeState.activeGradient && GRADIENT_PRESETS.length > 0) {
-								themeState.setGradient(GRADIENT_PRESETS[0].id);
-							} else {
-								themeState.setBgStyle('gradient');
-							}
-						}}
-						title="Vibrant gradient background presets"
+						class:active={currentView === 'gradient'}
+						onclick={() => (currentView = 'gradient')}
+						title="Explore plain gradient background presets"
 					>
 						<span>🌈</span> Gradient
 					</button>
 					<button
 						type="button"
 						class="theme-style-toggle-btn"
-						class:active={themeState.bgStyle === 'pattern'}
-						onclick={() => {
-							if (!themeState.activePattern && PATTERNS.length > 0) {
-								themeState.setPattern(PATTERNS[0].id);
-							} else {
-								themeState.setBgStyle('pattern');
-							}
-						}}
-						title="Curated CSS background pattern presets"
+						class:active={currentView === 'pattern'}
+						onclick={() => (currentView = 'pattern')}
+						title="Explore 257 CSS background patterns"
 					>
 						<span>📐</span> Pattern
 					</button>
@@ -268,112 +251,53 @@
 				</div>
 			</div>
 
-			<!-- Filter Tabs -->
-			<div class="theme-tabs" style="display: flex; justify-content: space-between; align-items: center;">
-				<div style="display: flex; align-items: center; gap: 4px; flex-wrap: wrap;">
-					<button
-						type="button"
-						class="theme-tab-btn"
-						class:active={activeTab === 'all'}
-						onclick={() => (activeTab = 'all')}
-					>
-						All ({themeState.allThemes.length})
-					</button>
-					<button
-						type="button"
-						class="theme-tab-btn"
-						class:active={activeTab === 'light'}
-						onclick={() => (activeTab = 'light')}
-					>
-						Light ({LIGHT_THEMES.length})
-					</button>
-					<button
-						type="button"
-						class="theme-tab-btn"
-						class:active={activeTab === 'dark'}
-						onclick={() => (activeTab = 'dark')}
-					>
-						Dark ({DARK_THEMES.length})
-					</button>
-					<button
-						type="button"
-						class="theme-tab-btn"
-						class:active={activeTab === 'auras'}
-						onclick={() => (activeTab = 'auras')}
-					>
-						✨ Auras ({AURA_PRESETS.length})
-					</button>
-					<button
-						type="button"
-						class="theme-tab-btn"
-						class:active={activeTab === 'gradients'}
-						onclick={() => (activeTab = 'gradients')}
-					>
-						🌈 Gradients ({GRADIENT_PRESETS.length + studioState.savedRecipes.length})
-					</button>
-					<button
-						type="button"
-						class="theme-tab-btn"
-						class:active={activeTab === 'patterns'}
-						onclick={() => (activeTab = 'patterns')}
-					>
-						📐 Patterns ({PATTERNS.length})
-					</button>
-					<button
-						type="button"
-						class="theme-tab-btn"
-						class:active={activeTab === 'custom'}
-						onclick={() => (activeTab = 'custom')}
-					>
-						Custom ({themeState.customThemes.length})
-					</button>
-				</div>
-
-				<button
-					type="button"
-					class="theme-tab-btn"
-					title="Cycle to next theme"
-					aria-label="Cycle to next theme"
-					onclick={() => themeState.cycleNext()}
-				>
-					NEXT
-				</button>
-			</div>
-
-			<!-- Aura Category Chips Sub-Bar -->
-			{#if activeTab === 'auras'}
-				<div class="category-chips">
-					{#each AURA_CATEGORIES as cat}
+			<!-- Secondary Sub-Filter Row: Only for Plain Themes -->
+			{#if currentView === 'plain'}
+				<div class="theme-tabs" style="display: flex; justify-content: space-between; align-items: center;">
+					<div style="display: flex; align-items: center; gap: 4px; flex-wrap: wrap;">
 						<button
 							type="button"
-							class="category-chip"
-							class:active={selectedAuraCategory === cat}
-							onclick={() => (selectedAuraCategory = cat)}
+							class="theme-tab-btn"
+							class:active={themeSubFilter === 'all'}
+							onclick={() => (themeSubFilter = 'all')}
 						>
-							{cat.charAt(0).toUpperCase() + cat.slice(1)}
+							All ({themeState.allThemes.length})
 						</button>
-					{/each}
-				</div>
-			{:else if activeTab === 'patterns'}
-				<div class="category-chips">
-					<button
-						type="button"
-						class="category-chip"
-						class:active={selectedPatternCategory === 'all'}
-						onclick={() => (selectedPatternCategory = 'all')}
-					>
-						All ({PATTERNS.length})
-					</button>
-					{#each PATTERN_CATEGORIES as cat}
 						<button
 							type="button"
-							class="category-chip"
-							class:active={selectedPatternCategory === cat.id}
-							onclick={() => (selectedPatternCategory = cat.id)}
+							class="theme-tab-btn"
+							class:active={themeSubFilter === 'light'}
+							onclick={() => (themeSubFilter = 'light')}
 						>
-							{cat.icon} {cat.label} ({cat.count})
+							Light ({LIGHT_THEMES.length})
 						</button>
-					{/each}
+						<button
+							type="button"
+							class="theme-tab-btn"
+							class:active={themeSubFilter === 'dark'}
+							onclick={() => (themeSubFilter = 'dark')}
+						>
+							Dark ({DARK_THEMES.length})
+						</button>
+						<button
+							type="button"
+							class="theme-tab-btn"
+							class:active={themeSubFilter === 'custom'}
+							onclick={() => (themeSubFilter = 'custom')}
+						>
+							Custom ({themeState.customThemes.length})
+						</button>
+					</div>
+
+					<button
+						type="button"
+						class="theme-tab-btn"
+						title="Cycle to next theme"
+						aria-label="Cycle to next theme"
+						onclick={() => themeState.cycleNext()}
+					>
+						NEXT
+					</button>
 				</div>
 			{/if}
 
@@ -382,14 +306,81 @@
 				<input
 					type="text"
 					class="theme-search-input"
-					placeholder={activeTab === 'auras' ? 'Search 203 aura gradients...' : activeTab === 'gradients' ? 'Search gradients...' : activeTab === 'patterns' ? 'Search 257 CSS patterns...' : 'Search themes...'}
+					placeholder={currentView === 'plain' ? 'Search 42 themes...' : currentView === 'aura' ? 'Search 203 aura gradients...' : currentView === 'gradient' ? 'Search gradients...' : 'Search 257 CSS patterns...'}
 					bind:value={searchFilter}
 				/>
 			</div>
 
-			<!-- Grid Container (Themes, Auras, Gradients, or Patterns) -->
+			<!-- Card Grids -->
 			<div class="theme-grid-container">
-				{#if activeTab === 'auras'}
+				{#if currentView === 'plain'}
+					{#if themeSubFilter === 'custom'}
+						<button
+							type="button"
+							class="theme-card"
+							style="border-style: dashed; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-height: 110px; background: var(--bg-surface);"
+							onclick={() => (showStudioModal = true)}
+							title="Open Studio to create and save custom themes"
+						>
+							<span style="font-size: 24px;">➕</span>
+							<span style="font-size: 11px; font-weight: 600; color: var(--theme-color);">New in Studio</span>
+						</button>
+					{/if}
+
+					{#each filteredThemes as theme (theme.id)}
+						<div
+							class="theme-card"
+							class:active={themeState.bgStyle === 'plain' && themeState.current === theme.id}
+							role="button"
+							tabindex="0"
+							title="{theme.name} — {theme.description}"
+							onclick={() => {
+								themeState.setTheme(theme.id);
+								themeState.setBgStyle('plain');
+							}}
+							onkeydown={(e) => {
+								if (e.key === 'Enter' || e.key === ' ') {
+									e.preventDefault();
+									themeState.setTheme(theme.id);
+									themeState.setBgStyle('plain');
+								}
+							}}
+						>
+							{#if theme.isCustom}
+								<button
+									type="button"
+									class="theme-card-delete-btn"
+									title="Delete custom theme {theme.name}"
+									aria-label="Delete custom theme {theme.name}"
+									onclick={(e) => {
+										e.stopPropagation();
+										themeState.deleteCustomTheme(theme.id);
+									}}
+								>
+									✕
+								</button>
+							{/if}
+
+							<div class="theme-card-header">
+								<span class="theme-card-name">{theme.name}</span>
+								<span class="theme-card-badge">{theme.mode}</span>
+							</div>
+
+							<div
+								class="theme-card-preview"
+								style="background-color: {theme.bgColor}; color: {theme.textColor}; border-color: {theme.accentColor}33"
+							>
+								<span class="theme-preview-dot" style="background-color: {theme.accentColor}"></span>
+								<span class="theme-preview-dot" style="background-color: {theme.textColor}"></span>
+							</div>
+
+							<span class="theme-aura-tag">
+								{theme.isCustom ? '🎨 Custom' : `✨ ${theme.auraName}`}
+							</span>
+						</div>
+					{/each}
+
+				{:else if currentView === 'aura'}
 					{#each filteredAuras as aura (aura.id)}
 						<button
 							type="button"
@@ -421,7 +412,8 @@
 							{/if}
 						</button>
 					{/each}
-				{:else if activeTab === 'gradients'}
+
+				{:else if currentView === 'gradient'}
 					{#each filteredGradients as grad (grad.id)}
 						<button
 							type="button"
@@ -445,7 +437,8 @@
 							</div>
 						</button>
 					{/each}
-				{:else if activeTab === 'patterns'}
+
+				{:else if currentView === 'pattern'}
 					{#each filteredPatterns as pat (pat.id)}
 						<button
 							type="button"
@@ -468,69 +461,6 @@
 							{/if}
 						</button>
 					{/each}
-				{:else}
-					{#if activeTab === 'custom'}
-						<button
-							type="button"
-							class="theme-card"
-							style="border-style: dashed; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-height: 110px; background: var(--bg-surface);"
-							onclick={() => (showStudioModal = true)}
-							title="Open Studio to create and save custom themes and gradients"
-						>
-							<span style="font-size: 24px;">➕</span>
-							<span style="font-size: 11px; font-weight: 600; color: var(--theme-color);">New in Studio</span>
-						</button>
-					{/if}
-
-					{#each filteredThemes as theme (theme.id)}
-						<div
-							class="theme-card"
-							class:active={themeState.current === theme.id}
-							role="button"
-							tabindex="0"
-							title="{theme.name} — {theme.description} (Aura: {theme.auraName})"
-							onclick={() => {
-								themeState.setTheme(theme.id);
-							}}
-							onkeydown={(e) => {
-								if (e.key === 'Enter' || e.key === ' ') {
-									e.preventDefault();
-									themeState.setTheme(theme.id);
-								}
-							}}
-						>
-							{#if theme.isCustom}
-								<button
-									type="button"
-									class="theme-card-delete-btn"
-									title="Delete custom theme {theme.name}"
-									onclick={(e) => {
-										e.stopPropagation();
-										themeState.deleteCustomTheme(theme.id);
-									}}
-								>
-									✕
-								</button>
-							{/if}
-
-							<div class="theme-card-header">
-								<span class="theme-card-name">{theme.name}</span>
-								<span class="theme-card-badge">{theme.mode}</span>
-							</div>
-
-							<div
-								class="theme-card-preview"
-								style="background-color: {theme.bgColor}; color: {theme.textColor}; border-color: {theme.accentColor}33"
-							>
-								<span class="theme-preview-dot" style="background-color: {theme.accentColor}"></span>
-								<span class="theme-preview-dot" style="background-color: {theme.textColor}"></span>
-							</div>
-
-							<span class="theme-aura-tag">
-								{theme.isCustom ? '🎨 Custom' : `✨ ${theme.auraName}`}
-							</span>
-						</div>
-					{/each}
 				{/if}
 			</div>
 
@@ -546,7 +476,7 @@
 				</button>
 				<button
 					type="button"
-					class="theme-footer-btn"
+					class="is-icon"
 					onclick={() => themeState.resetDefault()}
 					title="Set default theme (.theme-light-default)"
 				>
@@ -554,7 +484,7 @@
 				</button>
 				<button
 					type="button"
-					class="theme-footer-btn"
+					class="is-icon"
 					onclick={() => themeState.cycleRandom()}
 					title="Pick a random theme"
 				>

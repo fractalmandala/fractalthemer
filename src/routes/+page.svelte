@@ -5,228 +5,144 @@
 		LIGHT_THEMES,
 		DARK_THEMES,
 		CORE_TOKENS,
-		GRADIENT_PRESETS
-	} from '$lib';
-	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
+		GRADIENT_PRESETS,
+		AURA_PRESETS,
+		PATTERNS,
+	} from "$lib";
+	import ThemeToggle from "$lib/components/ThemeToggle.svelte";
 
 	let copied = $state(false);
-	let gradientSearch = $state('');
+	let gradientSearch = $state("");
+	let gradientType = $state("themes");
+
+	function setGradient(newGradient: string) {
+		gradientType = newGradient;
+	}
 
 	const filteredGradients = $derived.by(() => {
 		if (!gradientSearch.trim()) return GRADIENT_PRESETS;
 		const q = gradientSearch.toLowerCase().trim();
 		return GRADIENT_PRESETS.filter(
-			(g) => g.name.toLowerCase().includes(q) || g.id.toLowerCase().includes(q)
+			(g) =>
+				g.name.toLowerCase().includes(q) ||
+				g.id.toLowerCase().includes(q),
 		);
 	});
 
 	function copyInstall() {
-		navigator.clipboard.writeText('pnpm add fractalthemer');
+		navigator.clipboard.writeText("pnpm add fractalthemer");
 		copied = true;
 		setTimeout(() => (copied = false), 2000);
 	}
 </script>
 
 <div class="showcase">
-	<!-- Hero Section -->
-	<section class="hero-card">
-		<div class="hero-badge">Svelte 5 Runes • 42 Palettes • GPU Aura Gradients</div>
-		<h1 class="hero-title">Universal Theming & Atmospheric Aura System</h1>
-		<p class="hero-desc">
-			Drop-in control over dark mode, light mode, 42 tiered aesthetic themes, multi-layer GPU blended aura gradients, and a 100vh right off-canvas drawer.
-		</p>
-
-		<div class="hero-actions">
-			<button type="button" class="btn-primary" onclick={() => themeState.openPicker()}>
-				<span>🎨</span> Open Theme Drawer
-			</button>
-			<button type="button" class="btn-secondary" onclick={() => themeState.toggleMode()}>
-				<span>🌓</span> Toggle Mode ({themeState.isDark ? 'Dark' : 'Light'})
-			</button>
-			<button type="button" class="btn-secondary" onclick={() => themeState.toggleBgStyle()}>
-				<span>✨</span> {themeState.isAura ? 'Switch to Plain' : 'Switch to Aura'}
-			</button>
-			<button type="button" class="btn-secondary" onclick={() => themeState.cycleRandom()}>
-				<span>🎲</span> Random Theme
-			</button>
-		</div>
-
-		<!-- Active Theme Status -->
-		<div class="active-status-bar">
-			<div class="status-item">
-				<span class="status-label">Active Theme:</span>
-				<span class="status-value">{themeState.currentTheme.name} (<code>{themeState.current}</code>)</span>
-			</div>
-			<div class="status-item">
-				<span class="status-label">Mode:</span>
-				<span class="status-value">{themeState.currentTheme.mode.toUpperCase()}</span>
-			</div>
-			<div class="status-item">
-				<span class="status-label">Aura Name:</span>
-				<span class="status-value">✨ {themeState.currentTheme.auraName}</span>
-			</div>
-			<div class="status-item">
-				<span class="status-label">Background Style:</span>
-				<span class="status-value">{themeState.bgStyle.toUpperCase()}</span>
-			</div>
-		</div>
-	</section>
-
-	<!-- Quickstart Code Section -->
-	<section class="doc-card">
-		<h2>⚡ Quickstart</h2>
-		<div class="code-block-wrapper">
-			<div class="code-header">
-				<span>Terminal</span>
-				<button type="button" class="copy-btn" onclick={copyInstall}>
-					{copied ? '✓ Copied' : 'Copy'}
-				</button>
-			</div>
-			<pre><code>pnpm add fractalthemer</code></pre>
-		</div>
-
-		<h3>1. Add to <code>+layout.svelte</code></h3>
-		<pre class="code-sample"><code>&lt;script lang="ts"&gt;
-  import 'fractalthemer/styles.css';
-  import &#123; AuraBackground, ThemePicker &#125; from 'fractalthemer';
-
-  let &#123; children &#125; = $props();
-&lt;/script&gt;
-
-&lt;AuraBackground /&gt;
-&lt;header&gt;
-  &lt;ThemePicker /&gt;
-&lt;/header&gt;
-
-&lt;main&gt;
-  &#123;@render children()&#125;
-&lt;/main&gt;</code></pre>
-
-		<h3>2. Prevent SSR Flash in <code>app.html</code></h3>
-		<pre class="code-sample"><code>&lt;script&gt;
-  (function () &#123;
-    try &#123;
-      var saved = localStorage.getItem('theme') || 'theme-light-default';
-      var isDark = saved.indexOf('-dark') !== -1 || saved.indexOf('-mocha') !== -1;
-      var mode = isDark ? 'dark' : 'light';
-      var bgStyle = localStorage.getItem('bgStyle') || 'plain';
-      var root = document.documentElement;
-      root.className = saved;
-      root.setAttribute('data-theme', saved);
-      root.setAttribute('data-mode', mode);
-      root.setAttribute('data-bg-style', bgStyle);
-      root.style.colorScheme = mode;
-    &#125; catch (e) &#123;&#125;
-  &#125;)();
-&lt;/script&gt;</code></pre>
-	</section>
-
-	<!-- Live Palette Grid Preview -->
-	<section class="doc-card">
-		<div class="section-head">
-			<h2>🎨 All 42 Curated Themes</h2>
-			<span class="count-badge">{THEMES.length} Themes</span>
-		</div>
-		<p class="section-desc">Click any card to preview the full elevation surface, syntax tokens, and gradient blend aura immediately.</p>
-
-		<div class="themes-showcase-grid">
-			{#each THEMES as theme (theme.id)}
-				<button
-					type="button"
-					class="preview-card"
-					class:active={themeState.current === theme.id}
-					onclick={() => themeState.setTheme(theme.id)}
-				>
-					<div class="card-head">
-						<span class="card-name">{theme.name}</span>
-						<span class="mode-pill {theme.mode}">{theme.mode}</span>
-					</div>
-					<div class="card-swatches" style="background-color: {theme.bgColor};">
-						<span class="swatch" style="background-color: {theme.accentColor};" title="Accent: {theme.accentColor}"></span>
-						<span class="swatch" style="background-color: {theme.textColor};" title="Text: {theme.textColor}"></span>
-					</div>
-					<div class="card-meta">
-						<span class="aura-title">✨ {theme.auraName}</span>
-					</div>
-				</button>
-			{/each}
-		</div>
-	</section>
-
-	<!-- Live Gradient Presets Section -->
-	<section class="doc-card">
-		<div class="section-head">
-			<h2>🌈 Vibrant Gradient Presets ({GRADIENT_PRESETS.length})</h2>
-			<span class="count-badge">{filteredGradients.length} Shown</span>
-		</div>
-		<p class="section-desc">Sample any of these {GRADIENT_PRESETS.length} gradient presets live across the entire viewport background with one click.</p>
-
-		<div class="search-wrap" style="margin-bottom: 20px;">
-			<input
-				type="text"
-				class="gradient-showcase-input"
-				placeholder="Search 180+ gradients (e.g., Omolon, Farhan, Sunset, Neon)..."
-				bind:value={gradientSearch}
-			/>
-		</div>
-
-		<div class="gradients-showcase-grid">
-			{#each filteredGradients as grad (grad.id)}
-				<button
-					type="button"
-					class="gradient-preview-card"
-					class:active={themeState.isGradient && themeState.activeGradient === grad.id}
-					onclick={() => themeState.setGradient(grad.id)}
-				>
-					<div class="gradient-preview-bar" style:background={grad.css}>
-						<div class="grad-color-dots">
-							{#each grad.colors as col}
-								<span class="grad-dot" style:background-color={col} title={col}></span>
-							{/each}
+	<div class="tabs">
+		<button class="is-tab" onclick={() => setGradient("themes")}>
+			Themes
+		</button>
+		<button class="is-tab" onclick={() => setGradient("gradients")}>
+			Gradients
+		</button>
+		<button class="is-tab" onclick={() => setGradient("aura")}>
+			Aura Gradients
+		</button>
+		<button class="is-tab" onclick={() => setGradient("patterns")}>
+			Patterns
+		</button>
+		<button class="is-tab" onclick={() => setGradient("tokens")}>
+			Tokens
+		</button>
+	</div>
+	<div class="box">
+		{#if gradientType === "themes"}
+			<div class="themes-showcase-grid">
+				{#each THEMES as theme (theme.id)}
+					<button
+						type="button"
+						class="preview-card"
+						class:active={themeState.current === theme.id}
+						onclick={() => themeState.setTheme(theme.id)}
+					>
+						<div class="card-head">
+							<span class="card-name">{theme.name}</span>
+							<span class="mode-pill {theme.mode}"
+								>{theme.mode}</span
+							>
 						</div>
+						<div
+							class="card-swatches"
+							style="background-color: {theme.bgColor};"
+						>
+							<span
+								class="swatch"
+								style="background-color: {theme.accentColor};"
+								title="Accent: {theme.accentColor}"
+							></span>
+							<span
+								class="swatch"
+								style="background-color: {theme.textColor};"
+								title="Text: {theme.textColor}"
+							></span>
+						</div>
+						<div class="card-meta">
+							<span class="aura-title">✨ {theme.auraName}</span>
+						</div>
+					</button>
+				{/each}
+			</div>
+		{:else if gradientType === "gradients"}
+			<div class="themes-showcase-grid">
+				{#each filteredGradients as grad (grad.id)}
+					<button
+						type="button"
+						class="gradient-preview-card"
+						class:active={themeState.isGradient &&
+							themeState.activeGradient === grad.id}
+						onclick={() => themeState.setGradient(grad.id)}
+					>
+						<div
+							class="gradient-preview-bar"
+							style:background={grad.css}
+						>
+							<div class="grad-color-dots">
+								{#each grad.colors as col}
+									<span
+										class="grad-dot"
+										style:background-color={col}
+										title={col}
+									></span>
+								{/each}
+							</div>
+						</div>
+						<div class="card-head">
+							<span class="card-name">{grad.name}</span>
+							<span class="mode-pill">{grad.colors.length}c</span>
+						</div>
+					</button>
+				{/each}
+			</div>
+		{:else if gradientType === "tokens"}
+			<div class="themes-showcase-grid">
+				{#each CORE_TOKENS as token (token.key)}
+					<div class="gradient-preview-card">
+						<code
+							>--{token.key} - {themeState.currentTheme.tokens[
+								token.key
+							] || token.defaultVal}</code
+						>
+						<div class="token-val-cell">
+							<span
+								class="token-swatch"
+								style="background-color: var(--{token.key});"
+							></span>
+						</div>
+						<span>{token.description}</span>
 					</div>
-					<div class="card-head">
-						<span class="card-name">{grad.name}</span>
-						<span class="mode-pill">{grad.colors.length}c</span>
-					</div>
-				</button>
-			{/each}
-		</div>
-	</section>
-
-	<!-- Token Architecture -->
-	<section class="doc-card">
-		<h2>📐 Semantic Token Contract</h2>
-		<p class="section-desc">Every theme satisfies the standard semantic variable interface, allowing UI elements, markdown prose, terminals, and forms to automatically adapt.</p>
-
-		<div class="tokens-table-wrapper">
-			<table class="tokens-table">
-				<thead>
-					<tr>
-						<th>Token Variable</th>
-						<th>Category</th>
-						<th>Active Computed Value</th>
-						<th>Description</th>
-					</tr>
-				</thead>
-				<tbody>
-					{#each CORE_TOKENS as token (token.key)}
-						<tr>
-							<td><code>--{token.key}</code></td>
-							<td><span class="category-pill">{token.category}</span></td>
-							<td>
-								<div class="token-val-cell">
-									<span class="token-swatch" style="background-color: var(--{token.key});"></span>
-									<span>{themeState.currentTheme.tokens[token.key] || token.defaultVal}</span>
-								</div>
-							</td>
-							<td>{token.description}</td>
-						</tr>
-					{/each}
-				</tbody>
-			</table>
-		</div>
-	</section>
+				{/each}
+			</div>
+		{/if}
+	</div>
 </div>
 
 <style>
@@ -293,7 +209,9 @@
 		border: none;
 		border-radius: var(--radius-6, 6px);
 		cursor: pointer;
-		transition: background-color 0.15s ease, transform 0.1s ease;
+		transition:
+			background-color 0.15s ease,
+			transform 0.1s ease;
 	}
 
 	.btn-primary:hover {
@@ -316,7 +234,9 @@
 		border: 1px solid var(--border);
 		border-radius: var(--radius-6, 6px);
 		cursor: pointer;
-		transition: background-color 0.15s ease, border-color 0.15s ease;
+		transition:
+			background-color 0.15s ease,
+			border-color 0.15s ease;
 	}
 
 	.btn-secondary:hover {
@@ -360,19 +280,6 @@
 		padding: 32px;
 	}
 
-	.doc-card h2 {
-		margin: 0 0 8px 0;
-		font-size: var(--text-xl, 20px);
-		font-weight: 600;
-		color: var(--text-primary);
-	}
-
-	.doc-card h3 {
-		margin: 24px 0 8px 0;
-		font-size: var(--text-md, 15px);
-		font-weight: 600;
-		color: var(--text-primary);
-	}
 
 	.section-head {
 		display: flex;
@@ -432,14 +339,6 @@
 		background: rgba(255, 255, 255, 0.1);
 	}
 
-	pre {
-		margin: 0;
-		padding: 16px;
-		font-family: var(--font-mono, monospace);
-		font-size: var(--text-sm, 13px);
-		line-height: 1.5;
-		overflow-x: auto;
-	}
 
 	.code-sample {
 		background: var(--bg-panel);
@@ -466,7 +365,9 @@
 		border-radius: var(--radius-8, 8px);
 		text-align: left;
 		cursor: pointer;
-		transition: border-color 0.15s ease, transform 0.1s ease;
+		transition:
+			border-color 0.15s ease,
+			transform 0.1s ease;
 	}
 
 	.preview-card:hover {
@@ -556,20 +457,6 @@
 		font-size: var(--text-sm, 13px);
 		text-align: left;
 	}
-
-	.tokens-table th, .tokens-table td {
-		padding: 10px 14px;
-		border-bottom: 1px solid var(--border-subtle);
-	}
-
-	.tokens-table th {
-		background: var(--bg-panel);
-		font-weight: 600;
-		color: var(--text-secondary);
-		font-size: 11px;
-		text-transform: uppercase;
-	}
-
 	.category-pill {
 		font-size: 10px;
 		text-transform: uppercase;
@@ -631,7 +518,9 @@
 		border-radius: var(--radius-8, 8px);
 		text-align: left;
 		cursor: pointer;
-		transition: border-color 0.15s ease, transform 0.1s ease;
+		transition:
+			border-color 0.15s ease,
+			transform 0.1s ease;
 	}
 
 	.gradient-preview-card:hover {
@@ -648,7 +537,9 @@
 	.gradient-preview-bar {
 		height: 40px;
 		border-radius: var(--radius-6, 6px);
-		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15), 0 2px 8px rgba(0, 0, 0, 0.15);
+		box-shadow:
+			inset 0 0 0 1px rgba(255, 255, 255, 0.15),
+			0 2px 8px rgba(0, 0, 0, 0.15);
 		display: flex;
 		align-items: flex-end;
 		justify-content: flex-end;

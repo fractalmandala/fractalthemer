@@ -145,6 +145,19 @@ export class ThemeState {
 
 	setBgStyle(style: BgStyle) {
 		this.bgStyle = style;
+		if (style === 'plain') {
+			this.activeAura = null;
+			this.activeCustomAuraLayers = null;
+			this.activeGradient = null;
+			this.activePattern = null;
+			if (typeof window !== 'undefined') {
+				try {
+					localStorage.removeItem('aura');
+					localStorage.removeItem('gradient');
+					localStorage.removeItem('pattern');
+				} catch {}
+			}
+		}
 		if (typeof window !== 'undefined') {
 			try {
 				localStorage.setItem('bgStyle', style);
@@ -158,11 +171,15 @@ export class ThemeState {
 		if (!target) return;
 		this.activeAura = id;
 		this.activeCustomAuraLayers = target.layers;
+		this.activeGradient = null;
+		this.activePattern = null;
 		this.bgStyle = 'aura';
 		if (typeof window !== 'undefined') {
 			try {
 				localStorage.setItem('aura', id);
 				localStorage.setItem('bgStyle', 'aura');
+				localStorage.removeItem('gradient');
+				localStorage.removeItem('pattern');
 			} catch {}
 			this.apply(this.current, 'aura');
 		}
@@ -183,11 +200,16 @@ export class ThemeState {
 		const target = GRADIENT_PRESETS.find((g) => g.id === id);
 		if (!target) return;
 		this.activeGradient = id;
+		this.activeAura = null;
+		this.activeCustomAuraLayers = null;
+		this.activePattern = null;
 		this.bgStyle = 'gradient';
 		if (typeof window !== 'undefined') {
 			try {
 				localStorage.setItem('gradient', id);
 				localStorage.setItem('bgStyle', 'gradient');
+				localStorage.removeItem('aura');
+				localStorage.removeItem('pattern');
 			} catch {}
 			this.apply(this.current, 'gradient');
 		}
@@ -201,7 +223,7 @@ export class ThemeState {
 			} catch {}
 		}
 		if (this.bgStyle === 'gradient') {
-			this.setBgStyle('aura');
+			this.setBgStyle('plain');
 		}
 	}
 
@@ -209,11 +231,16 @@ export class ThemeState {
 		const target = PATTERNS.find((p) => p.id === id);
 		if (!target) return;
 		this.activePattern = id;
+		this.activeAura = null;
+		this.activeCustomAuraLayers = null;
+		this.activeGradient = null;
 		this.bgStyle = 'pattern';
 		if (typeof window !== 'undefined') {
 			try {
 				localStorage.setItem('pattern', id);
 				localStorage.setItem('bgStyle', 'pattern');
+				localStorage.removeItem('aura');
+				localStorage.removeItem('gradient');
 			} catch {}
 			this.apply(this.current, 'pattern');
 		}
