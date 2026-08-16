@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { themeState } from '../state/theme.svelte';
+	import { themeState } from '../state/theme.svelte.js';
 </script>
 
 {#if themeState.isAura}

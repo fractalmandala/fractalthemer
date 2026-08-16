@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { onMount, type Snippet } from 'svelte';
-	import { themeState } from '../state/theme.svelte';
-	import { LIGHT_THEMES, DARK_THEMES, type ThemeInfo } from '../data/themes';
+	import { themeState } from '../state/theme.svelte.js';
+	import { LIGHT_THEMES, DARK_THEMES, type ThemeInfo } from '../data/themes.js';
 	import Sun from '../icons/Sun.svelte';
 	import Moon from '../icons/Moon.svelte';
 	import Palette from '../icons/Palette.svelte';
 	import Close from '../icons/Close.svelte';
 
-	import { GRADIENT_PRESETS, type GradientPreset } from '../data/gradients';
+	import { GRADIENT_PRESETS, type GradientPreset } from '../data/gradients.js';
 
 	interface Props {
 		studioHref?: string;

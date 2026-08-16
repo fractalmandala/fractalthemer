@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getAntiFlickerScript } from '../utils/anti-flicker';
+	import { getAntiFlickerScript } from '../utils/anti-flicker.js';
 
 	interface Props {
 		defaultTheme?: string;

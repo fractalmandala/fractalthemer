@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { themeState } from '../state/theme.svelte';
+	import { themeState } from '../state/theme.svelte.js';
 	import Sun from '../icons/Sun.svelte';
 	import Moon from '../icons/Moon.svelte';
 

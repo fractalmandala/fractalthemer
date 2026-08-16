@@ -5,7 +5,7 @@ export { default as AuraBackground } from './components/AuraBackground.svelte';
 export { default as ThemeScript } from './components/ThemeScript.svelte';
 
 // State & Runes
-export { themeState, ThemeState } from './state/theme.svelte';
+export { themeState, ThemeState } from './state/theme.svelte.js';
 
 // Data & Constants
 export {
@@ -15,11 +15,11 @@ export {
 	DEFAULT_THEME_ID,
 	type ThemeInfo,
 	type BgStyle
-} from './data/themes';
+} from './data/themes.js';
 
-export { CORE_TOKENS, type TokenMeta } from './data/tokens';
-export { type AuraLayer, type AuraPreset } from './data/auras';
-export { GRADIENT_PRESETS, type GradientPreset } from './data/gradients';
+export { CORE_TOKENS, type TokenMeta } from './data/tokens.js';
+export { type AuraLayer, type AuraPreset } from './data/auras.js';
+export { GRADIENT_PRESETS, type GradientPreset } from './data/gradients.js';
 
 // Utilities
-export { getAntiFlickerScript } from './utils/anti-flicker';
+export { getAntiFlickerScript } from './utils/anti-flicker.js';

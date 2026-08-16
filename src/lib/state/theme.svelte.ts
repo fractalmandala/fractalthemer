@@ -3,10 +3,10 @@ import {
 	DEFAULT_THEME_ID,
 	type ThemeInfo,
 	type BgStyle
-} from '../data/themes';
-import { CORE_TOKENS } from '../data/tokens';
-import type { AuraLayer } from '../data/auras';
-import { GRADIENT_PRESETS, type GradientPreset } from '../data/gradients';
+} from '../data/themes.js';
+import { CORE_TOKENS } from '../data/tokens.js';
+import type { AuraLayer } from '../data/auras.js';
+import { GRADIENT_PRESETS, type GradientPreset } from '../data/gradients.js';
 
 export class ThemeState {
 	current = $state<string>(DEFAULT_THEME_ID);

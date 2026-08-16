@@ -1,4 +1,4 @@
-import type { AuraLayer, AuraPreset } from "./auras";
+import type { AuraLayer, AuraPreset } from "./auras.js";
 
 export type BgStyle = "plain" | "aura" | "gradient";
 

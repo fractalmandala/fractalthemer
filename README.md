@@ -80,7 +80,7 @@ Add the anti-flicker snippet to `<head>` in `src/app.html` to instantly apply sa
   let { children } = $props();
 </script>
 
-<!-- Renders atmospheric gradient blend when aura mode is active -->
+<!-- Renders atmospheric gradient blend or vibrant gradient when active -->
 <AuraBackground />
 
 <header>
@@ -94,6 +94,38 @@ Add the anti-flicker snippet to `<head>` in `src/app.html` to instantly apply sa
 ```
 
 ---
+
+## 🎨 Styles & SASS Architecture
+
+`fractalthemer` provides both a **precompiled, zero-config CSS bundle** and **modular indented SASS files**.
+
+### Option A: Precompiled CSS (Recommended)
+Import the master stylesheet in your root layout:
+
+```typescript
+import 'fractalthemer/styles.css';
+```
+
+This single import provides:
+- **42 Theme Palettes**: Complete CSS variable maps for all 21 Light and 21 Dark themes.
+- **Atmospheric Auras**: Multi-layer GPU blend shaders for `.aura-ambient`.
+- **180+ Gradient Presets**: Viewport canvas shaders for `.aura-gradient-backdrop`.
+- **100vh Drawer**: Slide-in animations, responsive breakpoints (`360px` / `180px`), tabs, and search bar.
+- **Semantic Tokens**: CSS custom properties for surfaces, borders, typography, and states.
+
+### Option B: Raw SASS Imports (For SASS projects)
+If your project uses indented SASS (`.sass`) or SCSS, you can `@use` the modules directly:
+
+```sass
+// Master bundle (all tokens, themes, auras, drawer)
+@use 'fractalthemer/styles'
+
+// Or granular sub-modules:
+@use 'fractalthemer/tokens'   // CSS variables & Utopia scales
+@use 'fractalthemer/themes'   // 42 light/dark theme classes
+@use 'fractalthemer/auras'    // GPU gradient aura blend shaders
+@use 'fractalthemer/picker'   // 100vh responsive right drawer
+```
 
 ## 🕹 Programmatic API (`themeState`)
 
