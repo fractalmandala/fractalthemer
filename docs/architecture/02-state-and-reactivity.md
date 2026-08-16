@@ -22,6 +22,7 @@ Inside [`src/lib/state/theme.svelte.ts`](../../src/lib/state/theme.svelte.ts), t
 export class ThemeState {
     current = $state<string>(DEFAULT_THEME_ID);
     bgStyle = $state<BgStyle>('plain');
+    activeGradient = $state<string | null>(null);
     isOpen = $state<boolean>(false);
     customThemes = $state<ThemeInfo[]>([]);
     activeCustomOverrides = $state<Record<string, string> | null>(null);
@@ -34,7 +35,8 @@ export class ThemeState {
 | Field | Type | Description |
 |---|---|---|
 | `current` | `string` | Active theme identifier (e.g. `'theme-sun-dark'`, `'theme-light-default'`) |
-| `bgStyle` | `'plain' \| 'aura'` | Backdrop mode: flat distraction-free canvas vs. multi-layer GPU aura gradient |
+| `bgStyle` | `'plain' \| 'aura' \| 'gradient'` | Backdrop mode: flat distraction-free canvas vs. multi-layer GPU aura vs. linear gradient preset |
+| `activeGradient` | `string \| null` | Slug identifier of active gradient preset (e.g. `'omolon'`, `'radioactive-heat'`) |
 | `isOpen` | `boolean` | Controls visibility and transition state of the 100vh right off-canvas drawer |
 | `customThemes` | `ThemeInfo[]` | User-created custom themes restored from `localStorage` |
 | `activeCustomOverrides` | `Record<string, string> \| null` | Runtime CSS variable overrides when a custom theme is active |
@@ -51,6 +53,10 @@ get allThemes(): ThemeInfo[] {
     return [...THEMES, ...this.customThemes];
 }
 
+get allGradients(): GradientPreset[] {
+    return GRADIENT_PRESETS;
+}
+
 get currentTheme(): ThemeInfo {
     return this.allThemes.find((t) => t.id === this.current) ?? THEMES[0];
 }
@@ -62,17 +68,27 @@ get isDark(): boolean {
 get isAura(): boolean {
     return this.bgStyle === 'aura';
 }
+
+get isGradient(): boolean {
+    return this.bgStyle === 'gradient';
+}
+
+get activeGradientPreset(): GradientPreset | null {
+    return GRADIENT_PRESETS.find((g) => g.id === this.activeGradient) ?? null;
+}
 ```
 
 - **`isDark`**: Accurately reflects whether the active palette is light or dark. Used by the mode toggle icon (Sun vs. Moon) and accessibility attributes.
 - **`isAura`**: Flags the [`AuraBackground.svelte`](../../src/lib/components/AuraBackground.svelte) renderer to mount or unmount GPU blend layers.
+- **`isGradient`**: Activates full viewport `.aura-gradient-backdrop` with `--bg-gradient`.
+- **`activeGradientPreset`**: Resolves the full `GradientPreset` object containing name, hex stops, and CSS `linear-gradient` rule.
 
 ---
 
 ## 🛠 Core State Methods
 
 ### 1. `init()`
-Executed on `onMount` in browser contexts. Reads `localStorage` for `theme`, `bgStyle`, and `customThemes`, validates against known schemas, and synchronizes the DOM attributes:
+Executed on `onMount` in browser contexts. Reads `localStorage` for `theme`, `bgStyle`, `gradient`, and `customThemes`, validates against known schemas, and synchronizes the DOM attributes:
 
 ```typescript
 init(): void
@@ -85,17 +101,25 @@ Switches the active palette to `id`. Removes prior `.theme-*` classes from `<htm
 setTheme(id: string): void
 ```
 
-### 3. `toggleMode()`
+### 3. `setGradient(id: string)` & `clearGradient()`
+Selects a gradient preset by ID, sets `bgStyle = 'gradient'`, writes `--bg-gradient` to `<html>`, and saves to `localStorage`:
+
+```typescript
+setGradient(id: string): void
+clearGradient(): void
+```
+
+### 4. `toggleMode()`
 Toggles between Light and Dark mode. Intelligently picks corresponding light and dark flagship themes:
 
 ```typescript
 toggleMode(): void
 ```
 
-### 4. `setBgStyle(style: 'plain' | 'aura')` and `toggleBgStyle()`
-Switches background styling. Updates the `data-bg-style` attribute on `<html>` and persists to `localStorage`.
+### 5. `setBgStyle(style: 'plain' | 'aura' | 'gradient')` and `toggleBgStyle()`
+Switches background styling. Updates the `data-bg-style` attribute on `<html>` and persists to `localStorage`. `toggleBgStyle()` cycles between plain, aura, and gradient.
 
-### 5. `cycleNext()` and `cycleRandom()`
+### 6. `cycleNext()` and `cycleRandom()`
 Iterates sequentially or picks a random theme from the 42 built-in and custom theme pool.
 
 ### 6. `saveCustomTheme(...)` and `deleteCustomTheme(id: string)`

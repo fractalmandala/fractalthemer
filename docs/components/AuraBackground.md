@@ -33,7 +33,7 @@ Inside [`src/lib/components/AuraBackground.svelte`](../../src/lib/components/Aur
 
 ```svelte
 <script lang="ts">
-    import { themeState } from '../state/theme.svelte';
+    import { themeState } from '../state/theme.svelte.js';
 </script>
 
 {#if themeState.isAura}
@@ -56,6 +56,11 @@ Inside [`src/lib/components/AuraBackground.svelte`](../../src/lib/components/Aur
             <div class="aura-layer aura-layer-5"></div>
             <div class="aura-layer aura-layer-6"></div>
         {/if}
+    </div>
+{:else if themeState.isGradient && themeState.activeGradientPreset}
+    <div class="aura-gradient-backdrop" aria-hidden="true">
+        <div class="gradient-canvas" style:background={themeState.activeGradientPreset.css}></div>
+        <div class="gradient-overlay-soft"></div>
     </div>
 {/if}
 ```

@@ -130,6 +130,23 @@ Style your components using the standard CSS custom properties:
 
 ---
 
+## 🎨 Step 5: (Optional) Using Raw Indented SASS
+
+If your project is built with indented SASS (`.sass`) or SCSS, you can `@use` the stylesheets directly from `fractalthemer`:
+
+```sass
+// In your master index.sass:
+@use 'fractalthemer/styles'
+
+// Or granular partials:
+@use 'fractalthemer/tokens'  // Fluid typography, spacing, and CSS custom properties
+@use 'fractalthemer/themes'  // 42 theme classes (.theme-*)
+@use 'fractalthemer/auras'   // Multi-layer GPU blend shaders & gradient canvas
+@use 'fractalthemer/picker'  // 100vh drawer and controls
+```
+
+---
+
 ## 🔗 Related Documents
 
 - [Zero-Flicker SSR Guide](./02-anti-flicker-guide.md)

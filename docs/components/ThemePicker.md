@@ -45,8 +45,8 @@ interface Props {
 Inside [`src/lib/components/ThemePicker.svelte`](../../src/lib/components/ThemePicker.svelte):
 
 ### 1. Local Runes State
-- `let activeTab = $state<'all' | 'light' | 'dark' | 'custom'>('all');`: Tracks the active category tab.
-- `let searchFilter = $state<string>('');`: Supports instant substring filtering across theme names and aura names.
+- `let activeTab = $state<'all' | 'light' | 'dark' | 'gradients' | 'custom'>('all');`: Tracks the active category tab.
+- `let searchFilter = $state<string>('');`: Supports instant substring filtering across theme names, aura names, and gradient preset names.
 - `let pickerEl = $state<HTMLDivElement | null>(null);`: Binds to the root container for outside-click boundary calculations.
 
 ### 2. Derived Filters
@@ -69,6 +69,14 @@ const filteredThemes = $derived.by(() => {
             t.description.toLowerCase().includes(q)
     );
 });
+
+const filteredGradients = $derived.by(() => {
+    if (!searchFilter.trim()) return GRADIENT_PRESETS;
+    const q = searchFilter.toLowerCase().trim();
+    return GRADIENT_PRESETS.filter(
+        (g) => g.name.toLowerCase().includes(q) || g.id.toLowerCase().includes(q)
+    );
+});
 ```
 
 ### 3. Lifecycle Hooks (`onMount`)
@@ -87,11 +95,14 @@ const filteredThemes = $derived.by(() => {
   └── {#if themeState.isOpen}
       ├── <div class="theme-drawer-backdrop"> (Click outside dismiss overlay)
       └── <div class="theme-popover" role="dialog"> (100vh Fixed Drawer)
-          ├── <div class="theme-style-switcher"> (Sticky Plain vs Aura Switcher + Close Button)
-          ├── <div class="theme-tabs"> (Sticky All / Light / Dark / Custom / Next Filter Tabs)
-          ├── <div class="theme-grid-container"> (Scrollable 42 Theme Card Grid)
-          │    └── {#each filteredThemes as theme}
-          │         └── <button class="theme-card"> (Theme preview dot swatches + Aura tag)
+          ├── <div class="theme-style-switcher"> (Sticky Plain vs Aura vs Gradient + Close Button)
+          ├── <div class="theme-tabs"> (Sticky All / Light / Dark / Gradients / Custom / Next Filter Tabs)
+          ├── <div class="theme-search-bar"> (Sticky Live Search Input)
+          ├── <div class="theme-grid-container"> (Scrollable Themes or 180+ Gradients Grid)
+          │    ├── {#each filteredThemes as theme}
+          │    │    └── <button class="theme-card"> (Theme preview dot swatches + Aura tag)
+          │    └── {#each filteredGradients as grad}
+          │         └── <button class="theme-gradient-card"> (Gradient bar + Swatch dots)
           └── <div class="theme-popover-footer"> (Sticky Reset to Default & Random buttons)
 ```
 
