@@ -5,13 +5,14 @@ import {
 	type BgStyle
 } from '../data/themes.js';
 import { CORE_TOKENS } from '../data/tokens.js';
-import type { AuraLayer } from '../data/auras.js';
+import { AURA_PRESETS, type AuraLayer, type AuraPreset } from '../data/auras.js';
 import { GRADIENT_PRESETS, type GradientPreset } from '../data/gradients.js';
 
 export class ThemeState {
 	current = $state<string>(DEFAULT_THEME_ID);
 	bgStyle = $state<BgStyle>('plain');
 	activeGradient = $state<string | null>(null);
+	activeAura = $state<string | null>(null);
 	isOpen = $state<boolean>(false);
 	customThemes = $state<ThemeInfo[]>([]);
 	activeCustomOverrides = $state<Record<string, string> | null>(null);
@@ -23,6 +24,10 @@ export class ThemeState {
 
 	get allGradients(): GradientPreset[] {
 		return GRADIENT_PRESETS;
+	}
+
+	get allAuras(): AuraPreset[] {
+		return AURA_PRESETS;
 	}
 
 	get currentTheme(): ThemeInfo {
@@ -43,6 +48,10 @@ export class ThemeState {
 
 	get activeGradientPreset(): GradientPreset | null {
 		return GRADIENT_PRESETS.find((g) => g.id === this.activeGradient) ?? null;
+	}
+
+	get activeAuraPreset(): AuraPreset | null {
+		return AURA_PRESETS.find((a) => a.id === this.activeAura) ?? null;
 	}
 
 	init() {
@@ -73,6 +82,15 @@ export class ThemeState {
 			this.activeGradient = savedGradient;
 		}
 
+		const savedAura = localStorage.getItem('aura');
+		if (savedAura) {
+			const preset = AURA_PRESETS.find((a) => a.id === savedAura);
+			if (preset) {
+				this.activeAura = savedAura;
+				this.activeCustomAuraLayers = preset.layers;
+			}
+		}
+
 		const savedBgStyle = localStorage.getItem('bgStyle') as BgStyle | null;
 		if (savedBgStyle === 'aura' || savedBgStyle === 'plain' || savedBgStyle === 'gradient') {
 			this.bgStyle = savedBgStyle;
@@ -90,8 +108,10 @@ export class ThemeState {
 		this.current = id;
 		if (target.isCustom && target.tokens) {
 			this.activeCustomOverrides = target.tokens;
-			this.activeCustomAuraLayers = target.customAura?.layers ?? null;
-		} else {
+			if (target.customAura?.layers) {
+				this.activeCustomAuraLayers = target.customAura.layers;
+			}
+		} else if (!this.activeAura) {
 			this.activeCustomOverrides = null;
 			this.activeCustomAuraLayers = null;
 		}
@@ -111,6 +131,32 @@ export class ThemeState {
 				localStorage.setItem('bgStyle', style);
 			} catch {}
 			this.apply(this.current, style);
+		}
+	}
+
+	setAura(id: string) {
+		const target = AURA_PRESETS.find((a) => a.id === id);
+		if (!target) return;
+		this.activeAura = id;
+		this.activeCustomAuraLayers = target.layers;
+		this.bgStyle = 'aura';
+		if (typeof window !== 'undefined') {
+			try {
+				localStorage.setItem('aura', id);
+				localStorage.setItem('bgStyle', 'aura');
+			} catch {}
+			this.apply(this.current, 'aura');
+		}
+	}
+
+	clearAura() {
+		this.activeAura = null;
+		this.activeCustomAuraLayers = null;
+		if (typeof window !== 'undefined') {
+			try {
+				localStorage.removeItem('aura');
+			} catch {}
+			this.apply(this.current, this.bgStyle);
 		}
 	}
 

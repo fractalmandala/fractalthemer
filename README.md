@@ -1,22 +1,22 @@
 # fractalthemer
 
-> A production-ready, drop-in Svelte 5 Theming & Atmospheric Visuals Engine featuring **42 curated Light & Dark themes**, **GPU-accelerated atmospheric auras**, **180+ vibrant linear gradient presets**, and a responsive **100vh off-canvas right drawer**.
+> Fractalthemer is a drop-in themeing solution for Sveltekit. It features 42 curated light and dark themes, 200+ atmospheric gradient backgrounds, and 180 linear gradient presets. This creates a highly modular themeing platform for Sveltekit. It surfaces general css tokens in the form of --bg, bg-surface, --state-hover, etc., so users can also plug into other themes like from Tailwind or Astryx.
 
 [![npm version](https://img.shields.io/npm/v/fractalthemer.svg)](https://www.npmjs.com/package/fractalthemer)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Svelte 5](https://img.shields.io/badge/Svelte-5-orange.svg)](https://svelte.dev)
 
----
 
 ## ✨ Features
 
 - **42 Curated Tiered Themes**: 21 Light and 21 Dark themes calibrated with distinct accents, surfaces, and contrast ratios (Emerald, Himalaya, Editorial, Nord, Dracula, Catppuccin Mocha, Gruvbox, OneDark, Synthwave, Obsidian Crimson, Rose Pine, Amethyst Void, and more).
+- **203 Atmospheric Aura Gradients**: Multi-layer GPU blend shaders categorized into 8 distinct aesthetic families (*Mesh, Glass, Grain, Flux, Nebula, Lattice, Prism, Aura*) with live category chips, real-time search, and interactive previews.
+- **180+ Vibrant Linear Gradient Presets**: Rich, named linear gradients (*Omolon, Farhan, Radioactive Heat, The Sky And The Sea, From Ice To Fire, Blue & Orange, Lunada, Mango, YouTube, Instagram, Netflix, After the Rain, Hyper Blue*, etc.) with live search and color swatch samplers.
 - **Three Background Modes (`bgStyle`)**:
   - `plain`: Clean, distraction-free flat surface backgrounds.
-  - `aura`: GPU-accelerated atmospheric radial/linear blend shaders calibrated to every theme.
+  - `aura`: GPU-accelerated atmospheric blend shaders (selectable from 203 presets or calibrated per theme).
   - `gradient`: Full viewport linear gradient backdrops chosen from 180+ presets.
-- **180+ Vibrant Gradient Presets**: Rich, named linear gradients (*Omolon, Farhan, Radioactive Heat, The Sky And The Sea, From Ice To Fire, Blue & Orange, Lunada, Mango, YouTube, Instagram, Netflix, After the Rain, Hyper Blue*, etc.) with live search and color swatch samplers.
-- **100vh Right Off-Canvas Drawer (`<ThemePicker />`)**: Full-height drawer sliding from the right edge (`360px` on desktop, `180px` on mobile `≤1024px`), backdrop dismiss, `Escape` key dismiss, tabbed categorization, and live search.
+- **100vh Right Off-Canvas Drawer (`<ThemePicker />`)**: Full-height drawer sliding from the right edge (`360px` on desktop, `180px` on mobile `≤1024px`), backdrop dismiss, `Escape` key dismiss, tabbed categorization (`All`, `Light`, `Dark`, `✨ Auras (203)`, `🌈 Gradients (180+)`), and live search.
 - **Zero-Flicker SSR Script**: Instant localStorage synchronization before initial DOM paint to completely prevent Flash of Unstyled Content (FOUC) or mode flicker.
 - **Svelte 5 Runes Architecture**: Reactive singleton state manager built with `$state` and `$derived`.
 - **Dual Styles Architecture**: Use either precompiled zero-config CSS (`import 'fractalthemer/styles.css'`) or modular indented SASS partials (`@use 'fractalthemer/tokens'`).

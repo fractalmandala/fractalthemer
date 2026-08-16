@@ -2,12 +2,12 @@
 	import { onMount, type Snippet } from 'svelte';
 	import { themeState } from '../state/theme.svelte.js';
 	import { LIGHT_THEMES, DARK_THEMES, type ThemeInfo } from '../data/themes.js';
+	import { AURA_PRESETS, type AuraPreset } from '../data/auras.js';
+	import { GRADIENT_PRESETS, type GradientPreset } from '../data/gradients.js';
 	import Sun from '../icons/Sun.svelte';
 	import Moon from '../icons/Moon.svelte';
 	import Palette from '../icons/Palette.svelte';
 	import Close from '../icons/Close.svelte';
-
-	import { GRADIENT_PRESETS, type GradientPreset } from '../data/gradients.js';
 
 	interface Props {
 		studioHref?: string;
@@ -23,9 +23,12 @@
 		triggerButton
 	}: Props = $props();
 
-	let activeTab = $state<'all' | 'light' | 'dark' | 'gradients' | 'custom'>('all');
+	let activeTab = $state<'all' | 'light' | 'dark' | 'auras' | 'gradients' | 'custom'>('all');
+	let selectedAuraCategory = $state<string>('all');
 	let searchFilter = $state<string>('');
 	let pickerEl = $state<HTMLDivElement | null>(null);
+
+	const AURA_CATEGORIES = ['all', 'aura', 'mesh', 'glass', 'grain', 'flux', 'nebula', 'lattice', 'prism'] as const;
 
 	onMount(() => {
 		themeState.init();
@@ -72,6 +75,24 @@
 				t.id.toLowerCase().includes(q) ||
 				t.auraName.toLowerCase().includes(q) ||
 				t.description.toLowerCase().includes(q)
+		);
+	});
+
+	const filteredAuras = $derived.by(() => {
+		let list = AURA_PRESETS;
+		if (selectedAuraCategory !== 'all') {
+			list = list.filter((a) => a.category.toLowerCase() === selectedAuraCategory.toLowerCase());
+		}
+		if (!searchFilter.trim()) return list;
+
+		const q = searchFilter.toLowerCase().trim();
+		return list.filter(
+			(a) =>
+				a.name.toLowerCase().includes(q) ||
+				a.id.toLowerCase().includes(q) ||
+				a.category.toLowerCase().includes(q) ||
+				a.mood.toLowerCase().includes(q) ||
+				a.description.toLowerCase().includes(q)
 		);
 	});
 
@@ -147,7 +168,13 @@
 						type="button"
 						class="theme-style-toggle-btn"
 						class:active={themeState.bgStyle === 'aura'}
-						onclick={() => themeState.setBgStyle('aura')}
+						onclick={() => {
+							if (!themeState.activeAura && AURA_PRESETS.length > 0) {
+								themeState.setAura(AURA_PRESETS[0].id);
+							} else {
+								themeState.setBgStyle('aura');
+							}
+						}}
 						title="Atmospheric gradient blend aura"
 					>
 						<span>✨</span> Aura
@@ -223,10 +250,18 @@
 					<button
 						type="button"
 						class="theme-tab-btn"
+						class:active={activeTab === 'auras'}
+						onclick={() => (activeTab = 'auras')}
+					>
+						✨ Auras ({AURA_PRESETS.length})
+					</button>
+					<button
+						type="button"
+						class="theme-tab-btn"
 						class:active={activeTab === 'gradients'}
 						onclick={() => (activeTab = 'gradients')}
 					>
-						Gradients ({GRADIENT_PRESETS.length})
+						🌈 Gradients ({GRADIENT_PRESETS.length})
 					</button>
 					{#if themeState.customThemes.length > 0}
 						<button
@@ -251,19 +286,66 @@
 				</button>
 			</div>
 
+			<!-- Aura Category Chips Sub-Bar -->
+			{#if activeTab === 'auras'}
+				<div class="category-chips">
+					{#each AURA_CATEGORIES as cat}
+						<button
+							type="button"
+							class="category-chip"
+							class:active={selectedAuraCategory === cat}
+							onclick={() => (selectedAuraCategory = cat)}
+						>
+							{cat.charAt(0).toUpperCase() + cat.slice(1)}
+						</button>
+					{/each}
+				</div>
+			{/if}
+
 			<!-- Search Bar -->
 			<div class="theme-search-bar">
 				<input
 					type="text"
 					class="theme-search-input"
-					placeholder={activeTab === 'gradients' ? 'Search 180+ gradients...' : 'Search themes or auras...'}
+					placeholder={activeTab === 'auras' ? 'Search 203 aura gradients...' : activeTab === 'gradients' ? 'Search 180+ gradients...' : 'Search themes or auras...'}
 					bind:value={searchFilter}
 				/>
 			</div>
 
-			<!-- Grid Container (Themes or Gradients) -->
+			<!-- Grid Container (Themes, Auras, or Gradients) -->
 			<div class="theme-grid-container">
-				{#if activeTab === 'gradients'}
+				{#if activeTab === 'auras'}
+					{#each filteredAuras as aura (aura.id)}
+						<button
+							type="button"
+							class="theme-aura-card"
+							class:active={themeState.isAura && themeState.activeAura === aura.id}
+							title="{aura.name} — {aura.description} ({aura.category})"
+							onclick={() => {
+								themeState.setAura(aura.id);
+							}}
+						>
+							<div class="aura-card-preview" style="background-color: {aura.baseColor};">
+								{#each aura.layers as layer, idx (idx)}
+									<div
+										class="aura-card-layer"
+										style:background={layer.background}
+										style:mix-blend-mode={layer.blendMode || 'normal'}
+										style:filter={`blur(${Math.min(layer.blur || 18, 22)}px)`}
+										style:opacity={layer.opacity !== undefined ? layer.opacity : 1}
+									></div>
+								{/each}
+							</div>
+							<div class="theme-card-header">
+								<span class="theme-card-name">{aura.name}</span>
+								<span class="theme-card-badge">{aura.category}</span>
+							</div>
+							{#if aura.mood || aura.description}
+								<span class="theme-card-sub">{aura.mood} • {aura.layersCount} layers</span>
+							{/if}
+						</button>
+					{/each}
+				{:else if activeTab === 'gradients'}
 					{#each filteredGradients as grad (grad.id)}
 						<button
 							type="button"

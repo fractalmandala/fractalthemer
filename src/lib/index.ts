@@ -18,7 +18,7 @@ export {
 } from './data/themes.js';
 
 export { CORE_TOKENS, type TokenMeta } from './data/tokens.js';
-export { type AuraLayer, type AuraPreset } from './data/auras.js';
+export { AURA_PRESETS, type AuraLayer, type AuraPreset } from './data/auras.js';
 export { GRADIENT_PRESETS, type GradientPreset } from './data/gradients.js';
 
 // Utilities
