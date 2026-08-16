@@ -1,5 +1,9 @@
 <script lang="ts">
 	import { studioState } from '../../state/studio.svelte.js';
+	import { COLOURWAY_PRESETS, type ColourwayPreset } from '../../data/colourways.js';
+	import { ARRANGEMENT_PRESETS, type ArrangementPreset } from '../../data/arrangements.js';
+	import ColourwayWheel from './ColourwayWheel.svelte';
+	import SilhouetteGrid from './SilhouetteGrid.svelte';
 
 	interface Props {
 		class?: string;
@@ -8,27 +12,39 @@
 	let { class: className = '' }: Props = $props();
 
 	const categories = [
-		{ id: 'fields', label: 'Fields (7)', engines: ['flow', 'sky', 'aurora', 'mesh', 'still', 'retro', 'ios'] },
-		{ id: 'stripes', label: 'Stripes (7)', engines: ['linear', 'stripes', 'bars', 'columns', 'prism', 'waves', 'lines'] },
-		{ id: 'objects', label: 'Objects (7)', engines: ['rings', 'pixel', 'blocks', 'beehive', 'balls', 'radial', 'conic'] }
+		{ id: 'fields', label: 'Fields', engines: ['flow', 'sky', 'aurora', 'mesh', 'still', 'retro', 'ios'] },
+		{ id: 'stripes', label: 'Stripes', engines: ['linear', 'stripes', 'bars', 'columns', 'prism', 'waves', 'lines'] },
+		{ id: 'objects', label: 'Objects', engines: ['rings', 'pixel', 'blocks', 'beehive', 'balls', 'radial', 'conic'] },
+		{ id: 'forms', label: 'Forms (24)', engines: ['forms'] }
 	] as const;
 
 	function selectEngine(category: 'fields' | 'stripes' | 'objects', engine: string) {
 		studioState.setEngine(engine, category);
 	}
+
+	const activeArrangements = $derived.by(() => {
+		return ARRANGEMENT_PRESETS.filter(a => a.engineType === studioState.recipe.engineType);
+	});
 </script>
 
 <div class="studio-sidebar {className}">
-	<!-- Category Selector -->
+	<!-- 1. Generator Paradigm / Category -->
 	<div class="engine-category-group">
-		<span class="engine-category-label">Generator Paradigm</span>
+		<span class="engine-category-label">Category</span>
 		<div class="engine-type-chips">
 			{#each categories as cat}
 				<button
 					type="button"
 					class="engine-type-chip"
 					class:active={studioState.activeCategory === cat.id}
-					onclick={() => (studioState.activeCategory = cat.id)}
+					onclick={() => {
+						studioState.activeCategory = cat.id as any;
+						if (cat.id === 'forms') {
+							studioState.setEngine('forms', 'objects');
+						} else {
+							studioState.setEngine(cat.engines[0], cat.id as any);
+						}
+					}}
 				>
 					{cat.label}
 				</button>
@@ -36,26 +52,75 @@
 		</div>
 	</div>
 
-	<!-- Engine Types in Selected Category -->
+	<!-- 2. Engine Algorithms in Selected Category -->
+	{#if studioState.activeCategory !== 'forms'}
+		<div class="engine-category-group">
+			<span class="engine-category-label">Engine Type</span>
+			<div class="engine-type-chips">
+				{#each (categories.find(c => c.id === studioState.activeCategory)?.engines || []) as eng}
+					<button
+						type="button"
+						class="engine-type-chip"
+						class:active={studioState.recipe.engineType === eng}
+						onclick={() => selectEngine(studioState.activeCategory as any, eng)}
+					>
+						{eng.toUpperCase()}
+					</button>
+				{/each}
+			</div>
+		</div>
+	{/if}
+
+	<!-- 3. 24 SVG Silhouette Forms Grid (when Forms category active) -->
+	{#if studioState.recipe.engineType === 'forms' || studioState.activeCategory === 'forms'}
+		<div class="engine-category-group">
+			<span class="engine-category-label">Silhouettes (from SVG Set)</span>
+			<SilhouetteGrid
+				selectedId={studioState.recipe.activeSilhouette}
+				onSelect={(shape) => studioState.selectSilhouette(shape.id)}
+			/>
+		</div>
+	{/if}
+
+	<!-- 4. Arrangement Presets (if available for engine) -->
+	{#if activeArrangements.length > 0}
+		<div class="engine-category-group">
+			<span class="engine-category-label">Arrangements</span>
+			<div class="engine-type-chips">
+				{#each activeArrangements as arr (arr.id)}
+					<button
+						type="button"
+						class="engine-type-chip"
+						class:active={studioState.recipe.activeArrangement === arr.id}
+						onclick={() => studioState.selectArrangement(arr)}
+					>
+						{arr.name}
+					</button>
+				{/each}
+			</div>
+		</div>
+	{/if}
+
+	<!-- 5. 12 Preset Colourway Pie Wheels -->
 	<div class="engine-category-group">
-		<span class="engine-category-label">Engine Algorithm</span>
-		<div class="engine-type-chips">
-			{#each (categories.find(c => c.id === studioState.activeCategory)?.engines || []) as eng}
-				<button
-					type="button"
-					class="engine-type-chip"
-					class:active={studioState.recipe.engineType === eng}
-					onclick={() => selectEngine(studioState.activeCategory, eng)}
-				>
-					{eng.toUpperCase()}
-				</button>
+		<div class="studio-param-header">
+			<span class="engine-category-label">Colourways</span>
+			<span style="font-size: 11px; color: var(--text-muted);">{COLOURWAY_PRESETS.length}</span>
+		</div>
+		<div class="colourways-grid">
+			{#each COLOURWAY_PRESETS as cw (cw.id)}
+				<ColourwayWheel
+					colourway={cw}
+					active={studioState.recipe.activeColourway === cw.id}
+					onSelect={(c) => studioState.selectColourway(c)}
+				/>
 			{/each}
 		</div>
 	</div>
 
-	<!-- Engine Parameters Panel -->
+	<!-- 6. Engine-Specific Parameter Sliders -->
 	<div class="engine-category-group">
-		<span class="engine-category-label">Parameters</span>
+		<span class="engine-category-label">Engine Parameters</span>
 
 		{#if studioState.recipe.engineType === 'flow' || studioState.recipe.engineType === 'mesh'}
 			<div class="studio-param-row">
@@ -82,6 +147,35 @@
 					max="100"
 					class="studio-param-slider"
 					bind:value={studioState.recipe.parameters.distortion}
+				/>
+			</div>
+			<div class="studio-param-row">
+				<div class="studio-param-header">
+					<span>Swirl</span>
+					<span>{studioState.recipe.parameters.swirl || 10}%</span>
+				</div>
+				<input
+					type="range"
+					min="0"
+					max="100"
+					class="studio-param-slider"
+					bind:value={studioState.recipe.parameters.swirl}
+				/>
+			</div>
+		{/if}
+
+		{#if studioState.recipe.engineType === 'sky'}
+			<div class="studio-param-row">
+				<div class="studio-param-header">
+					<span>Elevation</span>
+					<span>{studioState.recipe.parameters.elevation || 30}°</span>
+				</div>
+				<input
+					type="range"
+					min="0"
+					max="90"
+					class="studio-param-slider"
+					bind:value={studioState.recipe.parameters.elevation}
 				/>
 			</div>
 		{/if}
@@ -115,15 +209,15 @@
 			</div>
 			<div class="studio-param-row">
 				<div class="studio-param-header">
-					<span>Drift</span>
-					<span>{studioState.recipe.parameters.drift || 40}%</span>
+					<span>Spread</span>
+					<span>{studioState.recipe.parameters.spread || 60}%</span>
 				</div>
 				<input
 					type="range"
-					min="0"
+					min="10"
 					max="100"
 					class="studio-param-slider"
-					bind:value={studioState.recipe.parameters.drift}
+					bind:value={studioState.recipe.parameters.spread}
 				/>
 			</div>
 		{/if}
@@ -142,17 +236,20 @@
 					bind:value={studioState.recipe.parameters.count}
 				/>
 			</div>
+		{/if}
+
+		{#if studioState.recipe.engineType === 'lines'}
 			<div class="studio-param-row">
 				<div class="studio-param-header">
-					<span>Speed</span>
-					<span>{studioState.recipe.parameters.speed || 40}%</span>
+					<span>Thickness</span>
+					<span>{studioState.recipe.parameters.thickness || 24}px</span>
 				</div>
 				<input
 					type="range"
-					min="0"
-					max="100"
+					min="6"
+					max="64"
 					class="studio-param-slider"
-					bind:value={studioState.recipe.parameters.speed}
+					bind:value={studioState.recipe.parameters.thickness}
 				/>
 			</div>
 		{/if}
@@ -190,7 +287,7 @@
 		{/if}
 	</div>
 
-	<!-- Swatches & Color Controls -->
+	<!-- 7. Active Swatches / Color Spots -->
 	<div class="studio-swatches-section">
 		<div class="studio-param-header">
 			<span class="engine-category-label">Color Spots ({studioState.recipe.pins.length})</span>
@@ -229,7 +326,7 @@
 		{/each}
 	</div>
 
-	<!-- Finish Controls (Soften & Noise) -->
+	<!-- 8. Finish & Texture -->
 	<div class="engine-category-group">
 		<span class="engine-category-label">Finish & Texture</span>
 		<div class="studio-param-row">
@@ -260,3 +357,11 @@
 		</div>
 	</div>
 </div>
+
+<style>
+	.colourways-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 8px;
+	}
+</style>

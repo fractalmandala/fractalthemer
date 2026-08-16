@@ -33,10 +33,27 @@
 		{ id: 'tints', label: 'Tints' }
 	];
 
-	function updatePalette(newBase?: string, newMode?: HarmonyMode) {
+	function updatePalette(newBase?: string, newMode?: HarmonyMode, newDark?: boolean) {
 		if (newBase) baseColor = newBase;
 		if (newMode) harmonyMode = newMode;
+		if (newDark !== undefined) isDark = newDark;
 		columns = generateSemanticPalette(baseColor, harmonyMode, isDark, columns);
+	}
+
+	function updateColumnColor(index: number, newHex: string) {
+		baseColor = newHex;
+		columns = columns.map((col, idx) => {
+			if (idx === index) {
+				return { ...col, hex: newHex, locked: true };
+			}
+			return col;
+		});
+		columns = generateSemanticPalette(baseColor, harmonyMode, isDark, columns);
+	}
+
+	function toggleMode() {
+		isDark = !isDark;
+		updatePalette(baseColor, harmonyMode, isDark);
 	}
 
 	function toggleLock(index: number) {
@@ -146,6 +163,9 @@
 
 		<!-- Actions -->
 		<div class="palette-actions">
+			<button type="button" class="palette-btn" onclick={toggleMode} title="Toggle Light/Dark Theme">
+				{isDark ? '🌙 Dark Mode' : '☀️ Light Mode'}
+			</button>
 			<button type="button" class="palette-btn" onclick={randomize} title="Randomize unlocked colors">
 				🎲 Randomize
 			</button>
@@ -181,16 +201,17 @@
 					</button>
 				</div>
 
-				<div class="palette-col-footer">
+				<label class="palette-col-footer" style="cursor: pointer;" title="Click to change hue/color">
+					<input
+						type="color"
+						value={col.hex}
+						style="opacity: 0; width: 0; height: 0; position: absolute; pointer-events: none;"
+						oninput={(e) => updateColumnColor(idx, e.currentTarget.value)}
+					/>
 					<span class="palette-col-token" title={col.label}>{col.token}</span>
-					<button
-						type="button"
-						class="palette-col-hex"
-						style="background: transparent; border: none; color: inherit; padding: 0;"
-						onclick={() => navigator.clipboard.writeText(col.hex)}
-					>
+					<span class="palette-col-hex">
 						{col.hex}
-					</button>
+					</span>
 					<span class="palette-col-hsl">
 						hsl({col.hsl.h}, {col.hsl.s}%, {col.hsl.l}%)
 					</span>
@@ -199,7 +220,7 @@
 						<span>•</span>
 						<span>B: {col.contrastBlack}</span>
 					</div>
-				</div>
+				</label>
 			</div>
 		{/each}
 	</div>

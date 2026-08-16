@@ -25,8 +25,12 @@ export { AURA_PRESETS, type AuraLayer, type AuraPreset } from './data/auras.js';
 export { GRADIENT_PRESETS, type GradientPreset } from './data/gradients.js';
 export { GALLERY_PRESETS, type GalleryPreset } from './data/gallery-presets.js';
 export { ARTISAN_COLORS, type ArtisanColor } from './data/artisan-colors.js';
+export { COLOURWAY_PRESETS, type ColourwayPreset } from './data/colourways.js';
+export { SILHOUETTE_SHAPES, type SilhouetteShape } from './data/silhouettes.js';
+export { ARRANGEMENT_PRESETS, type ArrangementPreset } from './data/arrangements.js';
 
 // Engines & Calculations
+export { renderEngineToCanvas } from './engines/canvas-shaders.js';
 export {
 	generateSemanticPalette,
 	getRandomBaseColor,

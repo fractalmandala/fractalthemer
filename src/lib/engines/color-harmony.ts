@@ -56,58 +56,85 @@ export function generateSemanticPalette(
 	const normalizedBase = normalizeHex(baseHex);
 	const baseHsl = hexToHsl(normalizedBase);
 
-	// Compute base hue variations according to harmony mode
 	let hues: number[] = [];
+	let satMap: number[] = [];
+	let lightnessMap: number[] = [];
+
 	switch (mode) {
 		case 'monochromatic':
-		case 'shades':
-		case 'tints':
 			hues = [baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h];
+			satMap = isDarkTheme ? [14, 18, 22, 26, 30, 24, 20, baseHsl.s, Math.max(50, baseHsl.s - 10)] : [10, 15, 20, 15, 25, 18, 20, baseHsl.s, Math.max(50, baseHsl.s - 10)];
+			lightnessMap = isDarkTheme ? [8, 12, 16, 20, 25, 18, 28, Math.max(50, baseHsl.l), Math.min(85, baseHsl.l + 12)] : [99, 96, 92, 98, 88, 93, 85, Math.min(50, baseHsl.l), Math.max(35, baseHsl.l - 10)];
 			break;
+
 		case 'analogous':
 			hues = [
-				(baseHsl.h - 30 + 360) % 360,
-				(baseHsl.h - 15 + 360) % 360,
-				baseHsl.h,
-				(baseHsl.h + 15) % 360,
-				(baseHsl.h + 30) % 360,
-				(baseHsl.h + 45) % 360,
-				(baseHsl.h - 45 + 360) % 360,
-				baseHsl.h,
-				(baseHsl.h + 20) % 360
+				(baseHsl.h - 30 + 360) % 360, // --bg
+				(baseHsl.h - 15 + 360) % 360, // --bg-surface
+				baseHsl.h,                    // --bg-panel
+				(baseHsl.h + 15) % 360,       // --bg-raised
+				(baseHsl.h + 30) % 360,       // --state-hover
+				(baseHsl.h + 20) % 360,       // --state-hover-subtle
+				(baseHsl.h - 15 + 360) % 360, // --border
+				baseHsl.h,                    // --theme-color
+				(baseHsl.h + 30) % 360        // --theme-color-alt
 			];
+			satMap = isDarkTheme ? [16, 20, 22, 25, 32, 26, 22, baseHsl.s, baseHsl.s] : [12, 18, 22, 18, 30, 22, 25, baseHsl.s, baseHsl.s];
+			lightnessMap = isDarkTheme ? [9, 13, 17, 21, 26, 19, 30, baseHsl.l, Math.min(85, baseHsl.l + 10)] : [98, 95, 92, 97, 88, 93, 84, baseHsl.l, Math.max(30, baseHsl.l - 10)];
 			break;
-		case 'complementary':
+
+		case 'complementary': {
 			const comp = (baseHsl.h + 180) % 360;
-			hues = [baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h, comp, comp, baseHsl.h, comp, (comp + 15) % 360];
+			hues = [baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h, comp, comp, (comp + 15) % 360, baseHsl.h, comp];
+			satMap = isDarkTheme ? [14, 18, 20, 24, 38, 28, 25, baseHsl.s, Math.max(70, baseHsl.s)] : [10, 15, 18, 15, 35, 25, 25, baseHsl.s, Math.max(70, baseHsl.s)];
+			lightnessMap = isDarkTheme ? [8, 12, 16, 20, 28, 20, 32, baseHsl.l, Math.min(80, baseHsl.l + 15)] : [99, 96, 93, 98, 86, 92, 82, baseHsl.l, Math.max(32, baseHsl.l - 12)];
 			break;
-		case 'split-comp':
+		}
+
+		case 'split-comp': {
 			const sc1 = (baseHsl.h + 150) % 360;
 			const sc2 = (baseHsl.h + 210) % 360;
-			hues = [baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h, sc1, sc2, baseHsl.h, sc1, sc2];
+			hues = [baseHsl.h, baseHsl.h, (baseHsl.h + 20) % 360, baseHsl.h, sc1, sc2, (sc1 + 10) % 360, baseHsl.h, sc2];
+			satMap = isDarkTheme ? [15, 18, 22, 25, 35, 30, 24, baseHsl.s, Math.max(65, baseHsl.s)] : [12, 16, 20, 16, 32, 26, 22, baseHsl.s, Math.max(65, baseHsl.s)];
+			lightnessMap = isDarkTheme ? [9, 13, 17, 22, 27, 21, 30, baseHsl.l, Math.min(82, baseHsl.l + 12)] : [98, 95, 92, 97, 87, 93, 84, baseHsl.l, Math.max(30, baseHsl.l - 10)];
 			break;
-		case 'triadic':
+		}
+
+		case 'triadic': {
 			const t1 = (baseHsl.h + 120) % 360;
 			const t2 = (baseHsl.h + 240) % 360;
-			hues = [baseHsl.h, baseHsl.h, t1, t1, t2, t2, baseHsl.h, t1, t2];
+			hues = [baseHsl.h, (baseHsl.h + 15) % 360, t1, baseHsl.h, t1, t2, t1, baseHsl.h, t2];
+			satMap = isDarkTheme ? [16, 20, 24, 28, 40, 32, 28, baseHsl.s, Math.max(75, baseHsl.s)] : [12, 18, 22, 18, 38, 28, 26, baseHsl.s, Math.max(75, baseHsl.s)];
+			lightnessMap = isDarkTheme ? [9, 13, 17, 22, 29, 21, 32, baseHsl.l, Math.min(82, baseHsl.l + 12)] : [98, 95, 91, 97, 86, 92, 83, baseHsl.l, Math.max(30, baseHsl.l - 12)];
 			break;
-		case 'tetradic':
+		}
+
+		case 'tetradic': {
 			const tet1 = (baseHsl.h + 90) % 360;
 			const tet2 = (baseHsl.h + 180) % 360;
 			const tet3 = (baseHsl.h + 270) % 360;
-			hues = [baseHsl.h, tet1, tet2, tet3, tet1, tet2, baseHsl.h, tet1, tet3];
+			hues = [baseHsl.h, tet1, tet2, baseHsl.h, tet1, tet2, tet3, baseHsl.h, tet3];
+			satMap = isDarkTheme ? [18, 22, 26, 30, 42, 34, 30, baseHsl.s, Math.max(75, baseHsl.s)] : [14, 20, 25, 20, 40, 30, 28, baseHsl.s, Math.max(75, baseHsl.s)];
+			lightnessMap = isDarkTheme ? [10, 14, 18, 23, 30, 22, 34, baseHsl.l, Math.min(84, baseHsl.l + 14)] : [97, 94, 90, 96, 85, 91, 82, baseHsl.l, Math.max(28, baseHsl.l - 14)];
+			break;
+		}
+
+		case 'shades':
+			hues = [baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h];
+			satMap = [baseHsl.s, baseHsl.s, baseHsl.s, baseHsl.s, baseHsl.s, baseHsl.s, baseHsl.s, baseHsl.s, baseHsl.s];
+			lightnessMap = isDarkTheme
+				? [6, 10, 14, 18, 24, 30, 38, 48, 58]
+				: [88, 78, 68, 58, 48, 38, 30, 22, 14];
+			break;
+
+		case 'tints':
+			hues = [baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h];
+			satMap = [baseHsl.s * 0.5, baseHsl.s * 0.6, baseHsl.s * 0.7, baseHsl.s * 0.75, baseHsl.s * 0.8, baseHsl.s * 0.85, baseHsl.s * 0.9, baseHsl.s, baseHsl.s];
+			lightnessMap = isDarkTheme
+				? [14, 20, 28, 36, 46, 56, 66, 76, 88]
+				: [99, 97, 94, 90, 85, 80, 74, 66, 55];
 			break;
 	}
-
-	// Compute semantic luminance and saturation curves for the 9 tokens
-	// 0: --bg, 1: --bg-surface, 2: --bg-panel, 3: --bg-raised, 4: --state-hover, 5: --state-hover-subtle, 6: --border, 7: --theme-color, 8: --theme-color-alt
-	const lightnessMap = isDarkTheme
-		? [9, 13, 16, 20, 24, 18, 28, Math.max(45, baseHsl.l), Math.min(85, baseHsl.l + 10)]
-		: [100, 97, 94, 98, 91, 95, 87, Math.min(50, baseHsl.l), Math.max(35, baseHsl.l - 8)];
-
-	const satMap = isDarkTheme
-		? [14, 16, 18, 22, 25, 20, 20, Math.max(65, baseHsl.s), Math.max(60, baseHsl.s)]
-		: [0, 8, 12, 10, 15, 12, 16, Math.max(70, baseHsl.s), Math.max(75, baseHsl.s)];
 
 	return PALETTE_TOKENS.map((item, idx) => {
 		const existing = existingColumns?.[idx];
@@ -120,20 +147,9 @@ export function generateSemanticPalette(
 			};
 		}
 
-		let h = hues[idx] ?? baseHsl.h;
-		let s = satMap[idx] ?? baseHsl.s;
-		let l = lightnessMap[idx] ?? baseHsl.l;
-
-		// For brand tokens (7 & 8), preserve vibrant base tone
-		if (idx === 7) {
-			h = baseHsl.h;
-			s = baseHsl.s;
-			l = baseHsl.l;
-		} else if (idx === 8) {
-			h = (baseHsl.h + 10) % 360;
-			s = Math.min(100, baseHsl.s + 5);
-			l = isDarkTheme ? Math.min(80, baseHsl.l + 10) : Math.max(25, baseHsl.l - 8);
-		}
+		const h = hues[idx] ?? baseHsl.h;
+		const s = satMap[idx] ?? baseHsl.s;
+		const l = lightnessMap[idx] ?? baseHsl.l;
 
 		const hex = hslToHex(h, s, l);
 		return {

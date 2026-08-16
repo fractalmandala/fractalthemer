@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { studioState, type CanvasPin } from '../../state/studio.svelte.js';
+	import { renderEngineToCanvas } from '../../engines/canvas-shaders.js';
 	import TimelineBar from './TimelineBar.svelte';
 
 	interface Props {
@@ -62,101 +63,8 @@
 
 		const width = canvasEl.width;
 		const height = canvasEl.height;
-		ctx.clearRect(0, 0, width, height);
 
-		const { pins, engineType, parameters, soften } = studioState.recipe;
-		if (pins.length === 0) return;
-
-		// Render based on generator engine type
-		switch (engineType) {
-			case 'linear': {
-				const angle = Number(parameters.angle || 45) * (Math.PI / 180);
-				const x1 = width / 2 - Math.cos(angle) * (width / 2);
-				const y1 = height / 2 - Math.sin(angle) * (height / 2);
-				const x2 = width / 2 + Math.cos(angle) * (width / 2);
-				const y2 = height / 2 + Math.sin(angle) * (height / 2);
-				const grad = ctx.createLinearGradient(x1, y1, x2, y2);
-				pins.forEach((p, idx) => {
-					grad.addColorStop(idx / Math.max(1, pins.length - 1), p.color);
-				});
-				ctx.fillStyle = grad;
-				ctx.fillRect(0, 0, width, height);
-				break;
-			}
-			case 'radial':
-			case 'rings': {
-				ctx.fillStyle = pins[pins.length - 1]?.color || '#000';
-				ctx.fillRect(0, 0, width, height);
-				pins.forEach((p) => {
-					const cx = (p.x / 100) * width;
-					const cy = (p.y / 100) * height;
-					const r = (p.radius / 100) * Math.min(width, height) * 0.8;
-					const radGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(10, r));
-					radGrad.addColorStop(0, p.color);
-					radGrad.addColorStop(1, 'transparent');
-					ctx.fillStyle = radGrad;
-					ctx.fillRect(0, 0, width, height);
-				});
-				break;
-			}
-			case 'conic': {
-				const cx = width / 2;
-				const cy = height / 2;
-				const conic = ctx.createConicGradient(0, cx, cy);
-				pins.forEach((p, idx) => {
-					conic.addColorStop(idx / Math.max(1, pins.length - 1), p.color);
-				});
-				ctx.fillStyle = conic;
-				ctx.fillRect(0, 0, width, height);
-				break;
-			}
-			case 'bars': {
-				const count = Math.max(4, Math.min(64, Number(parameters.count || 24)));
-				const barWidth = width / count;
-				ctx.fillStyle = pins[0]?.color || '#111';
-				ctx.fillRect(0, 0, width, height);
-				for (let i = 0; i < count; i++) {
-					const t = i / count;
-					const pinIdx = Math.min(pins.length - 1, Math.floor(t * pins.length));
-					const pin = pins[pinIdx];
-					const hRatio = Math.sin(t * Math.PI) * 0.7 + 0.2;
-					const barH = height * hRatio;
-					ctx.fillStyle = pin.color;
-					ctx.fillRect(i * barWidth, height - barH, barWidth - 2, barH);
-				}
-				break;
-			}
-			case 'beehive':
-			case 'blocks': {
-				const cellSize = Math.max(16, Math.min(80, Number(parameters.cellSize || 40)));
-				for (let x = 0; x < width; x += cellSize) {
-					for (let y = 0; y < height; y += cellSize) {
-						const dist = Math.sqrt(Math.pow(x - width / 2, 2) + Math.pow(y - height / 2, 2));
-						const pinIdx = Math.floor((dist / Math.max(width, height)) * pins.length) % pins.length;
-						ctx.fillStyle = pins[pinIdx].color;
-						ctx.fillRect(x + 1, y + 1, cellSize - 2, cellSize - 2);
-					}
-				}
-				break;
-			}
-			default: {
-				// Flow / Aurora / Mesh / Sky / Still / Retro / iOS: Multi-Point Radial Gaussian Simulation
-				ctx.fillStyle = pins[pins.length - 1]?.color || '#0d0d0d';
-				ctx.fillRect(0, 0, width, height);
-				pins.forEach((p) => {
-					const cx = (p.x / 100) * width;
-					const cy = (p.y / 100) * height;
-					const r = (p.radius / 100) * Math.max(width, height) * 0.9;
-					const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(20, r));
-					grad.addColorStop(0, p.color);
-					grad.addColorStop(0.7, p.color + 'AA');
-					grad.addColorStop(1, 'transparent');
-					ctx.fillStyle = grad;
-					ctx.fillRect(0, 0, width, height);
-				});
-				break;
-			}
-		}
+		renderEngineToCanvas(ctx, width, height, studioState.recipe);
 	}
 
 	$effect(() => {

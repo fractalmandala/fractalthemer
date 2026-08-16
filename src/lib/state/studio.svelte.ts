@@ -1,6 +1,9 @@
 // Reactive Svelte 5 Runes State for Gradient Studio & Palette Generator
 import { GALLERY_PRESETS, type GalleryPreset } from '../data/gallery-presets.js';
 import { ARTISAN_COLORS, type ArtisanColor } from '../data/artisan-colors.js';
+import { COLOURWAY_PRESETS, type ColourwayPreset } from '../data/colourways.js';
+import { ARRANGEMENT_PRESETS, type ArrangementPreset } from '../data/arrangements.js';
+import { SILHOUETTE_SHAPES, type SilhouetteShape } from '../data/silhouettes.js';
 
 export interface CanvasPin {
 	id: string;
@@ -14,18 +17,21 @@ export interface CanvasPin {
 export interface StudioRecipe {
 	id: string;
 	title: string;
-	category: 'fields' | 'stripes' | 'objects';
+	category: 'fields' | 'stripes' | 'objects' | 'forms';
 	engineType: string;
 	pins: CanvasPin[];
 	parameters: Record<string, number | string | boolean>;
 	soften: number; // 0 to 100px
 	noise: number;  // 0 to 20%
+	activeSilhouette?: string;
+	activeArrangement?: string;
+	activeColourway?: string;
 }
 
 class StudioState {
 	// Top-level Navigation
 	activeView = $state<'studio' | 'gallery' | 'palette' | 'saved' | 'whats-new' | 'palette-gen'>('studio');
-	activeCategory = $state<'fields' | 'stripes' | 'objects'>('fields');
+	activeCategory = $state<'fields' | 'stripes' | 'objects' | 'forms'>('fields');
 	
 	// Active Recipe
 	recipe = $state<StudioRecipe>({
@@ -33,6 +39,9 @@ class StudioState {
 		title: 'Tranquil Blend',
 		category: 'fields',
 		engineType: 'flow',
+		activeSilhouette: 'arch',
+		activeArrangement: 'snake',
+		activeColourway: 'lagoon',
 		pins: [
 			{ id: 'pin-1', color: '#74C69D', x: 25, y: 30, radius: 45 },
 			{ id: 'pin-2', color: '#D8F3DC', x: 75, y: 25, radius: 40 },
@@ -142,6 +151,46 @@ class StudioState {
 
 	updatePin(id: string, updates: Partial<CanvasPin>) {
 		this.recipe.pins = this.recipe.pins.map(p => (p.id === id ? { ...p, ...updates } : p));
+	}
+
+	selectColourway(colourway: ColourwayPreset) {
+		this.recipe.activeColourway = colourway.id;
+		const totalPins = Math.max(this.recipe.pins.length, colourway.colors.length);
+		const newPins: CanvasPin[] = [];
+
+		for (let i = 0; i < totalPins; i++) {
+			const color = colourway.colors[i % colourway.colors.length];
+			const existingPin = this.recipe.pins[i];
+			if (existingPin) {
+				newPins.push({ ...existingPin, color: existingPin.locked ? existingPin.color : color });
+			} else {
+				const angle = (i / totalPins) * 2 * Math.PI;
+				newPins.push({
+					id: `pin-${i + 1}`,
+					color,
+					x: Math.round(50 + Math.cos(angle) * 30),
+					y: Math.round(50 + Math.sin(angle) * 30),
+					radius: 40
+				});
+			}
+		}
+		this.recipe.pins = newPins;
+	}
+
+	selectArrangement(arrangement: ArrangementPreset) {
+		this.recipe.activeArrangement = arrangement.id;
+		const currentColors = this.recipe.pins.map(p => p.color);
+		this.recipe.pins = arrangement.pins.map((pin, idx) => ({
+			id: `pin-${idx + 1}`,
+			color: currentColors[idx % currentColors.length] || '#00B4D8',
+			x: pin.x,
+			y: pin.y,
+			radius: pin.radius
+		}));
+	}
+
+	selectSilhouette(shapeId: string) {
+		this.recipe.activeSilhouette = shapeId;
 	}
 
 	shuffleColors() {
