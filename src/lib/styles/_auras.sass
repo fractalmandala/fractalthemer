@@ -10,7 +10,11 @@
 [data-bg-style="aura"]
 	.aura-ambient
 		display: block
-	.fullwrapper, .appshell, .bodywrapper, .appbody, .blume-root, .blume-body
+	.aura-gradient-backdrop
+		display: none !important
+	body, html
+		background-color: transparent !important
+	.fullwrapper, .appshell, .appshel, .bodywrapper, .appbody, .blume-root, .blume-body
 		background: transparent !important
 		background-color: transparent !important
 		background-image: none !important
@@ -19,9 +23,13 @@
 		-webkit-backdrop-filter: blur(12px)
 
 [data-bg-style="gradient"]
+	.aura-ambient
+		display: none !important
 	.aura-gradient-backdrop
 		display: block
-	.fullwrapper, .appshell, .bodywrapper, .appbody, .blume-root, .blume-body
+	body, html
+		background-color: transparent !important
+	.fullwrapper, .appshell, .appshel, .bodywrapper, .appbody, .blume-root, .blume-body
 		background: transparent !important
 		background-color: transparent !important
 		background-image: none !important
@@ -32,28 +40,31 @@
 .aura-ambient, .aura-gradient-backdrop
 	position: fixed
 	inset: 0
-	z-index: 0
+	z-index: -1 !important
 	overflow: hidden
-	pointer-events: none
+	pointer-events: none !important
 	contain: strict
 	transform: translateZ(0)
 	will-change: transform
+	*
+		pointer-events: none !important
 
 .aura-gradient-backdrop
 	.gradient-canvas
 		position: absolute
 		inset: 0
-		opacity: 0.9
+		opacity: 0.95
+		pointer-events: none !important
 		transition: background 0.4s ease, opacity 0.4s ease
 	.gradient-overlay-soft
 		position: absolute
 		inset: 0
+		pointer-events: none !important
 		backdrop-filter: blur(1px)
 		-webkit-backdrop-filter: blur(1px)
 		background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.25) 100%)
-		pointer-events: none
 
-.fullwrapper, .appshell
+.fullwrapper, .appshell, .appshel
 	position: relative
 	z-index: 1
 

@@ -3,7 +3,11 @@
 </script>
 
 {#if themeState.isAura}
-	<div class="aura-ambient" aria-hidden="true">
+	<div
+		class="aura-ambient"
+		aria-hidden="true"
+		style="position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;"
+	>
 		{#if themeState.activeCustomAuraLayers && themeState.activeCustomAuraLayers.length > 0}
 			{#each themeState.activeCustomAuraLayers as layer, i (layer.layer || i)}
 				<div
@@ -24,8 +28,19 @@
 		{/if}
 	</div>
 {:else if themeState.isGradient && themeState.activeGradientPreset}
-	<div class="aura-gradient-backdrop" aria-hidden="true">
-		<div class="gradient-canvas" style:background={themeState.activeGradientPreset.css}></div>
-		<div class="gradient-overlay-soft"></div>
+	<div
+		class="aura-gradient-backdrop"
+		aria-hidden="true"
+		style="position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;"
+	>
+		<div
+			class="gradient-canvas"
+			style:background={themeState.activeGradientPreset.css}
+			style="position: absolute; inset: 0; pointer-events: none;"
+		></div>
+		<div
+			class="gradient-overlay-soft"
+			style="position: absolute; inset: 0; pointer-events: none;"
+		></div>
 	</div>
 {/if}
