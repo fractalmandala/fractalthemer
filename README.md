@@ -9,23 +9,23 @@
 
 ## ✨ Features
 
-- **42 Curated Tiered Themes**: 21 Light and 21 Dark themes calibrated with distinct accents, surfaces, and contrast ratios (Emerald, Himalaya, Editorial, Nord, Dracula, Catppuccin Mocha, Gruvbox, OneDark, Synthwave, Obsidian Crimson, Rose Pine, Amethyst Void, and more).
-- **203 Atmospheric Aura Gradients**: Multi-layer GPU blend shaders categorized into 8 distinct aesthetic families (*Mesh, Glass, Grain, Flux, Nebula, Lattice, Prism, Aura*) with live category chips, real-time search, and interactive previews.
-- **180+ Vibrant Linear Gradient Presets**: Rich, named linear gradients (*Omolon, Farhan, Radioactive Heat, The Sky And The Sea, From Ice To Fire, Blue & Orange, Lunada, Mango, YouTube, Instagram, Netflix, After the Rain, Hyper Blue*, etc.) with live search and color swatch samplers.
-- **Three Background Modes (`bgStyle`)**:
+- 42 Curated Tiered Themes: 21 Light and 21 Dark themes calibrated with distinct accents, surfaces, and contrast ratios (Emerald, Himalaya, Editorial, Nord, Dracula, Catppuccin Mocha, Gruvbox, OneDark, Synthwave, Obsidian Crimson, Rose Pine, Amethyst Void, and more).
+- Three Background Modes (`bgStyle`):
   - `plain`: Clean, distraction-free flat surface backgrounds.
-  - `aura`: GPU-accelerated atmospheric blend shaders (selectable from 203 presets or calibrated per theme).
+  - `aura`: GPU-accelerated atmospheric radial/linear blend shaders calibrated to every theme.
   - `gradient`: Full viewport linear gradient backdrops chosen from 180+ presets.
-- **100vh Right Off-Canvas Drawer (`<ThemePicker />`)**: Full-height drawer sliding from the right edge (`360px` on desktop, `180px` on mobile `≤1024px`), backdrop dismiss, `Escape` key dismiss, tabbed categorization (`All`, `Light`, `Dark`, `✨ Auras (203)`, `🌈 Gradients (180+)`), and live search.
-- **Zero-Flicker SSR Script**: Instant localStorage synchronization before initial DOM paint to completely prevent Flash of Unstyled Content (FOUC) or mode flicker.
-- **Svelte 5 Runes Architecture**: Reactive singleton state manager built with `$state` and `$derived`.
-- **Dual Styles Architecture**: Use either precompiled zero-config CSS (`import 'fractalthemer/styles.css'`) or modular indented SASS partials (`@use 'fractalthemer/tokens'`).
-- **Semantic Design Tokens Contract**: Complete Utopia fluid typography and spacing scales, 3-tier elevation surfaces, and semantic custom properties (`--bg`, `--bg-surface`, `--text-primary`, `--theme-color`, etc.).
-- **Custom Theme Studio Support**: Save, update, and persist custom token overrides and multi-layer aura blends in `localStorage`.
+- 180+ Vibrant Gradient Presets: Rich, named linear gradients (*Omolon, Farhan, Radioactive Heat, The Sky And The Sea, From Ice To Fire, Blue & Orange, Lunada, Mango, YouTube, Instagram, Netflix, After the Rain, Hyper Blue*, etc.) with live search and color swatch samplers.
+- Styled theme picker component that operates as off-canvas drawer. 
+- Zero-Flicker SSR Script: Instant localStorage synchronization before initial DOM paint to completely prevent Flash of Unstyled Content (FOUC) or mode flicker.
+- Svelte 5 Runes Architecture: Reactive singleton state manager built with `$state` and `$derived`.
+- Dual Styles Architecture: Use either precompiled zero-config CSS (`import 'fractalthemer/styles.css'`) or modular indented SASS partials (`@use 'fractalthemer/tokens'`).
+- Semantic Design Tokens Contract: 3-tier elevation surfaces, and semantic custom properties (`--bg`, `--bg-surface`, `--text-primary`, `--theme-color`, etc.).
+- While the package's internals are styled in SASS, the design tokens are usable with any CSS system.
 
----
 
-## 📦 Installation
+## 📦 Install and Setup
+
+### 1. Add package into your project
 
 ```bash
 pnpm add fractalthemer
@@ -33,11 +33,9 @@ pnpm add fractalthemer
 npm install fractalthemer
 ```
 
----
+### 2. Initiate zero-flicker SSR setup
 
-## 🚀 Quickstart Guide
-
-### 1. Zero-Flicker SSR Setup (`src/app.html`)
+Add the anti-flicker initialization script into `<head>` inside `src/app.html`. This ensures the your saved theme, dark mode preference, and background style are applied to `<html>` synchronously before hydration:
 
 Add the anti-flicker initialization script into `<head>` inside `src/app.html`. This ensures the user's saved theme, dark mode preference, and background style are applied to `<html>` synchronously before hydration:
 
@@ -81,51 +79,49 @@ Add the anti-flicker initialization script into `<head>` inside `src/app.html`. 
 </html>
 ```
 
-### 2. Add to Root Layout (`src/routes/+layout.svelte`)
+### 3. Add to Root Layout (`src/routes/+layout.svelte`)
+
+Add the components AuraBackground to the layout, to ensure you are able to use aura gradients. And add the theme picker into your header - or elsewhere. Theme picker comes wired with its own styling, overlay rules, and button icons. So you can use it wherever you like. 
 
 ```svelte
 <script lang="ts">
   import 'fractalthemer/styles.css';
   import { AuraBackground, ThemePicker } from 'fractalthemer';
-
   let { children } = $props();
 </script>
 
+
 <!-- Ambient GPU aura shader / gradient background layer -->
 <AuraBackground />
-
 <header>
   <!-- Full-height 100vh right drawer launcher + sun/moon toggle -->
   <ThemePicker />
 </header>
-
 <main>
   {@render children()}
 </main>
 ```
 
----
+### 4. Add styling files to your project
 
-## 🎨 Styles & SASS Architecture
+Fractal Themer supports both - precompiled CSS and indented SASS. Choose whichever you like:
 
-`fractalthemer` supports both **precompiled CSS** and **modular indented SASS (`.sass`)**.
+#### Option A: Precompiled CSS
 
-### Option A: Precompiled CSS (Recommended)
 Import the master stylesheet in your root layout:
-
 ```typescript
 import 'fractalthemer/styles.css';
 ```
 
-This single import bundles:
-- **42 Theme Palettes**: Complete CSS variable maps for all 21 Light and 21 Dark themes.
-- **Atmospheric Auras**: Multi-layer GPU blend shaders for `.aura-ambient`.
-- **180+ Gradient Presets**: Viewport canvas shaders for `.aura-gradient-backdrop`.
-- **100vh Drawer**: Slide-in animations, responsive breakpoints (`360px` / `180px`), tabs, and search bar.
-- **Semantic Tokens**: CSS custom properties for surfaces, borders, typography, and states.
+This import bundles:
+- 42 Theme Palettes: Complete CSS variable maps for all 21 Light and 21 Dark themes.
+- Atmospheric Auras: Multi-layer GPU blend shaders for `.aura-ambient`.
+- 180+ Gradient Presets: Viewport canvas shaders for `.aura-gradient-backdrop`.
+- Color variables: CSS custom properties for surfaces, borders, typography, and states.
 
-### Option B: Raw Indented SASS Imports (For SASS projects)
-If your project compiles indented SASS (`.sass`) or SCSS, you can `@use` the raw files directly:
+#### Option B: Raw Indented SASS Imports
+
+This option requires SASS to be set up in your project (`pnpm add -D sass`). In this case you can `@use` the raw files directly:
 
 ```sass
 // Master bundle (all tokens, themes, auras, drawer)
@@ -138,53 +134,34 @@ If your project compiles indented SASS (`.sass`) or SCSS, you can `@use` the raw
 @use 'fractalthemer/picker'   // 100vh responsive right drawer (_theme-picker.sass)
 ```
 
----
+> That's it! You're ready to play. Use one of our configured themes, or mix and match with the gradient backgrounds to find your fit. 
 
-## 🕹 Programmatic API (`themeState`)
+## 📄 Documentation
 
-The reactive singleton `themeState` provides complete control over themes, dark mode, background styles, and presets:
+Read the complete guide and documentation, with API guide, tokens list, and more in [`docs/`](./docs/INDEX.md).
 
-```typescript
-import { themeState, GRADIENT_PRESETS } from 'fractalthemer';
+### 📖 Guides
+- [Quickstart Guide](./docs/guides/01-quickstart.md): Step-by-step setup in any SvelteKit project.
+- [Zero-Flicker SSR Guide](./docs/guides/02-anti-flicker-guide.md): How storage synchronization and inline `<script>` initialization prevent theme flashing.
+- [Custom Themes & Studio Guide](./docs/guides/03-custom-themes.md): Runtime token overriding, custom aura layers, and `localStorage` persistence.
+- [Responsive Drawer Ergonomics](./docs/guides/04-responsive-drawer.md): Mobile drawer ergonomics, touch scrolling, and 180px vs 360px viewport behavior.
 
-// --- Binary Mode Toggling ---
-themeState.toggleMode(); // Switches between default light & dark themes
+### 🧩 Components
+- [`<ThemePicker />`](./docs/components/ThemePicker.md): 100vh right sliding drawer, responsive 360px/180px layout, tabs, search, and props.
+- [`<AuraBackground />`](./docs/components/AuraBackground.md): Multi-layer GPU blend shader rendering, filter mechanics, and gradient backdrops.
+- [`<ThemeToggle />`](./docs/components/ThemeToggle.md): Compact Sun/Moon button for dense toolbars.
+- [`<ThemeScript />`](./docs/components/ThemeScript.md): Head script injector for zero-flicker SSR hydration.
 
-// --- Direct Theme Selection ---
-themeState.setTheme('theme-dracula-dark');
-themeState.setTheme('theme-nord-dark');
-themeState.setTheme('theme-catppuccin-mocha');
+### 🏛 Architecture
+- [Documentation Index](./docs/INDEX.md): Central map and navigation registry.
+- [System Architecture & Topology](./docs/architecture/01-overview.md): High-level system structure, exports, and design principles.
+- [State & Svelte 5 Runes](./docs/architecture/02-state-and-reactivity.md): In-depth walkthrough of `$state`, `$derived`, and the `ThemeState` manager.
+- [Tokens & CSS Contract](./docs/architecture/03-tokens-and-css-contract.md): Utopia fluid typography/space scales and 3-tier elevation surfaces.
 
-// --- Background Style Modes ('plain' | 'aura' | 'gradient') ---
-themeState.setBgStyle('plain');    // Flat background
-themeState.setBgStyle('aura');     // Atmospheric theme aura shader
-themeState.setBgStyle('gradient'); // Vibrant linear gradient
-themeState.toggleBgStyle();        // Cycles through plain -> aura -> gradient
-
-// --- Gradient Presets ---
-themeState.setGradient('omolon');
-themeState.setGradient('radioactive-heat');
-themeState.setGradient('after-the-rain');
-themeState.clearGradient();
-
-// --- Theme Cycling ---
-themeState.cycleNext();   // Cycle to next theme in list
-themeState.cycleRandom(); // Pick a random theme
-themeState.resetDefault(); // Reset to .theme-light-default
-
-// --- Drawer Control ---
-themeState.openPicker();
-themeState.closePicker();
-themeState.togglePicker();
-
-// --- Reactive State Inspection ---
-console.log(themeState.current);              // Active theme ID (string)
-console.log(themeState.isDark);               // boolean
-console.log(themeState.isAura);               // boolean
-console.log(themeState.isGradient);           // boolean
-console.log(themeState.currentTheme);         // Full ThemeInfo object
-console.log(themeState.activeGradientPreset); // GradientPreset object or null
-```
+### 🎨 Catalogs
+- [42 Curated Themes Catalog](./docs/themes/01-theme-catalog.md): Complete index of all 21 Light and 21 Dark curated themes with swatch values and descriptions.
+- [Atmospheric Auras Catalog](./docs/themes/02-auras-catalog.md): Complete listing of atmospheric gradient blend presets, node coordinates, and blend modes.
+- [180+ Vibrant Gradients Catalog](./docs/themes/03-gradients-catalog.md): Comprehensive catalog of 180+ curated vibrant gradient presets and background samplers.
 
 ---
 
