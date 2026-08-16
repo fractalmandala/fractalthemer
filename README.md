@@ -1,6 +1,6 @@
 # fractalthemer
 
-> A modern, zero-runtime-overhead theming system and visual gradient studio for SvelteKit and modern web applications. Features 42 curated light & dark themes, 203 atmospheric GPU auras, 21 procedural gradient generator engines, 24 SVG silhouette forms, 12-colourway wheels, a 9-column lockable semantic theme palette generator with 9 harmony modes (including Thematic), persistent custom theme creation, and full-bleed visual studio tooling.
+> An ultra-light, zero-runtime-overhead theming and ambient background system for SvelteKit and modern web applications. Features 42 curated light & dark themes, 203 atmospheric GPU auras, 257 CSS background patterns, vibrant gradient presets, and a responsive drawer with strict background isolation.
 
 [![npm version](https://img.shields.io/npm/v/fractalthemer.svg)](https://www.npmjs.com/package/fractalthemer)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -10,52 +10,30 @@
 
 ## ✨ Features
 
-### 🎨 Visual Theme Studio & Procedural Engines
-- **21 Dedicated Procedural Generator Engines**:
-  - **7 Fields**: *Flow* (2D Simplex turbulence), *Sky* (Rayleigh horizon scattering), *Aurora* (Sinusoidal shimmering rays), *Mesh* (2D Bezier grid), *Still* (Quadratic vignette depth wash), *Retro* (Filmic warm grain dither), *iOS* (Saturated optical blur).
-  - **7 Stripes**: *Linear* (Multi-stop angular interpolation), *Stripes* (Calibrated bands), *Bars* (Harmonic sinusoidal bar arrays), *Columns* (Vertical spectral partitions), *Prism* (Chromatic dispersion), *Waves* (Multi-layer harmonic waves), *Lines* (Dimensional ribbon tubes with path presets).
-  - **7 Objects**: *Rings* (Concentric orbital wave-rings), *Pixel* (Retro pixel matrix), *Blocks* (Quantized mosaic grid), *Beehive* (Hexagonal cellular lattice), *Balls* (Floating gravitational metaballs), *Radial* (Gaussian light wells), *Conic* (360° sweeping spectrum).
-- **24 SVG Silhouette Forms**: Arch, Clover, Heart, Drapery, 4-Leaf, Sunburst, Flower, Starburst, Cross, Ring, Sparkle, Horizontal Stripes, Dome, Propeller, Squiggle, Flower-8, Teardrop, Circle, Pebble, Eye-Ring, Crescent, Star, X-Pill, Wave.
-- **12 Curated Colourways**: Segmented circular SVG pie wheels (*Solar, Lagoon, Coral, Aerial, Botanic, Violet, Cobalt, Cinder, Vivid, Rainbow, Rosewater, Midnight*) for 1-click re-tinting.
-- **Direct Canvas Ergonomics**: Draggable color emitter pins and outer ring radius handles directly on the canvas viewport with pointer capture.
-- **Multi-Band Reach Timeline**: Live distribution slider to rebalance color dominance across your blend.
-- **Finish Controls**: `Soften` (Gaussian liquid feathering) & `Noise` (procedural grain dither to eliminate 8-bit digital banding).
-- **One-Click Theme Creation**: **"✦ Use in Theme"** instantly packages the active blend + derived semantic tokens into a named custom theme.
+### 🏛 42 Curated Light & Dark Themes
+- **21 Light Themes**: Clean editorial palettes, soft off-whites, terracotta ceramics, and vibrant accents (*Emerald Light, Paper Light, Botanical, Latte, Clay Studio, Nord Light, Matcha, Sunset Amber*, etc.).
+- **21 Dark Themes**: Deep obsidian canvases, velvety darks, and neon synthwaves (*Dracula, Catppuccin Mocha, Nord Dark, Gruvbox, OneDark Pro, Synthwave, Obsidian Crimson, Amethyst Void*, etc.).
+- **22 Semantic CSS Tokens**: Standardized `:root` CSS variables mapped across `--bg`, `--bg-surface`, `--bg-panel`, `--text-primary`, `--theme-color`, `--border`, etc.
 
-### 🌈 9-Column Semantic Theme Palette Generator
-- **Exact Semantic Token Mapping**:
-  1. `--bg`: Deepest application canvas
-  2. `--bg-surface`: Card and article container surface
-  3. `--bg-panel`: Sidebar, toolbar, and drawer panel
-  4. `--bg-raised`: Elevated modal dialog and popover
-  5. `--state-hover`: Neutral hover background tint
-  6. `--state-hover-subtle`: Gentle list-item and row hover tint
-  7. `--border`: Primary separator and card outline border
-  8. `--theme-color`: Primary brand action and accent color (BASE)
-  9. `--theme-color-alt`: Accent hover and active button state
-- **Interactive Per-Column Color Pickers**: Click anywhere on any column card footer to open a color picker and adjust hue/lightness directly.
-- **Per-Color Locking (`🔒` / `🔓`)**: Lock any number of swatches to freeze specific colors while randomizing or harmonizing the rest.
-- **9 Mathematical Color Harmony Algorithms**:
-  - **`Thematic`**: 7 delicate tinted whites/off-whites (light) or 7 tinted darks/near-blacks (dark) + 2 vibrant brand accents.
-  - **`Monochromatic`**: Uniform hue with calibrated luminance curves.
-  - **`Analogous`**: Harmonic adjacent hues ($H \pm 15^\circ, \pm 30^\circ$).
-  - **`Complementary`**: $180^\circ$ opposite hue pairings for brand and hover tokens.
-  - **`Split-Comp`**: Base hue paired with $150^\circ$ and $210^\circ$ complements.
-  - **`Triadic`**: $120^\circ$ equilateral triangle chords ($H, H + 120^\circ, H + 240^\circ$).
-  - **`Tetradic`**: $90^\circ$ dual-complementary rectangular chords ($H, H + 90^\circ, H + 180^\circ, H + 270^\circ$).
-  - **`Shades`**: Stepped dark luminance decay.
-  - **`Tints`**: Stepped pastel luminance lightening.
-- **WCAG Contrast Ratios**: Live contrast ratings against White (`W:`) and Black (`B:`) on every column.
-- **Persistent Save & Apply**: **"✦ Save as Theme"** saves the palette into `localStorage`, applies it immediately to `:root`, and surfaces it in the Theme Drawer.
+### 🌌 203 Atmospheric GPU Aura Presets
+- Multi-layer GPU-accelerated atmospheric gradient blends calibrated to match every theme.
+- Categorized across *aura, mesh, glass, grain, flux, nebula, lattice, prism*.
 
-### 🏛 Curated Catalogs & Drawer UI
-- **42 Curated Themes**: 21 Light and 21 Dark palettes (*Emerald, Himalaya, Editorial, Nord, Dracula, Catppuccin Mocha, Gruvbox, OneDark, Synthwave, Obsidian Crimson, Rose Pine, Amethyst Void*, etc.).
-- **203 Atmospheric Auras**: GPU-accelerated atmospheric blend shaders across 8 categories (*aura, mesh, glass, grain, flux, nebula, lattice, prism*).
-- **70+ Gallery Studies**: One-click preset gradient browser.
-- **Artisan Color Catalog**: Comprehensive designer color reference sortable by *Hue*, *Light to dark*, and *Dark to light*.
-- **100vh Responsive Drawer (`<ThemePicker />`)**: Mobile-ready right drawer with search, mode toggle, permanent **Custom** tab with delete actions, and studio launcher.
-- **Calibrated Ambient Backgrounds**: Gradient backdrops automatically balance opacity and blend modes (`0.28` multiply for light, `0.42` screen for dark) over base `--bg` to ensure foreground typography remains crisp and high-contrast.
-- **Zero-Flicker SSR Script**: Synchronous `localStorage` synchronization preventing Flash of Unstyled Content (FOUC) for standard and custom themes.
+### 📐 257 CSS Background Patterns
+- Curated vector-grade CSS background patterns across 4 categories:
+  - **📐 Geometric (99)**: Dots, grids, isometric cubes, diagonals, checks, zigzags, honeycombs, circuits, cross-hashes.
+  - **✨ Effects (66)**: Spotlights, light beams, cyber scanlines, bokeh, particles, starfields.
+  - **🌈 Gradients (48)**: Multi-stop mesh gradients, chromatic conic sweeps, sunsets, twilight velvet blends.
+  - **🎨 Decorative (44)**: Luxury radial glows, badge frames, vignette halos, organic curvature.
+
+### 🛡️ Strict Background Interchangeability & Isolation
+- **1 Unified Navigation System**: Seamlessly switch between `Plain`, `Aura`, `Gradient`, and `Pattern` in the drawer.
+- **Full Isolation**: Setting any background type automatically clears and replaces previous styles, eliminating leftover blurs, overlays, or conflicting CSS properties.
+- **Pointer-Events Isolation**: Backdrops operate strictly at `z-index: -1` with `pointer-events: none !important`.
+
+### ⚡ Pure Svelte 5 Runes & Zero-Flicker SSR
+- Reactive Svelte 5 state management via `themeState` (`$state`, `$derived`).
+- Anti-flicker SSR script preventing Flash of Unstyled Content (FOUC) across page reloads and browser hydration.
 
 ---
 
@@ -101,15 +79,6 @@ Add the anti-flicker initialization script into `<head>` inside `src/app.html` t
           root.setAttribute('data-mode', mode);
           root.setAttribute('data-bg-style', savedBg);
           root.style.colorScheme = mode;
-          var customTokens = localStorage.getItem('customTokens');
-          if (customTokens) {
-            try {
-              var parsed = JSON.parse(customTokens);
-              for (var k in parsed) {
-                root.style.setProperty('--' + k, parsed[k]);
-              }
-            } catch (e) {}
-          }
         } catch (e) {}
       })();
     </script>
@@ -131,12 +100,12 @@ Add the anti-flicker initialization script into `<head>` inside `src/app.html` t
   let { children } = $props();
 </script>
 
-<!-- Ambient GPU aura shader / gradient background layer -->
+<!-- Ambient background layer (handles Plain, Aura, Gradient, and Pattern) -->
 <AuraBackground />
 
 <div class="appshell">
   <header>
-    <!-- Drawer launcher with Theme Studio button & Sun/Moon toggle -->
+    <!-- Drawer launcher & mode switcher -->
     <ThemePicker />
   </header>
 
@@ -148,32 +117,28 @@ Add the anti-flicker initialization script into `<head>` inside `src/app.html` t
 
 ---
 
-## 🛠 Using the Standalone Theme Studio & Palette Generator
+## 🕹️ Runtime State & API (`themeState`)
 
-You can mount the Theme Studio or Palette Generator as dedicated pages or modal components in your app:
+Import `themeState` anywhere in your application for reactive runes-based theme control:
 
-### Standalone Theme Studio Page (`src/routes/studio/+page.svelte`)
+```typescript
+import { themeState } from 'fractalthemer';
 
-```svelte
-<script lang="ts">
-  import { ThemeStudio } from 'fractalthemer';
-</script>
+// Switch theme
+themeState.setTheme('theme-dracula-dark');
 
-<ThemeStudio open={true} />
-```
+// Toggle light / dark mode
+themeState.toggleMode();
 
-### Standalone Palette Generator Component
+// Switch background style ('plain' | 'aura' | 'gradient' | 'pattern')
+themeState.setBgStyle('aura');
+themeState.setAura('aura-midnight-emerald');
+themeState.setGradient('grad-sunset-violet');
+themeState.setPattern('pat-cyber-grid');
 
-```svelte
-<script lang="ts">
-  import { PaletteGenerator } from 'fractalthemer';
-
-  function handleThemeApplied(columns) {
-    console.log('Custom theme applied with columns:', columns);
-  }
-</script>
-
-<PaletteGenerator onApply={handleThemeApplied} />
+// Cycle themes
+themeState.cycleNext();
+themeState.cycleRandom();
 ```
 
 ---
@@ -187,45 +152,38 @@ import 'fractalthemer/styles.css';
 
 ### Option B: Raw Indented SASS Imports
 ```sass
-// Master bundle (all tokens, themes, auras, drawer, studio)
+// Master bundle (tokens, themes, auras, patterns, drawer)
 @use 'fractalthemer/styles'
 
 // Or granular sub-modules:
 @use 'fractalthemer/tokens'   // 22 semantic color tokens (_tokens.sass)
 @use 'fractalthemer/themes'   // 42 curated theme classes (_themes.sass)
-@use 'fractalthemer/auras'    // GPU gradient aura blend shaders (_auras.sass)
-@use 'fractalthemer/picker'   // 100vh responsive right drawer (_theme-picker.sass)
-@use 'fractalthemer/studio'   // Theme studio & canvas styles (_studio.sass)
-@use 'fractalthemer/palette-gen' // 9-column palette styles (_palette-gen.sass)
+@use 'fractalthemer/auras'    // GPU gradient aura & pattern shaders (_auras.sass)
+@use 'fractalthemer/picker'   // Responsive right drawer (_theme-picker.sass)
 ```
 
 ---
 
 ## 📄 Documentation
 
-Comprehensive architecture guides, component APIs, and token specifications are available in [`docs/`](./docs/INDEX.md):
+Comprehensive architecture guides, component APIs, and token specifications:
 
 ### 📖 Guides
 - [Quickstart Guide](./docs/guides/01-quickstart.md): Step-by-step setup in any SvelteKit project.
 - [Zero-Flicker SSR Guide](./docs/guides/02-anti-flicker-guide.md): Storage synchronization and instant initialization.
-- [Custom Themes & LocalStorage Guide](./docs/guides/03-custom-themes.md): Saving, deleting, and rehydrating custom themes.
-- [Theme Studio Guide](./docs/guides/06-theme-studio-guide.md): Walkthrough of 21 generator engines, 24 silhouette forms, and 12 colourways.
-- [Palette Generator Guide](./docs/guides/07-palette-generator-guide.md): 9-column token mapping, locking, and 9 harmony algorithms.
+- [Custom Themes & Storage Guide](./docs/guides/03-custom-themes.md): Saving, deleting, and rehydrating custom themes.
 - [API & Conditional Rendering Guide](./docs/guides/05-api-guide.md): `{#if themeState.isDark}` templates and component recipes.
 
 ### 🧩 Components
-- [`<ThemeStudio />`](./docs/components/ThemeStudio.md): Full-screen studio interface with 21 procedural gradient engines.
-- [`<PaletteGenerator />`](./docs/components/PaletteGenerator.md): 9-column lockable semantic theme palette generator with color pickers.
-- [`<ThemePicker />`](./docs/components/ThemePicker.md): 100vh right sliding drawer with Custom tab and delete actions.
-- [`<AuraBackground />`](./docs/components/AuraBackground.md): Multi-layer GPU blend shader rendering with calibrated ambient contrast.
+- [`<ThemePicker />`](./docs/components/ThemePicker.md): Responsive right sliding drawer with search, mode switcher, and instant preview.
+- [`<AuraBackground />`](./docs/components/AuraBackground.md): Ambient background layer for Plain, Aura, Gradient, and Pattern modes.
 - [`<ThemeToggle />`](./docs/components/ThemeToggle.md): Compact Sun/Moon toggle button.
 - [`<ThemeScript />`](./docs/components/ThemeScript.md): Head script injector for zero-flicker SSR hydration.
 
 ### 🎨 Catalogs
-- [21 Gradient Generator Engines Catalog](./docs/themes/04-21-generator-engines.md): Technical parameters for Fields, Stripes, Objects, and Forms.
-- [Artisan Colors Catalog](./docs/themes/05-artisan-colors-palette.md): Designer color library with WCAG contrast ratings.
 - [42 Curated Themes Catalog](./docs/themes/01-theme-catalog.md): Complete index of all 21 Light and 21 Dark curated themes.
 - [Atmospheric Auras Catalog](./docs/themes/02-auras-catalog.md): 203 atmospheric gradient blend presets.
+- [Gradient Presets Catalog](./docs/themes/03-gradients-catalog.md): Curated gradient backgrounds.
 
 ---
 

@@ -124,12 +124,10 @@
 	-webkit-overflow-scrolling: touch
 	scrollbar-width: thin
 	animation: themeDrawerSlideIn 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards
-
 	@media (min-width: 1025px)
 		width: 540px
-
 	@media (max-width: 1024px)
-		width: 180px
+		width: 280px
 
 .theme-style-switcher
 	position: sticky
@@ -144,12 +142,8 @@
 	gap: 8px
 
 .theme-style-toggle-group
-	display: inline-flex
-	background: var(--bg-raised)
-	padding: 2px
-	border-radius: 6px
-	border: 1px solid var(--border-subtle)
-	gap: 2px
+	display: flex
+	gap: 8px
 
 .theme-style-toggle-btn
 	display: inline-flex
@@ -203,6 +197,8 @@
 	display: grid
 	grid-template-columns: repeat(auto-fill, minmax(130px, 1fr))
 	gap: 8px
+	align-items: start
+	align-content: start
 
 .theme-card
 	display: flex
@@ -321,17 +317,19 @@
 	cursor: pointer
 	transition: all 0.15s ease
 
-.theme-search-bar
+.is-sticky
 	position: sticky
-	top: 86px
+	top: 0
 	z-index: 2
+
+.theme-search-bar
 	padding: 6px 12px
 	background: var(--bg-surface)
 	border-bottom: 1px solid var(--border-subtle)
 
 .theme-search-input
 	width: 100%
-	height: 28px
+	height: 32px
 	padding: 4px 8px
 	font-size: 11px
 	border-radius: 4px

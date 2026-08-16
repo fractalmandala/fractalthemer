@@ -19,10 +19,11 @@ This document details the architectural topology, design philosophy, and module 
 1. **Orthogonal Mode, Palette & Background Axes**:
    - `data-mode="light|dark"` defines the binary operating system contrast axis.
    - `data-theme="<name>"` defines the aesthetic color identity.
-   - `data-bg-style="plain|aura|gradient"` controls the backdrop rendering mechanism:
+   - `data-bg-style="plain|aura|gradient|pattern"` controls the backdrop rendering mechanism:
      - `plain`: Clean distraction-free solid color surfaces.
      - `aura`: GPU-accelerated atmospheric multi-layer radial/linear gradient blend shaders calibrated to each theme.
-     - `gradient`: Full viewport linear gradient backdrops selected from 180+ curated presets.
+     - `gradient`: Full viewport linear gradient backdrops selected from curated presets.
+     - `pattern`: 257 curated vector-grade CSS background patterns across Geometric, Effects, Gradients, and Decorative categories.
 
 2. **Zero Runtime Styling Overhead**:
    - Every theme is compiled to standard, pure CSS custom properties (`--bg`, `--text-primary`, `--theme-color`, etc.).
@@ -52,18 +53,19 @@ fractalthemer/
 │   │   ├── index.sass                 # SASS master stylesheet
 │   │   ├── _tokens.sass               # Source SASS tokens & Utopia scales
 │   │   ├── _themes.sass               # Source SASS 42 themes
-│   │   ├── _auras.sass                # Source SASS auras & gradient shaders
+│   │   ├── _auras.sass                # Source SASS auras & pattern shaders
 │   │   └── _theme-picker.sass         # Source SASS 100vh drawer
 │   ├── data/
 │   │   ├── themes.js                  # 42 Themes dataset & metadata
-│   │   ├── gradients.js               # 180+ Gradient presets dataset
+│   │   ├── gradients.js               # Gradient presets dataset
+│   │   ├── patterns.js                # 257 CSS patterns dataset
 │   │   └── auras.js                   # Aura coordinates & layer presets
 │   └── utils/
 │       └── anti-flicker.js            # Standalone SSR script generator
 └── src/lib/                           # Source files
     ├── components/                    # Svelte 5 components
     ├── state/                         # Reactive runes state (themeState)
-    ├── data/                          # 42 Theme, Aura & Gradient definitions
+    ├── data/                          # 42 Theme, Aura, Gradient & Pattern definitions
     ├── icons/                         # Embedded SVG icons
     └── styles/                        # Indented SASS source
 ```

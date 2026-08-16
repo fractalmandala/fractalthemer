@@ -9,19 +9,19 @@
 	import Moon from '../icons/Moon.svelte';
 	import Palette from '../icons/Palette.svelte';
 	import Close from '../icons/Close.svelte';
-	import { studioState } from '../state/studio.svelte.js';
-	import ThemeStudio from './studio/ThemeStudio.svelte';
+	import Undo from '$lib/icons/undo.svelte';
+	import Random from '$lib/icons/random.svelte';
+	import Plain from '$lib/icons/plain.svelte';
+	import Patterns from '$lib/icons/pattern.svelte';
+	import Gradients from '$lib/icons/gradient.svelte';
+	import AuraIcon from '$lib/icons/aura.svelte';
 
 	interface Props {
-		studioHref?: string;
-		showStudioLink?: boolean;
 		showModeToggle?: boolean;
 		triggerButton?: Snippet;
 	}
 
 	let {
-		studioHref = '/studio',
-		showStudioLink = false,
 		showModeToggle = true,
 		triggerButton
 	}: Props = $props();
@@ -30,7 +30,6 @@
 	let themeSubFilter = $state<'all' | 'light' | 'dark' | 'custom'>('all');
 	let searchFilter = $state<string>('');
 	let pickerEl = $state<HTMLDivElement | null>(null);
-	let showStudioModal = $state<boolean>(false);
 
 	function patternStyleToCss(style: Record<string, string | number | undefined> | undefined): string {
 		if (!style) return '';
@@ -187,62 +186,71 @@
 
 		<div class="theme-popover" role="dialog" aria-label="Theme and Background Switcher">
 			<!-- 1 Unified System Top Header (Plain vs Aura vs Gradient vs Pattern) -->
-			<div class="theme-style-switcher">
-				<div class="theme-style-toggle-group">
+				<div class="box is-sticky">
+			<div class="theme-style-switcher box gap8">
+				<div class="theme-style-toggle-group row wrap">
 					<button
 						type="button"
-						class="theme-style-toggle-btn"
+						class="is-icon"
 						class:active={currentView === 'plain'}
 						onclick={() => (currentView = 'plain')}
 						title="Explore 42 curated and custom color themes"
 					>
-						<span>◻</span> Plain
+						<Plain/>Plain
 					</button>
 					<button
 						type="button"
-						class="theme-style-toggle-btn"
-						class:active={currentView === 'aura'}
-						onclick={() => (currentView = 'aura')}
-						title="Explore 203 atmospheric aura gradients"
-					>
-						<span>✨</span> Aura
-					</button>
-					<button
-						type="button"
-						class="theme-style-toggle-btn"
+						class="is-icon"
 						class:active={currentView === 'gradient'}
 						onclick={() => (currentView = 'gradient')}
 						title="Explore plain gradient background presets"
 					>
-						<span>🌈</span> Gradient
+						<Gradients/>
+						Gradients
 					</button>
 					<button
 						type="button"
-						class="theme-style-toggle-btn"
+						class="is-icon"
 						class:active={currentView === 'pattern'}
 						onclick={() => (currentView = 'pattern')}
 						title="Explore 257 CSS background patterns"
 					>
-						<span>📐</span> Pattern
+						<Patterns/>
+						Patterns
 					</button>
-				</div>
-
-				<div style="display: flex; align-items: center; gap: 6px;">
-					{#if showStudioLink}
-						<a
-							href={studioHref}
-							class="theme-tab-btn"
-							style="text-decoration: none; font-weight: 600; color: var(--theme-color);"
-							onclick={() => themeState.closePicker()}
-							title="Open interactive Theme & Aura Studio"
-						>
-							🎨 Studio
-						</a>
-					{/if}
-
 					<button
 						type="button"
-						class="theme-icon-btn"
+						class="is-icon"
+						class:active={currentView === 'aura'}
+						onclick={() => (currentView = 'aura')}
+						title="Explore 203 atmospheric aura gradients"
+					>
+						<AuraIcon/>
+						Auras
+					</button>
+				</div>
+				<div class="row gap8 ycenter">
+			<div class="row ycenter gap8">
+				<button
+					type="button"
+					class="is-icon"
+					onclick={() => themeState.resetDefault()}
+					title="Set default theme (.theme-light-default)"
+				>
+					<Undo/>
+				</button>
+				<button
+					type="button"
+					class="is-icon"
+					onclick={() => themeState.cycleRandom()}
+					title="Pick a random theme"
+				>
+					<Random/>
+				</button>
+			</div>
+					<button
+						type="button"
+						class="is-icon"
 						aria-label="Close theme menu"
 						onclick={() => themeState.closePicker()}
 					>
@@ -250,7 +258,6 @@
 					</button>
 				</div>
 			</div>
-
 			<!-- Secondary Sub-Filter Row: Only for Plain Themes -->
 			{#if currentView === 'plain'}
 				<div class="theme-tabs" style="display: flex; justify-content: space-between; align-items: center;">
@@ -300,7 +307,6 @@
 					</button>
 				</div>
 			{/if}
-
 			<!-- Search Bar -->
 			<div class="theme-search-bar">
 				<input
@@ -310,23 +316,11 @@
 					bind:value={searchFilter}
 				/>
 			</div>
+				</div>
 
 			<!-- Card Grids -->
 			<div class="theme-grid-container">
 				{#if currentView === 'plain'}
-					{#if themeSubFilter === 'custom'}
-						<button
-							type="button"
-							class="theme-card"
-							style="border-style: dashed; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-height: 110px; background: var(--bg-surface);"
-							onclick={() => (showStudioModal = true)}
-							title="Open Studio to create and save custom themes"
-						>
-							<span style="font-size: 24px;">➕</span>
-							<span style="font-size: 11px; font-weight: 600; color: var(--theme-color);">New in Studio</span>
-						</button>
-					{/if}
-
 					{#each filteredThemes as theme (theme.id)}
 						<div
 							class="theme-card"
@@ -465,36 +459,6 @@
 			</div>
 
 			<!-- Popover Footer -->
-			<div class="theme-popover-footer">
-				<button
-					type="button"
-					class="theme-footer-btn"
-					onclick={() => (showStudioModal = true)}
-					title="Open Theme Studio & Gradient Generator"
-				>
-					🎨 Studio
-				</button>
-				<button
-					type="button"
-					class="is-icon"
-					onclick={() => themeState.resetDefault()}
-					title="Set default theme (.theme-light-default)"
-				>
-					Reset
-				</button>
-				<button
-					type="button"
-					class="is-icon"
-					onclick={() => themeState.cycleRandom()}
-					title="Pick a random theme"
-				>
-					🎲 Random
-				</button>
-			</div>
 		</div>
-	{/if}
-
-	{#if showStudioModal}
-		<ThemeStudio open={showStudioModal} onClose={() => (showStudioModal = false)} />
 	{/if}
 </div>

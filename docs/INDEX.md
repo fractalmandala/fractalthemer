@@ -2,7 +2,7 @@
 id: docs-index
 title: Fractal Themer Documentation Index
 type: design
-tags: [theming, svelte5, auras, dark-mode, tokens, documentation]
+tags: [theming, svelte5, auras, dark-mode, tokens, documentation, patterns]
 summary: Central navigation manifest and architecture map for the fractalthemer Svelte 5 theming system.
 relates_to: [architecture-overview, theme-picker-component, theme-catalog]
 updated: 2026-08-16
@@ -10,7 +10,7 @@ updated: 2026-08-16
 
 # Fractal Themer Documentation
 
-`fractalthemer` is a standalone, drop-in theming and atmospheric aura engine for Svelte 5 and SvelteKit. It provides full control over binary light/dark modes, 42 curated tiered color palettes, GPU-accelerated gradient blend layers, and a responsive 100vh right off-canvas drawer.
+`fractalthemer` is an ultra-light, drop-in theming and atmospheric background engine for Svelte 5 and SvelteKit. It provides full control over binary light/dark modes, 42 curated tiered color palettes, 203 GPU-accelerated gradient auras, 257 vector-grade CSS patterns, and a responsive right off-canvas drawer with strict background isolation.
 
 ---
 
@@ -22,23 +22,22 @@ updated: 2026-08-16
 - [**Tokens & CSS Contract**](./architecture/03-tokens-and-css-contract.md): Utopia fluid type/space scales, elevation surfaces, and semantic custom properties.
 
 ### 🧩 Components Reference
-- [**ThemeStudio.svelte**](./components/ThemeStudio.md): Full-screen theme creation studio with 21 gradient engines and multi-target export.
-- [**PaletteGenerator.svelte**](./components/PaletteGenerator.md): 9-column semantic theme palette generator with per-color locking and live contrast ratios.
-- [**ThemePicker.svelte**](./components/ThemePicker.md): Complete functional logic for the 100vh right off-canvas drawer, responsive breakpoints (360px / 180px), tabs, and backdrop.
-- [**AuraBackground.svelte**](./components/AuraBackground.md): Multi-layer GPU blend shader rendering, CSS filters, and blend mode mechanics.
+- [**ThemePicker.svelte**](./components/ThemePicker.md): Complete functional logic for the unified 1-system right off-canvas drawer (Plain, Aura, Gradient, Pattern).
+- [**AuraBackground.svelte**](./components/AuraBackground.md): Multi-layer GPU blend shader rendering, CSS patterns, and background isolation mechanics.
 - [**ThemeToggle.svelte**](./components/ThemeToggle.md): Standalone compact Sun/Moon mode switcher component.
 - [**ThemeScript.svelte**](./components/ThemeScript.md): Head script injector preventing Flash of Unstyled Content (FOUC) on SSR.
 
 ### 📖 Integration & How-To Guides
 - [**Quickstart Guide**](./guides/01-quickstart.md): Step-by-step setup in any new or existing SvelteKit project.
 - [**Zero-Flicker SSR Guide**](./guides/02-anti-flicker-guide.md): How storage synchronization and inline `<script>` initialization prevent theme flashing.
-- [**Custom Themes & Studio Guide**](./guides/03-custom-themes.md): Runtime token overriding, custom aura layers, and `localStorage` persistence.
-- [**Responsive Drawer Layout**](./guides/04-responsive-drawer.md): Mobile drawer ergonomics, touch scrolling, and 180px vs 360px viewport behavior.
+- [**Custom Themes Guide**](./guides/03-custom-themes.md): Runtime token overriding, custom aura layers, and `localStorage` persistence.
+- [**Responsive Drawer Layout**](./guides/04-responsive-drawer.md): Mobile drawer ergonomics, touch scrolling, and responsive viewport behavior.
+- [**API & Conditional Rendering Guide**](./guides/05-api-guide.md): `{#if themeState.isDark}` templates and component recipes.
 
-### 🎨 Palettes & Shaders
+### 🎨 Palettes & Backgrounds
 - [**Theme Catalog (42 Themes)**](./themes/01-theme-catalog.md): Complete index of all 21 Light and 21 Dark curated themes with swatch values and descriptions.
-- [**Auras Catalog**](./themes/02-auras-catalog.md): Complete listing of atmospheric gradient blend presets, node coordinates, and blend modes.
-- [**Gradients Catalog (180+ Presets)**](./themes/03-gradients-catalog.md): Comprehensive catalog of 180+ curated vibrant gradient presets and background samplers.
+- [**Auras Catalog (203 Presets)**](./themes/02-auras-catalog.md): Listing of atmospheric gradient blend presets and blend modes.
+- [**Gradients Catalog**](./themes/03-gradients-catalog.md): Comprehensive catalog of curated vibrant gradient presets.
 
 ---
 
@@ -49,12 +48,13 @@ updated: 2026-08-16
 | Main Entrypoint | [`src/lib/index.ts`](../src/lib/index.ts) | Public API exports |
 | State Manager | [`src/lib/state/theme.svelte.ts`](../src/lib/state/theme.svelte.ts) | Svelte 5 reactive singleton |
 | Theme Drawer | [`src/lib/components/ThemePicker.svelte`](../src/lib/components/ThemePicker.svelte) | Off-canvas drawer component |
-| Aura Backdrop | [`src/lib/components/AuraBackground.svelte`](../src/lib/components/AuraBackground.svelte) | Ambient gradient renderer |
+| Aura Backdrop | [`src/lib/components/AuraBackground.svelte`](../src/lib/components/AuraBackground.svelte) | Ambient background renderer |
 | Mode Toggle | [`src/lib/components/ThemeToggle.svelte`](../src/lib/components/ThemeToggle.svelte) | Quick Sun/Moon toggle |
 | Master Styles | [`src/lib/styles/index.sass`](../src/lib/styles/index.sass) | SASS root bundle |
 | Tokens Sass | [`src/lib/styles/_tokens.sass`](../src/lib/styles/_tokens.sass) | CSS custom properties & fluid scales |
 | Themes Sass | [`src/lib/styles/_themes.sass`](../src/lib/styles/_themes.sass) | 42 theme definitions |
-| Auras Sass | [`src/lib/styles/_auras.sass`](../src/lib/styles/_auras.sass) | GPU blend layer styles |
+| Auras Sass | [`src/lib/styles/_auras.sass`](../src/lib/styles/_auras.sass) | GPU blend layer & pattern styles |
 | Drawer Sass | [`src/lib/styles/_theme-picker.sass`](../src/lib/styles/_theme-picker.sass) | Drawer layout & animations |
 | Theme Data | [`src/lib/data/themes.ts`](../src/lib/data/themes.ts) | Metadata and token maps |
+| Pattern Data | [`src/lib/data/patterns.ts`](../src/lib/data/patterns.ts) | 257 CSS pattern definitions |
 | Anti-Flicker | [`src/lib/utils/anti-flicker.ts`](../src/lib/utils/anti-flicker.ts) | Zero-dependency SSR script builder |

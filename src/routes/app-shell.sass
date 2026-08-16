@@ -12,6 +12,9 @@ button.is-icon
 	border: none
 	background: transparent
 	color: var(--text-primary)
+	display: flex
+	gap: 4px
+	align-items: center
 	svg
 		width: 20px
 		height: 20px
@@ -31,10 +34,14 @@ button.is-icon
 		&:hover
 			color: var(--theme-color)
 
+.themer-main
+	padding-inline: 16px
+
 .row
 	display: flex
 	flex-direction: row
 	align-items: center
+	flex-wrap: wrap
 	&.is-card
 		padding: 16px
 		border: 1px solid var(--border)
