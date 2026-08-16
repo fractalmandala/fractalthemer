@@ -1,0 +1,146 @@
+@use 'tokens'
+@use 'base'
+
+// ── Flex View ─────────────────────────────────────
+.flex-view
+  display: flex
+  flex-direction: column
+  height: 100%
+
+.flex-canvas-wrap
+  flex: 1
+  overflow: hidden
+  position: relative
+  display: flex
+  align-items: center
+  justify-content: center
+  background: oklch(15% 0.01 255)
+
+.flex-preview
+  width: 600px
+  min-height: 360px
+  display: flex
+  padding: 16px
+  background: var(--surface)
+  border: 1px solid var(--border)
+  border-radius: var(--radius-lg)
+  gap: 8px
+  transition: all 0.2s ease
+
+.flex-item
+  border-radius: var(--radius-md)
+  display: flex
+  align-items: center
+  justify-content: center
+  font-size: 11px
+  font-weight: 600
+  font-family: var(--font-mono)
+  color: oklch(98% 0 0)
+  min-width: 60px
+  min-height: 40px
+  transition: all 0.2s ease
+
+.fi-1
+  background: oklch(58% 0.18 255)
+  flex: 1
+
+.fi-2
+  background: oklch(60% 0.16 170)
+  flex: 2
+
+.fi-3
+  background: oklch(62% 0.15 300)
+  flex: 1
+
+.fi-4
+  background: oklch(55% 0.14 50)
+
+// ── Flex Controls ─────────────────────────────────
+.flex-controls
+  background: var(--bg-subtle)
+  border-top: 1px solid var(--border-subtle)
+  padding: 12px 16px
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr))
+  gap: 12px
+
+.flex-control-group label
+  display: block
+  @include base.section-heading
+  margin-bottom: 4px
+
+.flex-control-group select
+  width: 100%
+  height: 28px
+  background: var(--surface)
+  border: 1px solid var(--border-subtle)
+  border-radius: var(--radius-sm)
+  color: var(--fg)
+  font-size: 11px
+  padding: 0 8px
+  cursor: pointer
+  appearance: none
+
+  &:focus
+    outline: none
+    border-color: var(--accent)
+
+// ── Button Group ──────────────────────────────────
+.flex-btn-group
+  display: flex
+  gap: 2px
+
+.flex-btn
+  flex: 1
+  height: 26px
+  display: flex
+  align-items: center
+  justify-content: center
+  background: var(--surface)
+  border: 1px solid var(--border-subtle)
+  color: var(--fg-secondary)
+  font-size: 10px
+  cursor: pointer
+  transition: all 0.1s
+
+  &:first-child
+    border-radius: 3px 0 0 3px
+
+  &:last-child
+    border-radius: 0 3px 3px 0
+
+  &.active
+    background: var(--accent-dim)
+    color: var(--accent)
+    border-color: var(--accent)
+
+  &:hover:not(.active)
+    background: var(--surface-hover)
+    color: var(--fg)
+
+  svg
+    width: 12px
+    height: 12px
+
+// ── Flex CSS Output ───────────────────────────────
+.flex-css-output
+  background: var(--bg)
+  border-top: 1px solid var(--border-subtle)
+  padding: 12px 16px
+  max-height: 120px
+  overflow-y: auto
+
+  pre
+    font-family: var(--font-mono)
+    font-size: 11px
+    color: var(--fg-secondary)
+    line-height: 1.6
+
+  .css-prop
+    color: oklch(65% 0.12 180)
+
+  .css-val
+    color: var(--accent)
+
+  .css-sel
+    color: oklch(65% 0.14 65)

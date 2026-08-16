@@ -19,15 +19,17 @@
 
 	<div class="timeline-track">
 		{#each studioState.recipe.pins as pin (pin.id)}
-			<div
+			<button
+				type="button"
 				class="timeline-segment"
 				class:active={studioState.activePinId === pin.id}
 				style="flex: {pin.radius}; background-color: {pin.color};"
 				onclick={() => selectPin(pin)}
 				title="Select {pin.color} (Radius: {pin.radius}%)"
+				aria-label="Select color {pin.color}"
 			>
 				<span class="timeline-segment-dot" style="background-color: {pin.color};"></span>
-			</div>
+			</button>
 		{/each}
 	</div>
 </div>

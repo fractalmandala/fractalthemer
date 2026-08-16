@@ -1,0 +1,227 @@
+@use 'tokens'
+@use 'base'
+
+// ── Motion View ───────────────────────────────────
+.motion-view
+  display: flex
+  flex-direction: column
+  height: 100%
+
+.motion-canvas-wrap
+  flex: 1
+  overflow: hidden
+  position: relative
+  @include base.view-checkerboard
+
+.motion-preview-box
+  position: absolute
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+  width: 120px
+  height: 120px
+  background: var(--accent)
+  border-radius: 12px
+  box-shadow: 0 4px 20px oklch(58% 0.18 255 / 0.3)
+
+  &.animating
+    animation: motionPulse 2s ease-in-out infinite
+
+@keyframes motionPulse
+  0%, 100%
+    transform: translate(-50%, -50%) scale(1) rotate(0deg)
+  25%
+    transform: translate(-50%, -50%) scale(1.1) rotate(5deg)
+  50%
+    transform: translate(-50%, -50%) scale(0.95) rotate(-3deg)
+  75%
+    transform: translate(-50%, -50%) scale(1.05) rotate(2deg)
+
+// ── Timeline ──────────────────────────────────────
+.timeline
+  height: var(--timeline-h)
+  background: var(--bg-subtle)
+  border-top: 1px solid var(--border-subtle)
+  display: flex
+  flex-direction: column
+
+.timeline-controls
+  display: flex
+  align-items: center
+  padding: 6px 12px
+  gap: 6px
+  border-bottom: 1px solid var(--border-subtle)
+
+.timeline-btn
+  width: 24px
+  height: 24px
+  display: flex
+  align-items: center
+  justify-content: center
+  border-radius: var(--radius-sm)
+  border: none
+  background: transparent
+  color: var(--fg-secondary)
+  cursor: pointer
+  transition: all 0.1s
+
+  &:hover
+    color: var(--fg)
+    background: var(--surface-hover)
+
+  &.play-btn
+    color: var(--accent)
+
+    &:hover
+      background: var(--accent-dim)
+
+  svg
+    width: 14px
+    height: 14px
+
+.timeline-time
+  font-size: 11px
+  color: var(--fg-muted)
+  font-family: var(--font-mono)
+  font-variant-numeric: tabular-nums
+  padding: 0 8px
+  min-width: 60px
+
+.timeline-duration
+  font-size: 10px
+  color: var(--fg-muted)
+  margin-left: auto
+
+.timeline-scrubber
+  flex: 1
+  position: relative
+  overflow: hidden
+  padding: 0 12px
+
+.timeline-ruler
+  height: 20px
+  display: flex
+  align-items: flex-end
+  position: relative
+  margin-bottom: 4px
+
+.timeline-ruler-mark
+  position: absolute
+  font-size: 9px
+  color: var(--fg-muted)
+  font-family: var(--font-mono)
+  font-variant-numeric: tabular-nums
+
+  &::after
+    content: ''
+    position: absolute
+    bottom: -2px
+    left: 50%
+    width: 1px
+    height: 4px
+    background: var(--border)
+
+  &.major::after
+    height: 6px
+    background: var(--fg-muted)
+
+.timeline-playhead
+  position: absolute
+  top: 0
+  bottom: 0
+  width: 1px
+  background: var(--accent)
+  z-index: 10
+  left: 60px
+
+  &::before
+    content: ''
+    position: absolute
+    top: 0
+    left: -4px
+    width: 9px
+    height: 8px
+    background: var(--accent)
+    clip-path: polygon(0 0, 100% 0, 50% 100%)
+
+// ── Timeline Tracks ───────────────────────────────
+.timeline-tracks
+  flex: 1
+  overflow-y: auto
+  position: relative
+
+.timeline-track
+  display: flex
+  align-items: center
+  height: 28px
+  border-bottom: 1px solid var(--border-subtle)
+
+.timeline-track-label
+  width: 120px
+  padding: 0 12px
+  font-size: 11px
+  color: var(--fg-secondary)
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+  flex-shrink: 0
+  border-right: 1px solid var(--border-subtle)
+  display: flex
+  align-items: center
+  gap: 6px
+  height: 100%
+
+  svg
+    width: 12px
+    height: 12px
+    color: var(--fg-muted)
+    flex-shrink: 0
+
+.timeline-track-content
+  flex: 1
+  position: relative
+  height: 100%
+  display: flex
+  align-items: center
+  padding: 0 4px
+
+// ── Keyframe Bars & Dots ──────────────────────────
+.timeline-keyframe-bar
+  height: 16px
+  border-radius: 3px
+  position: absolute
+  cursor: pointer
+
+.kf-blue
+  background: oklch(55% 0.15 255 / 0.6)
+  border: 1px solid oklch(55% 0.15 255)
+
+.kf-green
+  background: oklch(55% 0.14 155 / 0.6)
+  border: 1px solid oklch(55% 0.14 155)
+
+.kf-orange
+  background: oklch(60% 0.14 65 / 0.6)
+  border: 1px solid oklch(60% 0.14 65)
+
+.kf-purple
+  background: oklch(50% 0.14 305 / 0.6)
+  border: 1px solid oklch(50% 0.14 305)
+
+.timeline-keyframe-dot
+  width: 8px
+  height: 8px
+  border-radius: 50%
+  position: absolute
+  cursor: pointer
+  border: 1.5px solid
+  top: 50%
+  transform: translate(-50%, -50%)
+
+.kf-dot-blue
+  background: oklch(65% 0.19 255)
+  border-color: oklch(65% 0.19 255)
+
+.kf-dot-green
+  background: oklch(68% 0.17 155)
+  border-color: oklch(68% 0.17 155)

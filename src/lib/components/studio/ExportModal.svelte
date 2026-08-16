@@ -60,7 +60,7 @@
 </script>
 
 <div class="export-backdrop" role="presentation" onclick={onClose} onkeydown={(e) => e.key === 'Escape' && onClose()}>
-	<div class="export-modal" role="dialog" aria-modal="true" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()}>
+	<div class="export-modal" role="dialog" aria-modal="true" tabindex="-1" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()}>
 		<div class="export-header">
 			<h3>Export Blend: {studioState.recipe.title}</h3>
 			<button type="button" class="export-close-btn" onclick={onClose}>✕</button>

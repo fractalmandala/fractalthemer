@@ -280,8 +280,20 @@
 
 	<!-- Save Custom Theme Modal -->
 	{#if showSaveModal}
-		<div class="export-backdrop" role="presentation" onclick={() => (showSaveModal = false)}>
-			<div class="export-modal" role="dialog" aria-modal="true" tabindex="-1" onclick={(e) => e.stopPropagation()}>
+		<div
+			class="export-backdrop"
+			role="presentation"
+			onclick={() => (showSaveModal = false)}
+			onkeydown={(e) => e.key === 'Escape' && (showSaveModal = false)}
+		>
+			<div
+				class="export-modal"
+				role="dialog"
+				aria-modal="true"
+				tabindex="-1"
+				onclick={(e) => e.stopPropagation()}
+				onkeydown={(e) => e.stopPropagation()}
+			>
 				<div class="export-header">
 					<h3>Save Custom Theme</h3>
 					<button type="button" class="export-close-btn" onclick={() => (showSaveModal = false)}>✕</button>
@@ -296,7 +308,6 @@
 							placeholder="e.g. Amber Velvet, Sunset Violet..."
 							class="palette-hex-input"
 							style="width: 100%; margin-top: 6px; text-transform: none;"
-							autofocus
 							onkeydown={(e) => e.key === 'Enter' && saveAndApplyTheme()}
 						/>
 					</label>

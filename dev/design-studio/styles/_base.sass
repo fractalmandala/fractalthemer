@@ -1,0 +1,86 @@
+// ── Base Reset ────────────────────────────────────
+*
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+
+html, body
+  height: 100%
+  overflow: hidden
+
+body
+  font-family: var(--font-body)
+  font-size: 12px
+  color: var(--fg)
+  background: var(--bg)
+  -webkit-font-smoothing: antialiased
+  font-variant-numeric: tabular-nums
+
+// ── Scrollbar ─────────────────────────────────────
+::-webkit-scrollbar
+  width: 6px
+  height: 6px
+
+::-webkit-scrollbar-track
+  background: transparent
+
+::-webkit-scrollbar-thumb
+  background: var(--border)
+  border-radius: 3px
+
+  &:hover
+    background: var(--fg-muted)
+
+// ── Shared Utilities ──────────────────────────────
+=view-checkerboard($size: 20px, $color: oklch(18% 0.012 255 / 0.5), $bg: oklch(15% 0.01 255))
+  background:
+    linear-gradient(45deg, $color 25%, transparent 25%),
+    linear-gradient(-45deg, $color 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, $color 75%),
+    linear-gradient(-45deg, transparent 75%, $color 75%)
+  background-size: $size $size
+  background-position: 0 0, 0 #{$size / 2}, #{$size / 2} -#{$size / 2}, -#{$size / 2} 0
+  background-color: $bg
+
+=section-heading
+  font-size: 10px
+  font-weight: 600
+  text-transform: uppercase
+  letter-spacing: 0.06em
+  color: var(--fg-muted)
+
+=input-field($h: 24px)
+  height: $h
+  background: var(--surface)
+  border: 1px solid var(--border-subtle)
+  border-radius: 3px
+  color: var(--fg)
+  font-size: 11px
+  font-family: var(--font-mono)
+  padding: 0 6px
+  font-variant-numeric: tabular-nums
+
+  &:focus
+    outline: none
+    border-color: var(--accent)
+
+=btn-icon($size: 20px)
+  width: $size
+  height: $size
+  display: flex
+  align-items: center
+  justify-content: center
+  border-radius: 3px
+  border: none
+  background: transparent
+  color: var(--fg-muted)
+  cursor: pointer
+  transition: all 0.1s
+
+  &:hover
+    color: var(--fg)
+    background: var(--surface-hover)
+
+  svg
+    width: 14px
+    height: 14px

@@ -82,6 +82,7 @@
 	});
 </script>
 
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
 	class="gradient-canvas-viewport {className}"
 	bind:this={containerEl}
@@ -134,6 +135,7 @@
 	{#if !studioState.hideTags && !studioState.previewMode}
 		<div class="canvas-pins-layer">
 			{#each studioState.recipe.pins as pin (pin.id)}
+				<!-- svelte-ignore a11y_no_static_element_interactions -->
 				<div
 					class="canvas-pin"
 					class:active={studioState.activePinId === pin.id}
@@ -147,6 +149,7 @@
 					></div>
 
 					<!-- Outer Reach Ring -->
+					<!-- svelte-ignore a11y_no_static_element_interactions -->
 					<div
 						class="canvas-pin-ring"
 						style="width: {pin.radius * 2.2}px; height: {pin.radius * 2.2}px;"

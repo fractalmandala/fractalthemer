@@ -1,0 +1,128 @@
+@use 'tokens'
+@use 'base'
+
+// ── Design View ───────────────────────────────────
+.design-canvas .canvas-artboard
+  width: 440px
+  height: 320px
+
+.design-element
+  position: absolute
+  border: 1px solid transparent
+  cursor: move
+  transition: border-color 0.1s
+
+  &:hover
+    border-color: var(--accent)
+
+  &.selected
+    border-color: var(--accent)
+
+.design-rect
+  border-radius: 6px
+
+.design-text
+  font-size: 14px
+  color: var(--fg)
+  padding: 4px 8px
+  border: 1px solid transparent
+  white-space: nowrap
+
+  &.heading
+    font-size: 22px
+    font-weight: 600
+    letter-spacing: -0.02em
+    color: var(--fg)
+
+  &.subtext
+    font-size: 12px
+    color: var(--fg-secondary)
+
+.design-btn
+  display: flex
+  align-items: center
+  justify-content: center
+  padding: 8px 16px
+  border-radius: var(--radius-md)
+  font-size: 12px
+  font-weight: 600
+  color: oklch(98% 0 0)
+  background: var(--accent)
+  letter-spacing: 0.02em
+  cursor: pointer
+
+.design-btn-secondary
+  background: var(--surface)
+  color: var(--fg-secondary)
+  border: 1px solid var(--border)
+
+.design-img-placeholder
+  background: var(--surface-hover)
+  border-radius: var(--radius-md)
+  display: flex
+  align-items: center
+  justify-content: center
+  color: var(--fg-muted)
+
+  svg
+    width: 24px
+    height: 24px
+    opacity: 0.4
+
+// ── Selection Handles ─────────────────────────────
+.selection-handles
+  position: absolute
+  inset: -1px
+  pointer-events: none
+
+.selection-handle
+  position: absolute
+  width: 6px
+  height: 6px
+  background: oklch(98% 0 0)
+  border: 1.5px solid var(--accent)
+  border-radius: 1px
+
+  &.tl
+    top: -3px
+    left: -3px
+    cursor: nwse-resize
+
+  &.tr
+    top: -3px
+    right: -3px
+    cursor: nesw-resize
+
+  &.bl
+    bottom: -3px
+    left: -3px
+    cursor: nesw-resize
+
+  &.br
+    bottom: -3px
+    right: -3px
+    cursor: nwse-resize
+
+  &.tm
+    top: -3px
+    left: 50%
+    transform: translateX(-50%)
+    cursor: ns-resize
+
+  &.bm
+    bottom: -3px
+    left: 50%
+    transform: translateX(-50%)
+    cursor: ns-resize
+
+  &.ml
+    top: 50%
+    left: -3px
+    transform: translateY(-50%)
+    cursor: ew-resize
+
+  &.mr
+    top: 50%
+    right: -3px
+    transform: translateY(-50%)
+    cursor: ew-resize

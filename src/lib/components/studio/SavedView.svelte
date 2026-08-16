@@ -36,6 +36,7 @@
 					<button
 						type="button"
 						style="background: transparent; border: none; padding: 0; width: 100%; text-align: left; cursor: pointer;"
+						aria-label="Load recipe {recipe.title}"
 						onclick={() => loadRecipe(recipe)}
 					>
 						<div
@@ -49,6 +50,7 @@
 							type="button"
 							class="engine-type-chip"
 							style="padding: 2px 6px; font-size: 10px;"
+							aria-label="Delete recipe {recipe.title}"
 							onclick={() => studioState.deleteSavedRecipe(recipe.id)}
 						>
 							✕
