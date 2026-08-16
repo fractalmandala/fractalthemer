@@ -18,7 +18,7 @@
 		{ id: 'forms', label: 'Forms (24)', engines: ['forms'] }
 	] as const;
 
-	function selectEngine(category: 'fields' | 'stripes' | 'objects', engine: string) {
+	function selectEngine(category: 'fields' | 'stripes' | 'objects' | 'forms', engine: string) {
 		studioState.setEngine(engine, category);
 	}
 
@@ -38,12 +38,7 @@
 					class="engine-type-chip"
 					class:active={studioState.activeCategory === cat.id}
 					onclick={() => {
-						studioState.activeCategory = cat.id as any;
-						if (cat.id === 'forms') {
-							studioState.setEngine('forms', 'objects');
-						} else {
-							studioState.setEngine(cat.engines[0], cat.id as any);
-						}
+						selectEngine(cat.id as any, cat.engines[0]);
 					}}
 				>
 					{cat.label}

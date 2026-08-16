@@ -127,7 +127,7 @@ class StudioState {
 		this.activeView = 'studio';
 	}
 
-	setEngine(engineType: string, category: 'fields' | 'stripes' | 'objects') {
+	setEngine(engineType: string, category: 'fields' | 'stripes' | 'objects' | 'forms') {
 		this.recipe.engineType = engineType;
 		this.recipe.category = category;
 		this.activeCategory = category;
