@@ -267,6 +267,30 @@
 	border-radius: 9999px
 	flex-shrink: 0
 
+.theme-card-delete-btn
+	position: absolute
+	top: 4px
+	right: 4px
+	width: 18px
+	height: 18px
+	border-radius: 9999px
+	border: none
+	background: rgba(0, 0, 0, 0.4)
+	color: #FFFFFF
+	font-size: 9px
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	cursor: pointer
+	opacity: 0
+	transition: opacity 0.15s ease, background 0.15s ease
+	z-index: 5
+	&:hover
+		background: #E63946
+
+.theme-card:hover .theme-card-delete-btn
+	opacity: 1
+
 .theme-popover-footer
 	position: sticky
 	bottom: 0

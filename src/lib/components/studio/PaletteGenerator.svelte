@@ -84,12 +84,34 @@
 		updatePalette(baseColor, harmonyMode);
 	}
 
-	function applyTheme() {
+	let showSaveModal = $state(false);
+	let customThemeName = $state('Custom Theme');
+	let toastMessage = $state<string | null>(null);
+	let toastTimeout: any;
+
+	function showToast(msg: string) {
+		toastMessage = msg;
+		if (toastTimeout) clearTimeout(toastTimeout);
+		toastTimeout = setTimeout(() => {
+			toastMessage = null;
+		}, 2500);
+	}
+
+	function saveAndApplyTheme() {
 		const tokenMap: Record<string, string> = {};
 		columns.forEach(col => {
 			tokenMap[col.token.replace(/^--/, '')] = col.hex;
 		});
-		themeState.setCustomTokens(tokenMap);
+
+		const name = customThemeName.trim() || 'Custom Palette';
+		const theme = themeState.saveCustomTheme({
+			name,
+			mode: isDark ? 'dark' : 'light',
+			tokens: tokenMap
+		});
+
+		showSaveModal = false;
+		showToast(`Saved and applied "${theme.name}"!`);
 		if (onApply) {
 			onApply(columns);
 		}
@@ -172,11 +194,18 @@
 			<button type="button" class="palette-btn" onclick={reset} title="Reset palette">
 				↺ Reset
 			</button>
-			<button type="button" class="palette-btn palette-btn-primary" onclick={applyTheme} title="Apply to active theme">
-				✦ Apply Theme
+			<button type="button" class="palette-btn palette-btn-primary" onclick={() => (showSaveModal = true)} title="Save as persistent custom theme and apply">
+				✦ Save as Theme
 			</button>
 		</div>
 	</div>
+
+	<!-- Toast Notification Banner -->
+	{#if toastMessage}
+		<div class="palette-toast-banner" role="status">
+			<span>{toastMessage}</span>
+		</div>
+	{/if}
 
 	<!-- 9-Column Spectrum Grid -->
 	<div class="palette-columns-grid">
@@ -247,4 +276,43 @@
 		</div>
 		<pre class="palette-code-content"><code>{formattedCode}</code></pre>
 	</div>
+
+	<!-- Save Custom Theme Modal -->
+	{#if showSaveModal}
+		<div class="export-backdrop" role="presentation" onclick={() => (showSaveModal = false)}>
+			<div class="export-modal" role="dialog" aria-modal="true" tabindex="-1" onclick={(e) => e.stopPropagation()}>
+				<div class="export-header">
+					<h3>Save Custom Theme</h3>
+					<button type="button" class="export-close-btn" onclick={() => (showSaveModal = false)}>✕</button>
+				</div>
+
+				<div style="padding: 16px 0; display: flex; flex-direction: column; gap: 12px;">
+					<label style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">
+						Theme Name
+						<input
+							type="text"
+							bind:value={customThemeName}
+							placeholder="e.g. Amber Velvet, Sunset Violet..."
+							class="palette-hex-input"
+							style="width: 100%; margin-top: 6px; text-transform: none;"
+							autofocus
+							onkeydown={(e) => e.key === 'Enter' && saveAndApplyTheme()}
+						/>
+					</label>
+					<p style="font-size: 11px; color: var(--text-muted); margin: 0;">
+						This will save your custom 9-token color palette to your persistent themes and make it selectable in the Theme Drawer.
+					</p>
+				</div>
+
+				<div class="export-footer">
+					<button type="button" class="engine-type-chip" onclick={() => (showSaveModal = false)}>
+						Cancel
+					</button>
+					<button type="button" class="engine-type-chip active" onclick={saveAndApplyTheme}>
+						✦ Save & Apply
+					</button>
+				</div>
+			</div>
+		</div>
+	{/if}
 </div>

@@ -8,6 +8,7 @@
 	import Moon from '../icons/Moon.svelte';
 	import Palette from '../icons/Palette.svelte';
 	import Close from '../icons/Close.svelte';
+	import { studioState } from '../state/studio.svelte.js';
 	import ThemeStudio from './studio/ThemeStudio.svelte';
 
 	interface Props {
@@ -263,18 +264,16 @@
 						class:active={activeTab === 'gradients'}
 						onclick={() => (activeTab = 'gradients')}
 					>
-						🌈 Gradients ({GRADIENT_PRESETS.length})
+						🌈 Gradients ({GRADIENT_PRESETS.length + studioState.savedRecipes.length})
 					</button>
-					{#if themeState.customThemes.length > 0}
-						<button
-							type="button"
-							class="theme-tab-btn"
-							class:active={activeTab === 'custom'}
-							onclick={() => (activeTab = 'custom')}
-						>
-							Custom ({themeState.customThemes.length})
-						</button>
-					{/if}
+					<button
+						type="button"
+						class="theme-tab-btn"
+						class:active={activeTab === 'custom'}
+						onclick={() => (activeTab = 'custom')}
+					>
+						Custom ({themeState.customThemes.length})
+					</button>
 				</div>
 
 				<button
@@ -372,16 +371,50 @@
 						</button>
 					{/each}
 				{:else}
-					{#each filteredThemes as theme (theme.id)}
+					{#if activeTab === 'custom'}
 						<button
 							type="button"
 							class="theme-card"
+							style="border-style: dashed; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-height: 110px; background: var(--bg-surface);"
+							onclick={() => (showStudioModal = true)}
+							title="Open Studio to create and save custom themes and gradients"
+						>
+							<span style="font-size: 24px;">➕</span>
+							<span style="font-size: 11px; font-weight: 600; color: var(--theme-color);">New in Studio</span>
+						</button>
+					{/if}
+
+					{#each filteredThemes as theme (theme.id)}
+						<div
+							class="theme-card"
 							class:active={themeState.current === theme.id}
+							role="button"
+							tabindex="0"
 							title="{theme.name} — {theme.description} (Aura: {theme.auraName})"
 							onclick={() => {
 								themeState.setTheme(theme.id);
 							}}
+							onkeydown={(e) => {
+								if (e.key === 'Enter' || e.key === ' ') {
+									e.preventDefault();
+									themeState.setTheme(theme.id);
+								}
+							}}
 						>
+							{#if theme.isCustom}
+								<button
+									type="button"
+									class="theme-card-delete-btn"
+									title="Delete custom theme {theme.name}"
+									onclick={(e) => {
+										e.stopPropagation();
+										themeState.deleteCustomTheme(theme.id);
+									}}
+								>
+									✕
+								</button>
+							{/if}
+
 							<div class="theme-card-header">
 								<span class="theme-card-name">{theme.name}</span>
 								<span class="theme-card-badge">{theme.mode}</span>
@@ -396,9 +429,9 @@
 							</div>
 
 							<span class="theme-aura-tag">
-								✨ {theme.auraName}
+								{theme.isCustom ? '🎨 Custom' : `✨ ${theme.auraName}`}
 							</span>
-						</button>
+						</div>
 					{/each}
 				{/if}
 			</div>

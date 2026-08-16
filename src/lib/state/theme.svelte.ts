@@ -260,7 +260,11 @@ export class ThemeState {
 		tokens: Record<string, string>;
 		aura?: { id: string; name: string; description: string; layers: AuraLayer[] };
 	}): ThemeInfo {
-		const id = custom.id || ('custom-' + Date.now().toString(36));
+		const existingIdx = this.customThemes.findIndex(
+			(t) => t.name.trim().toLowerCase() === custom.name.trim().toLowerCase() || (custom.id && t.id === custom.id)
+		);
+		const id = existingIdx >= 0 ? this.customThemes[existingIdx].id : custom.id || ('custom-' + Date.now().toString(36));
+
 		const themeInfo: ThemeInfo = {
 			id,
 			name: custom.name,
@@ -277,7 +281,6 @@ export class ThemeState {
 			customAura: custom.aura
 		};
 
-		const existingIdx = this.customThemes.findIndex((t) => t.id === id);
 		if (existingIdx >= 0) {
 			this.customThemes[existingIdx] = themeInfo;
 		} else {
@@ -287,6 +290,7 @@ export class ThemeState {
 		if (typeof window !== 'undefined') {
 			try {
 				localStorage.setItem('customThemes', JSON.stringify(this.customThemes));
+				localStorage.setItem('customTokens', JSON.stringify(custom.tokens));
 			} catch {}
 		}
 

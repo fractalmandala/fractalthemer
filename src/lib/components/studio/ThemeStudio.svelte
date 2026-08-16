@@ -40,6 +40,51 @@
 		showToast(result.status === 'updated' ? `Updated "${result.title}"!` : `Saved "${result.title}"!`);
 	}
 
+	function applyAsActiveTheme() {
+		const recipe = studioState.recipe;
+		const pins = recipe.pins;
+		const brandColor = pins[0]?.color || '#00B4D8';
+		const secondaryColor = pins[1]?.color || '#7209B7';
+		const isDark = themeState.isDark;
+
+		const tokens: Record<string, string> = {
+			'theme-color': brandColor,
+			'theme-color-alt': secondaryColor,
+			'bg': isDark ? '#0F172A' : '#FFFFFF',
+			'bg-surface': isDark ? '#1E293B' : '#F8FAFC',
+			'bg-raised': isDark ? '#334155' : '#F1F5F9',
+			'border': isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)',
+			'text-primary': isDark ? '#F8FAFC' : '#0F172A',
+			'text-secondary': isDark ? '#94A3B8' : '#64748B',
+			'text-muted': isDark ? '#64748B' : '#94A3B8'
+		};
+
+		themeState.saveCustomTheme({
+			name: recipe.title || 'Studio Blend',
+			mode: isDark ? 'dark' : 'light',
+			tokens,
+			aura: {
+				id: `blend-${Date.now()}`,
+				name: recipe.title,
+				description: `Atmospheric blend from ${recipe.engineType.toUpperCase()}`,
+				layers: pins.map((p, idx) => ({
+					background: `radial-gradient(circle at ${p.x}% ${p.y}%, ${p.color}, transparent 70%)`,
+					color: p.color,
+					size: p.radius * 6,
+					x: p.x,
+					y: p.y,
+					opacity: 0.8,
+					blur: Math.max(30, recipe.soften * 2),
+					blendMode: 'normal' as const,
+					animDuration: 18 + idx * 4,
+					animDelay: idx * 2
+				}))
+			}
+		});
+
+		showToast(`Theme "${recipe.title}" created & applied!`);
+	}
+
 	function share() {
 		const json = JSON.stringify(studioState.recipe);
 		const base64 = btoa(encodeURIComponent(json));
@@ -135,7 +180,10 @@
 					>
 						{studioState.previewMode ? 'Exit Preview' : '👁 Preview'}
 					</button>
-					<button type="button" class="engine-type-chip active" onclick={() => (showExportModal = true)}>
+					<button type="button" class="engine-type-chip active" onclick={applyAsActiveTheme} title="Save and apply as custom theme">
+						✦ Use in Theme
+					</button>
+					<button type="button" class="engine-type-chip" onclick={() => (showExportModal = true)}>
 						📦 Export
 					</button>
 				</div>
