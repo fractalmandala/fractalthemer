@@ -1,0 +1,10 @@
+/**
+ * Generates an inline, zero-dependency JavaScript string to be placed in the <head> of app.html
+ * to prevent Flash of Unstyled Content (FOUC) or mode flicker before Svelte hydrates.
+ */
+export function getAntiFlickerScript(
+	defaultTheme = 'theme-light-default',
+	defaultBgStyle = 'plain'
+): string {
+	return `(function(){try{var darkThemes=['theme-lagoona-dark','theme-frozen-dark','theme-night-dark','theme-inkworm-dark','theme-monochrono-dark','theme-fouram-dark','theme-wintercame-dark','theme-sun-dark','theme-console-dark','theme-dracula-dark','theme-catppuccin-mocha','theme-nord-dark','theme-gruvbox-dark','theme-onedark-pro','theme-rose-pine-dark','theme-midnight-emerald-dark','theme-obsidian-crimson-dark','theme-synthwave-dark','theme-deep-ocean-dark','theme-amethyst-void-dark'];var savedTheme=localStorage.getItem('theme')||'${defaultTheme}';var savedBgStyle=localStorage.getItem('bgStyle')||'${defaultBgStyle}';var isDark=darkThemes.indexOf(savedTheme)!==-1||savedTheme.indexOf('-dark')!==-1||savedTheme.indexOf('-mocha')!==-1;var mode=isDark?'dark':'light';var root=document.documentElement;root.className=savedTheme;root.setAttribute('data-theme',savedTheme);root.setAttribute('data-mode',mode);root.setAttribute('data-bg-style',savedBgStyle);root.style.colorScheme=mode;}catch(e){}})();`;
+}
