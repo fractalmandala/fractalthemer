@@ -22,6 +22,8 @@ updated: 2026-08-16
 - [**Tokens & CSS Contract**](./architecture/03-tokens-and-css-contract.md): Utopia fluid type/space scales, elevation surfaces, and semantic custom properties.
 
 ### 🧩 Components Reference
+- [**ThemeStudio.svelte**](./components/ThemeStudio.md): Full-screen theme creation studio with 21 gradient engines and multi-target export.
+- [**PaletteGenerator.svelte**](./components/PaletteGenerator.md): 9-column semantic theme palette generator with per-color locking and live contrast ratios.
 - [**ThemePicker.svelte**](./components/ThemePicker.md): Complete functional logic for the 100vh right off-canvas drawer, responsive breakpoints (360px / 180px), tabs, and backdrop.
 - [**AuraBackground.svelte**](./components/AuraBackground.md): Multi-layer GPU blend shader rendering, CSS filters, and blend mode mechanics.
 - [**ThemeToggle.svelte**](./components/ThemeToggle.md): Standalone compact Sun/Moon mode switcher component.

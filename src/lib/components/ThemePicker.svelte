@@ -8,6 +8,7 @@
 	import Moon from '../icons/Moon.svelte';
 	import Palette from '../icons/Palette.svelte';
 	import Close from '../icons/Close.svelte';
+	import ThemeStudio from './studio/ThemeStudio.svelte';
 
 	interface Props {
 		studioHref?: string;
@@ -27,6 +28,7 @@
 	let selectedAuraCategory = $state<string>('all');
 	let searchFilter = $state<string>('');
 	let pickerEl = $state<HTMLDivElement | null>(null);
+	let showStudioModal = $state<boolean>(false);
 
 	const AURA_CATEGORIES = ['all', 'aura', 'mesh', 'glass', 'grain', 'flux', 'nebula', 'lattice', 'prism'] as const;
 
@@ -406,10 +408,18 @@
 				<button
 					type="button"
 					class="theme-footer-btn"
+					onclick={() => (showStudioModal = true)}
+					title="Open Theme Studio & Gradient Generator"
+				>
+					🎨 Studio
+				</button>
+				<button
+					type="button"
+					class="theme-footer-btn"
 					onclick={() => themeState.resetDefault()}
 					title="Set default theme (.theme-light-default)"
 				>
-					Reset to Default
+					Reset
 				</button>
 				<button
 					type="button"
@@ -421,5 +431,9 @@
 				</button>
 			</div>
 		</div>
+	{/if}
+
+	{#if showStudioModal}
+		<ThemeStudio open={showStudioModal} onClose={() => (showStudioModal = false)} />
 	{/if}
 </div>

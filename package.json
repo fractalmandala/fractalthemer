@@ -1,6 +1,6 @@
 {
 	"name": "fractalthemer",
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"description": "Standalone Svelte 5 theming system with 42 curated light & dark themes, GPU-accelerated atmospheric auras, and an off-canvas drawer",
 	"license": "MIT",
 	"type": "module",
@@ -19,11 +19,15 @@
 		"./styles/themes": "./dist/styles/_themes.sass",
 		"./styles/auras": "./dist/styles/_auras.sass",
 		"./styles/picker": "./dist/styles/_theme-picker.sass",
+		"./styles/studio": "./dist/styles/_studio.sass",
+		"./styles/palette-gen": "./dist/styles/_palette-gen.sass",
 		"./styles/*": "./dist/styles/*",
 		"./tokens": "./dist/styles/_tokens.sass",
 		"./themes": "./dist/styles/_themes.sass",
 		"./auras": "./dist/styles/_auras.sass",
 		"./picker": "./dist/styles/_theme-picker.sass",
+		"./studio": "./dist/components/studio/ThemeStudio.svelte",
+		"./palette-generator": "./dist/components/studio/PaletteGenerator.svelte",
 		"./script": {
 			"types": "./dist/utils/anti-flicker.d.ts",
 			"default": "./dist/utils/anti-flicker.js"

@@ -306,6 +306,10 @@ export class ThemeState {
 		}
 	}
 
+	setCustomTokens(tokens: Record<string, string>) {
+		this.applyCustomOverrides(tokens);
+	}
+
 	applyCustomOverrides(tokens: Record<string, string>, auraLayers?: AuraLayer[]) {
 		if (typeof document === 'undefined') return;
 		const root = document.documentElement;
