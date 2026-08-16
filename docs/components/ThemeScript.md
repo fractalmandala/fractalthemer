@@ -11,7 +11,7 @@ updated: 2026-08-16
 
 # ThemeScript Component & SSR Injection Reference
 
-[`ThemeScript.svelte`](file:///Users/amrit/fractalmandala/fractalthemer/src/lib/components/ThemeScript.svelte) injects the anti-flicker startup script into `<svelte:head>` to ensure proper theme and mode application on initial load.
+[`ThemeScript.svelte`](../../src/lib/components/ThemeScript.svelte) injects the anti-flicker startup script into `<svelte:head>` to ensure proper theme and mode application on initial load.
 
 ---
 
@@ -57,5 +57,5 @@ In `src/routes/+layout.svelte`:
 
 ## 🔗 Related Documents
 
-- [Zero-Flicker SSR Guide](file:///Users/amrit/fractalmandala/fractalthemer/docs/guides/02-anti-flicker-guide.md)
-- [Quickstart Guide](file:///Users/amrit/fractalmandala/fractalthemer/docs/guides/01-quickstart.md)
+- [Zero-Flicker SSR Guide](../guides/02-anti-flicker-guide.md)
+- [Quickstart Guide](../guides/01-quickstart.md)

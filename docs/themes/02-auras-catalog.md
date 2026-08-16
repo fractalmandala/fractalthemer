@@ -10,7 +10,7 @@ updated: 2026-08-16
 
 # Atmospheric Aura Gradients Catalog
 
-The aura engine in `fractalthemer` provides GPU-accelerated atmospheric gradient blend layers configured in [`_auras.sass`](file:///Users/amrit/fractalmandala/fractalthemer/src/lib/styles/_auras.sass).
+The aura engine in `fractalthemer` provides GPU-accelerated atmospheric gradient blend layers configured in [`_auras.sass`](../../src/lib/styles/_auras.sass).
 
 ---
 
@@ -69,5 +69,5 @@ The aura engine in `fractalthemer` provides GPU-accelerated atmospheric gradient
 
 ## 🔗 Related Documents
 
-- [AuraBackground Component](file:///Users/amrit/fractalmandala/fractalthemer/docs/components/AuraBackground.md)
-- [Theme Catalog](file:///Users/amrit/fractalmandala/fractalthemer/docs/themes/01-theme-catalog.md)
+- [AuraBackground Component](../components/AuraBackground.md)
+- [Theme Catalog](./01-theme-catalog.md)

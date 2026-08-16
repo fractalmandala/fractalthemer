@@ -132,6 +132,6 @@ Style your components using the standard CSS custom properties:
 
 ## 🔗 Related Documents
 
-- [Zero-Flicker SSR Guide](file:///Users/amrit/fractalmandala/fractalthemer/docs/guides/02-anti-flicker-guide.md)
-- [Responsive Drawer Guide](file:///Users/amrit/fractalmandala/fractalthemer/docs/guides/04-responsive-drawer.md)
-- [Theme Catalog](file:///Users/amrit/fractalmandala/fractalthemer/docs/themes/01-theme-catalog.md)
+- [Zero-Flicker SSR Guide](./02-anti-flicker-guide.md)
+- [Responsive Drawer Guide](./04-responsive-drawer.md)
+- [Theme Catalog](../themes/01-theme-catalog.md)

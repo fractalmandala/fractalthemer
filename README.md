@@ -21,6 +21,8 @@ pnpm add fractalthemer
 npm install fractalthemer
 ```
 
+[![npm version](https://img.shields.io/npm/v/fractalthemer.svg)](https://www.npmjs.com/package/fractalthemer)
+
 ---
 
 ## 🚀 Quickstart
@@ -148,6 +150,22 @@ Consume standard CSS custom properties across your styles:
 | `--theme-color-alt` | Hover state for accent buttons |
 | `--state-hover` | Background tint on hover |
 | `--state-selected` | Active tab / selected highlight |
+
+---
+
+## 📚 Documentation
+
+Comprehensive documentation is available under [`docs/`](./docs/INDEX.md):
+
+- [Documentation Index](./docs/INDEX.md)
+- [System Architecture](./docs/architecture/01-overview.md)
+- [Svelte 5 Runes State Machine](./docs/architecture/02-state-and-reactivity.md)
+- [Semantic Design Tokens Contract](./docs/architecture/03-tokens-and-css-contract.md)
+- [ThemePicker & 100vh Drawer Component](./docs/components/ThemePicker.md)
+- [AuraBackground Component](./docs/components/AuraBackground.md)
+- [42 Curated Themes Catalog](./docs/themes/01-theme-catalog.md)
+- [Atmospheric Auras Catalog](./docs/themes/02-auras-catalog.md)
+- [180+ Vibrant Gradients Catalog](./docs/themes/03-gradients-catalog.md)
 
 ---
 

@@ -16,7 +16,7 @@ updated: 2026-08-16
 
 ## 🎨 Anatomy of a Custom Theme
 
-A custom theme is represented by the [`ThemeInfo`](file:///Users/amrit/fractalmandala/fractalthemer/src/lib/data/themes.ts) interface:
+A custom theme is represented by the [`ThemeInfo`](../../src/lib/data/themes.ts) interface:
 
 ```typescript
 export interface ThemeInfo {
@@ -122,5 +122,5 @@ themeState.clearCustomOverrides();
 
 ## 🔗 Related Documents
 
-- [State & Reactivity](file:///Users/amrit/fractalmandala/fractalthemer/docs/architecture/02-state-and-reactivity.md)
-- [Tokens Contract](file:///Users/amrit/fractalmandala/fractalthemer/docs/architecture/03-tokens-and-css-contract.md)
+- [State & Reactivity](../architecture/02-state-and-reactivity.md)
+- [Tokens Contract](../architecture/03-tokens-and-css-contract.md)

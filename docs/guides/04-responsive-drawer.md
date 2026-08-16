@@ -63,5 +63,5 @@ Desktop (>= 1025px)                       Mobile (<= 1024px)
 
 ## 🔗 Related Documents
 
-- [ThemePicker Component](file:///Users/amrit/fractalmandala/fractalthemer/docs/components/ThemePicker.md)
-- [Quickstart Guide](file:///Users/amrit/fractalmandala/fractalthemer/docs/guides/01-quickstart.md)
+- [ThemePicker Component](../components/ThemePicker.md)
+- [Quickstart Guide](./01-quickstart.md)

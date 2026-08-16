@@ -101,5 +101,5 @@ const scriptString = getAntiFlickerScript('theme-light-default', 'plain');
 
 ## 🔗 Related Documents
 
-- [ThemeScript Component](file:///Users/amrit/fractalmandala/fractalthemer/docs/components/ThemeScript.md)
-- [Quickstart Guide](file:///Users/amrit/fractalmandala/fractalthemer/docs/guides/01-quickstart.md)
+- [ThemeScript Component](../components/ThemeScript.md)
+- [Quickstart Guide](./01-quickstart.md)

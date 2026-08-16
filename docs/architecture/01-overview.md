@@ -65,7 +65,7 @@ fractalthemer/
 
 ## 🔌 Export Contracts
 
-In [`package.json`](file:///Users/amrit/fractalmandala/fractalthemer/package.json), the package defines clear subpath exports:
+In [`package.json`](../../package.json), the package defines clear subpath exports:
 
 | Export Specifier | Resolved Target | Purpose |
 |---|---|---|
@@ -100,6 +100,6 @@ sequenceDiagram
 
 ## 🔗 Related Documents
 
-- [State & Reactivity](file:///Users/amrit/fractalmandala/fractalthemer/docs/architecture/02-state-and-reactivity.md)
-- [Tokens & CSS Contract](file:///Users/amrit/fractalmandala/fractalthemer/docs/architecture/03-tokens-and-css-contract.md)
-- [Quickstart Guide](file:///Users/amrit/fractalmandala/fractalthemer/docs/guides/01-quickstart.md)
+- [State & Reactivity](./02-state-and-reactivity.md)
+- [Tokens & CSS Contract](./03-tokens-and-css-contract.md)
+- [Quickstart Guide](../guides/01-quickstart.md)

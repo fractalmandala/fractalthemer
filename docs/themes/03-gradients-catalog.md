@@ -79,6 +79,6 @@ console.log('Available gradients:', GRADIENT_PRESETS.length);
 
 ## 🔗 Related Documents
 
-- [ThemePicker Component](file:///Users/amrit/fractalmandala/fractalthemer/docs/components/ThemePicker.md)
-- [AuraBackground Component](file:///Users/amrit/fractalmandala/fractalthemer/docs/components/AuraBackground.md)
-- [Theme Catalog](file:///Users/amrit/fractalmandala/fractalthemer/docs/themes/01-theme-catalog.md)
+- [ThemePicker Component](../components/ThemePicker.md)
+- [AuraBackground Component](../components/AuraBackground.md)
+- [Theme Catalog](./01-theme-catalog.md)

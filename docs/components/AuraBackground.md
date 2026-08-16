@@ -11,7 +11,7 @@ updated: 2026-08-16
 
 # AuraBackground Component & GPU Gradient Engine
 
-The [`AuraBackground.svelte`](file:///Users/amrit/fractalmandala/fractalthemer/src/lib/components/AuraBackground.svelte) component renders an ambient, atmospheric background blend layer calibrated to the active theme.
+The [`AuraBackground.svelte`](../../src/lib/components/AuraBackground.svelte) component renders an ambient, atmospheric background blend layer calibrated to the active theme.
 
 ---
 
@@ -29,7 +29,7 @@ The [`AuraBackground.svelte`](file:///Users/amrit/fractalmandala/fractalthemer/s
 
 ## 🧩 Template Architecture
 
-Inside [`src/lib/components/AuraBackground.svelte`](file:///Users/amrit/fractalmandala/fractalthemer/src/lib/components/AuraBackground.svelte):
+Inside [`src/lib/components/AuraBackground.svelte`](../../src/lib/components/AuraBackground.svelte):
 
 ```svelte
 <script lang="ts">
@@ -64,7 +64,7 @@ Inside [`src/lib/components/AuraBackground.svelte`](file:///Users/amrit/fractalm
 
 ## 🌈 CSS Gradient & Blend Mode Mechanics
 
-Defined in [`_auras.sass`](file:///Users/amrit/fractalmandala/fractalthemer/src/lib/styles/_auras.sass), each theme targets `.aura-ambient` via CSS selectors:
+Defined in [`_auras.sass`](../../src/lib/styles/_auras.sass), each theme targets `.aura-ambient` via CSS selectors:
 
 ```sass
 .theme-sun-dark[data-bg-style="aura"] .aura-ambient,
@@ -94,5 +94,5 @@ Defined in [`_auras.sass`](file:///Users/amrit/fractalmandala/fractalthemer/src/
 
 ## 🔗 Related Documents
 
-- [Auras Catalog](file:///Users/amrit/fractalmandala/fractalthemer/docs/themes/02-auras-catalog.md)
-- [ThemePicker Component](file:///Users/amrit/fractalmandala/fractalthemer/docs/components/ThemePicker.md)
+- [Auras Catalog](../themes/02-auras-catalog.md)
+- [ThemePicker Component](./ThemePicker.md)

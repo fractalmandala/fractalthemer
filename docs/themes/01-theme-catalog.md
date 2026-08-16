@@ -72,5 +72,5 @@ updated: 2026-08-16
 
 ## 🔗 Related Documents
 
-- [Auras Catalog](file:///Users/amrit/fractalmandala/fractalthemer/docs/themes/02-auras-catalog.md)
-- [Tokens Contract](file:///Users/amrit/fractalmandala/fractalthemer/docs/architecture/03-tokens-and-css-contract.md)
+- [Auras Catalog](./02-auras-catalog.md)
+- [Tokens Contract](../architecture/03-tokens-and-css-contract.md)

@@ -11,7 +11,7 @@ updated: 2026-08-16
 
 # ThemePicker Component & 100vh Off-Canvas Drawer
 
-The [`ThemePicker.svelte`](file:///Users/amrit/fractalmandala/fractalthemer/src/lib/components/ThemePicker.svelte) component is the primary interface for user theme exploration. It renders a trigger button cluster (quick mode toggle + palette icon) that opens a hardware-accelerated, full-height `100vh` off-canvas drawer sliding from the right edge of the screen.
+The [`ThemePicker.svelte`](../../src/lib/components/ThemePicker.svelte) component is the primary interface for user theme exploration. It renders a trigger button cluster (quick mode toggle + palette icon) that opens a hardware-accelerated, full-height `100vh` off-canvas drawer sliding from the right edge of the screen.
 
 ---
 
@@ -42,7 +42,7 @@ interface Props {
 
 ## 🧬 State & Svelte 5 Runes Breakdown
 
-Inside [`src/lib/components/ThemePicker.svelte`](file:///Users/amrit/fractalmandala/fractalthemer/src/lib/components/ThemePicker.svelte):
+Inside [`src/lib/components/ThemePicker.svelte`](../../src/lib/components/ThemePicker.svelte):
 
 ### 1. Local Runes State
 - `let activeTab = $state<'all' | 'light' | 'dark' | 'custom'>('all');`: Tracks the active category tab.
@@ -99,7 +99,7 @@ const filteredThemes = $derived.by(() => {
 
 ## 📐 Responsive Breakpoint Rules
 
-Styled in [`_theme-picker.sass`](file:///Users/amrit/fractalmandala/fractalthemer/src/lib/styles/_theme-picker.sass):
+Styled in [`_theme-picker.sass`](../../src/lib/styles/_theme-picker.sass):
 
 ### Desktop (`≥ 1025px`)
 - Drawer width is **360px**.
@@ -116,6 +116,6 @@ Styled in [`_theme-picker.sass`](file:///Users/amrit/fractalmandala/fractaltheme
 
 ## 🔗 Related Documents
 
-- [State & Reactivity](file:///Users/amrit/fractalmandala/fractalthemer/docs/architecture/02-state-and-reactivity.md)
-- [Responsive Drawer Guide](file:///Users/amrit/fractalmandala/fractalthemer/docs/guides/04-responsive-drawer.md)
-- [Theme Catalog](file:///Users/amrit/fractalmandala/fractalthemer/docs/themes/01-theme-catalog.md)
+- [State & Reactivity](../architecture/02-state-and-reactivity.md)
+- [Responsive Drawer Guide](../guides/04-responsive-drawer.md)
+- [Theme Catalog](../themes/01-theme-catalog.md)

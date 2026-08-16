@@ -10,13 +10,13 @@ updated: 2026-08-16
 
 # Svelte 5 Reactive State & Runes Architecture
 
-The state architecture of `fractalthemer` is powered entirely by Svelte 5 Runes. All theme modifications, custom themes, background aura toggles, and drawer visibility states are managed through the [`ThemeState`](file:///Users/amrit/fractalmandala/fractalthemer/src/lib/state/theme.svelte.ts) class and exported as a reactive singleton `themeState`.
+The state architecture of `fractalthemer` is powered entirely by Svelte 5 Runes. All theme modifications, custom themes, background aura toggles, and drawer visibility states are managed through the [`ThemeState`](../../src/lib/state/theme.svelte.ts) class and exported as a reactive singleton `themeState`.
 
 ---
 
 ## 🧬 Reactive State Fields
 
-Inside [`src/lib/state/theme.svelte.ts`](file:///Users/amrit/fractalmandala/fractalthemer/src/lib/state/theme.svelte.ts), the state is defined using Svelte 5 runes:
+Inside [`src/lib/state/theme.svelte.ts`](../../src/lib/state/theme.svelte.ts), the state is defined using Svelte 5 runes:
 
 ```typescript
 export class ThemeState {
@@ -65,7 +65,7 @@ get isAura(): boolean {
 ```
 
 - **`isDark`**: Accurately reflects whether the active palette is light or dark. Used by the mode toggle icon (Sun vs. Moon) and accessibility attributes.
-- **`isAura`**: Flags the [`AuraBackground.svelte`](file:///Users/amrit/fractalmandala/fractalthemer/src/lib/components/AuraBackground.svelte) renderer to mount or unmount GPU blend layers.
+- **`isAura`**: Flags the [`AuraBackground.svelte`](../../src/lib/components/AuraBackground.svelte) renderer to mount or unmount GPU blend layers.
 
 ---
 
@@ -138,6 +138,6 @@ apply(id: string, style?: BgStyle) {
 
 ## 🔗 Related Documents
 
-- [System Architecture](file:///Users/amrit/fractalmandala/fractalthemer/docs/architecture/01-overview.md)
-- [ThemePicker Component](file:///Users/amrit/fractalmandala/fractalthemer/docs/components/ThemePicker.md)
-- [Custom Themes Guide](file:///Users/amrit/fractalmandala/fractalthemer/docs/guides/03-custom-themes.md)
+- [System Architecture](./01-overview.md)
+- [ThemePicker Component](../components/ThemePicker.md)
+- [Custom Themes Guide](../guides/03-custom-themes.md)

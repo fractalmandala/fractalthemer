@@ -10,7 +10,7 @@ updated: 2026-08-16
 
 # Semantic Design Tokens & CSS Custom Properties Contract
 
-`fractalthemer` enforces a strict, multi-tier semantic design token contract defined in [`_tokens.sass`](file:///Users/amrit/fractalmandala/fractalthemer/src/lib/styles/_tokens.sass) and implemented across all 42 theme files in [`_themes.sass`](file:///Users/amrit/fractalmandala/fractalthemer/src/lib/styles/_themes.sass).
+`fractalthemer` enforces a strict, multi-tier semantic design token contract defined in [`_tokens.sass`](../../src/lib/styles/_tokens.sass) and implemented across all 42 theme files in [`_themes.sass`](../../src/lib/styles/_themes.sass).
 
 ---
 
@@ -107,5 +107,5 @@ Every theme provides tiered background surfaces to maintain distinct visual hier
 
 ## 🔗 Related Documents
 
-- [System Overview](file:///Users/amrit/fractalmandala/fractalthemer/docs/architecture/01-overview.md)
-- [Theme Catalog](file:///Users/amrit/fractalmandala/fractalthemer/docs/themes/01-theme-catalog.md)
+- [System Overview](./01-overview.md)
+- [Theme Catalog](../themes/01-theme-catalog.md)
