@@ -3,7 +3,7 @@
 
 	interface Props {
 		defaultTheme?: string;
-		defaultBgStyle?: 'plain' | 'aura';
+		defaultBgStyle?: 'plain' | 'aura' | 'gradient';
 	}
 
 	let { defaultTheme = 'theme-light-default', defaultBgStyle = 'plain' }: Props = $props();
