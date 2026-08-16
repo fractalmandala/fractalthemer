@@ -18,7 +18,7 @@
 
 	let {
 		studioHref = '/studio',
-		showStudioLink = true,
+		showStudioLink = false,
 		showModeToggle = true,
 		triggerButton
 	}: Props = $props();

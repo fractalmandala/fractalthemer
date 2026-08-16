@@ -32,7 +32,7 @@ The [`ThemePicker.svelte`](../../src/lib/components/ThemePicker.svelte) componen
 ```typescript
 interface Props {
     studioHref?: string;          // Target URL for Studio button (default: '/studio')
-    showStudioLink?: boolean;     // Whether to display the Studio navigation button (default: true)
+    showStudioLink?: boolean;     // Whether to display the Studio navigation button (default: false)
     showModeToggle?: boolean;     // Whether to show the Sun/Moon button next to palette trigger (default: true)
     triggerButton?: Snippet;      // Optional custom Svelte 5 snippet to override the palette button
 }
