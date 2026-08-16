@@ -153,21 +153,31 @@ class StudioState {
 		});
 	}
 
-	saveCurrentRecipe() {
+	saveCurrentRecipe(): { status: 'saved' | 'updated'; title: string } {
 		const copy: StudioRecipe = JSON.parse(JSON.stringify(this.recipe));
-		copy.id = `saved-${Date.now()}`;
-		this.savedRecipes = [copy, ...this.savedRecipes];
-		if (typeof window !== 'undefined') {
-			try {
-				localStorage.setItem('fractalthemer:saved_studio_recipes', JSON.stringify(this.savedRecipes));
-			} catch (e) {
-				console.error('Failed to save to localStorage:', e);
-			}
+		const existingIndex = this.savedRecipes.findIndex(
+			r => r.title.trim().toLowerCase() === copy.title.trim().toLowerCase()
+		);
+
+		if (existingIndex >= 0) {
+			copy.id = this.savedRecipes[existingIndex].id;
+			this.savedRecipes[existingIndex] = copy;
+			this.persistSavedRecipes();
+			return { status: 'updated', title: copy.title };
+		} else {
+			copy.id = `saved-${Date.now()}`;
+			this.savedRecipes = [copy, ...this.savedRecipes];
+			this.persistSavedRecipes();
+			return { status: 'saved', title: copy.title };
 		}
 	}
 
 	deleteSavedRecipe(id: string) {
 		this.savedRecipes = this.savedRecipes.filter(r => r.id !== id);
+		this.persistSavedRecipes();
+	}
+
+	private persistSavedRecipes() {
 		if (typeof window !== 'undefined') {
 			try {
 				localStorage.setItem('fractalthemer:saved_studio_recipes', JSON.stringify(this.savedRecipes));

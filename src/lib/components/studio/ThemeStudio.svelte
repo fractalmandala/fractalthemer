@@ -18,12 +18,26 @@
 	let { open = true, onClose }: Props = $props();
 
 	let showExportModal = $state(false);
-	let shareToast = $state(false);
+	let toastMessage = $state<string | null>(null);
+	let toastTimeout: any;
+
+	function showToast(msg: string) {
+		toastMessage = msg;
+		if (toastTimeout) clearTimeout(toastTimeout);
+		toastTimeout = setTimeout(() => {
+			toastMessage = null;
+		}, 2500);
+	}
 
 	function close() {
 		if (onClose) {
 			onClose();
 		}
+	}
+
+	function handleSave() {
+		const result = studioState.saveCurrentRecipe();
+		showToast(result.status === 'updated' ? `Updated "${result.title}"!` : `Saved "${result.title}"!`);
 	}
 
 	function share() {
@@ -32,10 +46,7 @@
 		if (typeof window !== 'undefined') {
 			const url = `${window.location.origin}${window.location.pathname}#gradient=${base64}`;
 			navigator.clipboard.writeText(url);
-			shareToast = true;
-			setTimeout(() => {
-				shareToast = false;
-			}, 2000);
+			showToast('Link copied to clipboard!');
 		}
 	}
 
@@ -46,6 +57,13 @@
 
 {#if open}
 	<div class="theme-studio-root">
+		<!-- Top Toast Banner -->
+		{#if toastMessage}
+			<div class="studio-toast-banner" role="status">
+				{toastMessage}
+			</div>
+		{/if}
+
 		<!-- Top Studio Header -->
 		<header class="studio-header">
 			<div class="studio-brand">
@@ -97,7 +115,33 @@
 				</button>
 			</nav>
 
-			<!-- Header Actions -->
+			<!-- Fixed Studio Action Controls (Top Header Area) -->
+			{#if studioState.activeView === 'studio'}
+				<div class="studio-header-recipe-controls">
+					<span class="studio-recipe-title-chip">
+						{studioState.recipe.title} • {studioState.recipe.engineType.toUpperCase()}
+					</span>
+					<button type="button" class="engine-type-chip" onclick={handleSave}>
+						💾 Save
+					</button>
+					<button type="button" class="engine-type-chip" onclick={share}>
+						🔗 Share
+					</button>
+					<button
+						type="button"
+						class="engine-type-chip"
+						class:active={studioState.previewMode}
+						onclick={() => (studioState.previewMode = !studioState.previewMode)}
+					>
+						{studioState.previewMode ? 'Exit Preview' : '👁 Preview'}
+					</button>
+					<button type="button" class="engine-type-chip active" onclick={() => (showExportModal = true)}>
+						📦 Export
+					</button>
+				</div>
+			{/if}
+
+			<!-- Header Utility Actions -->
 			<div class="studio-header-actions">
 				<button
 					type="button"
@@ -129,23 +173,6 @@
 					<div class="studio-canvas-container">
 						<GradientCanvas />
 					</div>
-				</div>
-
-				<!-- Floating Bottom Action Bar -->
-				<div class="studio-floating-bar">
-					<span class="studio-bar-title">{studioState.recipe.title} • {studioState.recipe.engineType.toUpperCase()}</span>
-					<button type="button" class="engine-type-chip" onclick={() => studioState.saveCurrentRecipe()}>
-						💾 Save
-					</button>
-					<button type="button" class="engine-type-chip" onclick={share}>
-						{shareToast ? '✓ Link Copied!' : '🔗 Share'}
-					</button>
-					<button type="button" class="engine-type-chip" onclick={() => (studioState.previewMode = !studioState.previewMode)}>
-						{studioState.previewMode ? 'Exit Preview' : '👁 Preview'}
-					</button>
-					<button type="button" class="engine-type-chip active" onclick={() => (showExportModal = true)}>
-						📦 Export
-					</button>
 				</div>
 			{:else if studioState.activeView === 'gallery'}
 				<GalleryView />

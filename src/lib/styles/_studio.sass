@@ -194,29 +194,46 @@
 	color: var(--text-muted)
 	font-family: monospace
 
-// Floating Action Toolbar
-.studio-floating-bar
-	position: fixed
-	bottom: 24px
-	left: 50%
-	transform: translateX(-50%)
-	z-index: 50
+// Fixed Top Header Recipe Controls
+.studio-header-recipe-controls
 	display: flex
 	align-items: center
-	gap: 12px
-	padding: 8px 16px
-	background: var(--bg-surface)
-	border-radius: 9999px
-	border: 1px solid var(--border)
-	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15)
-	backdrop-filter: blur(12px)
+	gap: 8px
+	background: var(--bg-panel)
+	padding: 4px 8px
+	border-radius: 8px
+	border: 1px solid var(--border-subtle)
 
-.studio-bar-title
-	font-size: 13px
+.studio-recipe-title-chip
+	font-size: 12px
 	font-weight: 600
 	color: var(--text-primary)
-	padding-right: 12px
+	padding-right: 8px
 	border-right: 1px solid var(--border)
+
+// Toast Banner
+.studio-toast-banner
+	position: fixed
+	top: 16px
+	left: 50%
+	transform: translateX(-50%)
+	z-index: 10001
+	background: var(--theme-color)
+	color: var(--text-inverse)
+	padding: 8px 18px
+	border-radius: 9999px
+	font-size: 12px
+	font-weight: 600
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2)
+	animation: toast-in 0.2s ease-out
+
+@keyframes toast-in
+	from
+		opacity: 0
+		transform: translate(-50%, -10px)
+	to
+		opacity: 1
+		transform: translate(-50%, 0)
 
 // Gallery Grid
 .gallery-container
