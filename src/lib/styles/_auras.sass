@@ -50,19 +50,35 @@
 		pointer-events: none !important
 
 .aura-gradient-backdrop
+	background-color: var(--bg)
+	pointer-events: none !important
 	.gradient-canvas
 		position: absolute
 		inset: 0
-		opacity: 0.95
+		opacity: 0.3
 		pointer-events: none !important
 		transition: background 0.4s ease, opacity 0.4s ease
 	.gradient-overlay-soft
 		position: absolute
 		inset: 0
 		pointer-events: none !important
-		backdrop-filter: blur(1px)
-		-webkit-backdrop-filter: blur(1px)
-		background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.25) 100%)
+		background: radial-gradient(circle at 50% 50%, transparent 50%, rgba(0, 0, 0, 0.08) 100%)
+
+[data-mode="dark"]
+	.aura-gradient-backdrop
+		.gradient-canvas
+			opacity: 0.42
+			mix-blend-mode: screen
+		.gradient-overlay-soft
+			background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.5) 100%)
+
+[data-mode="light"]
+	.aura-gradient-backdrop
+		.gradient-canvas
+			opacity: 0.28
+			mix-blend-mode: multiply
+		.gradient-overlay-soft
+			background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.6) 100%)
 
 .fullwrapper, .appshell, .appshel
 	position: relative

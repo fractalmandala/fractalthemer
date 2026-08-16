@@ -27,15 +27,15 @@
 			<div class="aura-layer aura-layer-6"></div>
 		{/if}
 	</div>
-{:else if themeState.isGradient && themeState.activeGradientPreset}
+{:else if themeState.isGradient}
 	<div
 		class="aura-gradient-backdrop"
 		aria-hidden="true"
-		style="position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;"
+		style="position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; background-color: var(--bg);"
 	>
 		<div
 			class="gradient-canvas"
-			style:background={themeState.activeGradientPreset.css}
+			style:background={themeState.activeGradientPreset ? themeState.activeGradientPreset.css : 'var(--bg-gradient, transparent)'}
 			style="position: absolute; inset: 0; pointer-events: none;"
 		></div>
 		<div
