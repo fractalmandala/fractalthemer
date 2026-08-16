@@ -1,177 +1,115 @@
-# Technical Architecture & Implementation Spec: Theme Builder Studio & Atmospheric Gradient Engine
+# Technical Architecture Specification: Real Procedural Generator Engines, Silhouette Forms & Preset Colourways
 
-- **Spec Path:** `PRODUCT-TECH.md`
-- **Product Spec Reference:** [`PRODUCT.md`](./PRODUCT.md) & [`specs/2026-08-16-theme-and-gradient-studio.md`](./specs/2026-08-16-theme-and-gradient-studio.md)
-- **Commit Baseline:** [`c39d16a0ab38a4e8d6e4f212dbe044cb2031b120`](https://github.com/fractalmandala/fractalthemer/commit/c39d16a0ab38a4e8d6e4f212dbe044cb2031b120)
-- **Author:** Antigravity Engineering
-
----
-
-## 1. Context & Existing System
-
-`fractalthemer` is a Svelte 5 library providing 42 curated light/dark themes, 203 atmospheric GPU gradient blend presets, an off-canvas drawer (`ThemePicker.svelte`), and a zero-flicker SSR hydration mechanism.
-
-### Key Existing Modules & Entry Points
-- [`src/lib/state/theme.svelte.ts:1-120 @ c39d16a`](https://github.com/fractalmandala/fractalthemer/blob/c39d16a/src/lib/state/theme.svelte.ts#L1-L120) — The Svelte 5 reactive Runes state singleton managing active `mode`, `theme`, `bgStyle`, `activeAura`, `activeGradient`, and custom token overrides via `localStorage`.
-- [`src/lib/components/ThemePicker.svelte:1-250 @ c39d16a`](https://github.com/fractalmandala/fractalthemer/blob/c39d16a/src/lib/components/ThemePicker.svelte#L1-L250) — The 100vh responsive right sliding drawer housing themes, auras, and gradient samplers.
-- [`src/lib/components/AuraBackground.svelte:1-40 @ c39d16a`](https://github.com/fractalmandala/fractalthemer/blob/c39d16a/src/lib/components/AuraBackground.svelte#L1-L40) — GPU blend backdrop renderer fixed at `z-index: -1` with `pointer-events: none`.
-- [`src/lib/styles/_tokens.sass:1-35 @ c39d16a`](https://github.com/fractalmandala/fractalthemer/blob/c39d16a/src/lib/styles/_tokens.sass#L1-L35) — The 22 semantic color tokens contract defining application base surfaces, borders, states, and accents.
+- **Document:** `PRODUCT-TECH.md`
+- **Product Spec Reference:** [`docs/specs/2026-08-16-engines-and-presets-spec.md`](./docs/specs/2026-08-16-engines-and-presets-spec.md)
+- **Target Repository:** `fractalthemer` (`ddd0dba`)
+- **Status:** Proposed Tech Spec
 
 ---
 
-## 2. Proposed Changes & Module Topology
+## 1. Context
 
-We are introducing the **Theme Studio** sub-system into `src/lib/components/studio/`, modular engine calculators in `src/lib/engines/`, datasets in `src/lib/data/`, and single-tab indented SASS styling in `src/lib/styles/_studio.sass` and `_palette-gen.sass`.
+`fractalthemer` provides an interactive visual studio (`ThemeStudio.svelte`) for gradient synthesis and theme generation. The current canvas renderer ([`src/lib/components/studio/GradientCanvas.svelte:50-160 @ ddd0dba`](file:///Users/amrit/fractalmandala/fractalthemer/src/lib/components/studio/GradientCanvas.svelte#L50-L160)) implements full procedural pipelines for `linear`, `radial`, `conic`, `bars`, `blocks`, and `beehive`, while falling back to a shared multi-point radial Gaussian blend for the remaining engines.
+
+To achieve complete fidelity with the reference system (`feralui.dev/gradients`):
+1. Each of the 14 targeted engines requires its own dedicated mathematical shader/canvas simulation.
+2. The `forms` engine requires a dedicated **24 SVG Silhouette Mask Set** with vector path clipping and gradient fills.
+3. The generator controls ([`src/lib/components/studio/GeneratorControls.svelte @ ddd0dba`](file:///Users/amrit/fractalmandala/fractalthemer/src/lib/components/studio/GeneratorControls.svelte)) require:
+   - An **Arrangement Presets Grid** per engine (e.g. for Lines: *Snake, Drops, Loops, Ribbon, Doodle, Wander, Waves, Echo*).
+   - A **12-Colourway Circular Pie-Wheel Swatch Grid** (*Solar, Lagoon, Coral, Aerial, Botanic, Violet, Cobalt, Cinder, Vivid, Rainbow, Rosewater, Midnight*) for instantaneous re-tinting.
+
+---
+
+## 2. Proposed Changes
+
+### 2.1. Module & Data Architecture
 
 ```
 src/lib/
-├── components/
-│   ├── studio/
-│   │   ├── ThemeStudio.svelte        # Master Studio container modal & navigation
-│   │   ├── GradientCanvas.svelte     # 60fps Canvas2D/WebGL renderer with draggable pins
-│   │   ├── GeneratorControls.svelte  # 21-engine parameter sliders & presets
-│   │   ├── PaletteGenerator.svelte   # 9-column semantic theme palette generator with locking
-│   │   ├── GalleryView.svelte        # 70+ preset gradient gallery browser
-│   │   ├── PaletteCatalog.svelte     # Searchable artisan color explorer with WCAG badges
-│   │   ├── SavedView.svelte          # Persistent local storage library
-│   │   ├── TimelineBar.svelte        # Multi-band color reach distribution slider
-│   │   └── ExportModal.svelte        # CSS, SASS, SVG, PNG, Shader, JSON & MP4 export
-│   ├── ThemePicker.svelte            # Added "Studio" launcher button
-│   └── AuraBackground.svelte         # Runtime shader backdrop integration
-├── engines/
-│   ├── color-harmony.ts              # Harmony algorithms (analogous, triadic, etc.) & contrast
-│   ├── color-converter.ts            # Hex ↔ RGB ↔ HSL ↔ OKLCH math
-│   ├── fields-renderer.ts            # Flow, Sky, Aurora, Mesh, Still, Retro, iOS math
-│   ├── stripes-renderer.ts           # Linear, Stripes, Bars, Columns, Prism, Waves, Lines math
-│   ├── objects-renderer.ts           # Rings, Pixel, Blocks, Beehive, Balls, Radial, Conic math
-│   └── video-exporter.ts             # Canvas MediaRecorder / WebCodecs MP4 pipeline
-├── data/
-│   ├── gallery-presets.ts            # 70+ Curated gradient studies
-│   ├── artisan-colors.ts             # Curated designer/Japanese color library
-│   └── studio-presets.ts             # Default presets for all 21 engines
-├── state/
-│   └── studio.svelte.ts              # Reactive state for active studio recipe & palette
-└── styles/
-    ├── _studio.sass                  # Studio layout, canvas pins, floating bars
-    ├── _palette-gen.sass             # 9-column lockable palette styles & contrast badges
-    └── index.sass                    # Exported bundle
+  data/
+    colourways.ts           # [NEW] 12 curated multi-segment colourway wheel presets
+    silhouettes.ts          # [NEW] 24 SVG vector path definitions for the Forms engine
+    arrangements.ts         # [NEW] Arrangement presets for Lines, Bars, Flow, Aurora, etc.
+  engines/
+    canvas-shaders.ts       # [NEW] Pure procedural mathematical render routines for all 21 engines
+    color-converter.ts      # [EXISTING] Hex ↔ RGB ↔ HSL & WCAG math
+    color-harmony.ts        # [EXISTING] 9-column theme palette generator
+  components/studio/
+    GradientCanvas.svelte   # [MODIFY] Connect 21 dedicated render routines & 24 SVG silhouette clipping
+    GeneratorControls.svelte# [MODIFY] Render 24 Silhouette form grid, 12 Colourway pie-wheels, & Arrangement cards
+    ColourwayWheel.svelte   # [NEW] Circular multi-segment SVG pie swatch component
+    SilhouetteGrid.svelte   # [NEW] 24 SVG vector silhouette selection grid
 ```
 
 ---
 
-## 3. Detailed Component & Engine Specifications
+### 2.2. Procedural Mathematical Simulation Algorithms (`canvas-shaders.ts`)
 
-### 3.1. 9-Column Semantic Theme Palette Generator (`PaletteGenerator.svelte` & `color-harmony.ts`)
+#### A. Fields Engines
+1. **`flow`**: 2D Simplex/Perlin turbulence noise displacement.
+   $$\vec{P}'(x, y) = (x, y) + \text{distortion} \cdot (\text{noise}(s x, s y), \text{noise}(s x + 100, s y + 100))$$
+   Interpolates between color emitters weighted by inverse distance to $\vec{P}'$.
+2. **`sky`**: Horizontal atmospheric Rayleigh scattering.
+   $$L(y) = \text{zenithColor} \cdot (1 - y) + \text{horizonColor} \cdot e^{-\alpha y} + \text{sunGlow} \cdot \cos^2(\theta_{\text{elev}})$$
+3. **`aurora`**: Vertical sinusoidal shimmering ray curtains.
+   $$I(x, y) = \sum_{k=1}^3 A_k \sin\left(\omega_k x + \phi_k + \text{drift} \cdot t\right) \cdot \exp\left(-\frac{(y - y_{\text{curtain}})^2}{2\sigma^2}\right)$$
+4. **`mesh`**: 2D Delaunay / multi-node Bezier interpolation across draggable canvas nodes.
+5. **`still`**: Ambient depth wash with quadratic vignette $V(r) = 1 - (r / R_{\max})^2$.
+6. **`retro`**: Filmic tone-mapping with warm chromatic aberration and noise dither.
+7. **`ios`**: Saturated multi-point Gaussian bloom with simulated frosted-glass dispersion.
 
-#### Semantic Column Mapping
-1. `--bg`: Canvas deepest backdrop
-2. `--bg-surface`: Card surface
-3. `--bg-panel`: Sidebar & toolbar panel
-4. `--bg-raised`: Elevated dropdown/modal
-5. `--state-hover`: Neutral hover state
-6. `--state-hover-subtle`: Gentle list-item hover state
-7. `--border`: Standard border & outline
-8. `--theme-color`: Primary brand accent
-9. `--theme-color-alt`: Brand hover/focus state
+#### B. Stripes Engines
+8. **`stripes`**: Parallel alternating spectral bands with angular rotation matrix $R(\theta)$.
+9. **`columns`**: Vertical pillar sweeps with refractive edge dispersion.
+10. **`prism`**: Optical chromatic dispersion splitting white light into component wavelengths:
+    $$n(\lambda) = A + \frac{B}{\lambda^2}$$
+11. **`waves`**: Multi-layer sinusoidal harmonics $y_i(x) = A_i \sin(k_i x + \phi_i)$.
+12. **`lines`**: Dimensional ribbon tubes along vector paths (Snake, Loops, Ribbon, Doodle, Wander, Waves, Echo).
 
-#### Per-Column State Contract
+#### C. Objects & Forms Engines
+13. **`balls`**: Metaball liquid gravitational potential blending:
+    $$V(x, y) = \sum_{i=1}^N \frac{R_i^2}{(x - x_i)^2 + (y - y_i)^2} \ge 1.0$$
+14. **`forms`**: 24 SVG silhouette clipping paths (*Arch, Clover, Heart, Drapery, 4-Leaf, Sunburst, Flower, Starburst, Cross, Ring, Sparkle, Horizontal Stripes, Dome, Propeller, Squiggle, Flower-8, Teardrop, Circle, Pebble, Eye-Ring, Crescent, Star, X-Pill, Wave*) filled with active gradient shader.
+
+---
+
+### 2.3. State & Reactivity Additions (`studio.svelte.ts`)
+
 ```typescript
-export interface PaletteColumnState {
-    token: string;
-    label: string;
-    hex: string;
-    hsl: { h: number; s: number; l: number };
-    locked: boolean;
-    contrastWhite: number; // e.g. 1.22
-    contrastBlack: number; // e.g. 17.24
-    contrastBg: number;    // against active --bg
+export interface StudioRecipe {
+  // ... existing fields ...
+  activeSilhouette?: string;      // Active form id (e.g. 'arch', 'clover', 'heart')
+  activeArrangement?: string;     // Active arrangement id (e.g. 'snake', 'loops')
+  activeColourway?: string;       // Active colourway id (e.g. 'solar', 'lagoon')
+  swirl?: number;                 // Flow swirl parameter (0-100)
+  elevation?: number;             // Sky elevation angle (0-90)
+  lights?: number;                // Aurora luminescence (0-100)
+  fold?: number;                  // Aurora curtain pleat fold (0-100)
+  drift?: number;                 // Aurora drift velocity (0-100)
+  tension?: number;               // Lines curve tension (0-100)
+  thickness?: number;             // Lines stroke thickness (2-40px)
 }
 ```
 
-#### Harmony & Locking Algorithm (`color-harmony.ts`)
-- When the user clicks **Randomize** or switches Harmony modes (`monochromatic`, `analogous`, `complementary`, `split-comp`, `triadic`, `tetradic`, `shades`, `tints`):
-  - Any column with `locked === true` **preserves its exact hex/hsl values**.
-  - Unlocked columns are regenerated based on the active base color (or first locked color if base is locked) according to the mathematical angle offsets:
-    - *Analogous*: $H \pm 30^\circ$
-    - *Complementary*: $H + 180^\circ$
-    - *Split-Complementary*: $H + 150^\circ, H + 210^\circ$
-    - *Triadic*: $H + 120^\circ, H + 240^\circ$
-    - *Tetradic*: $H + 90^\circ, H + 180^\circ, H + 270^\circ$
-    - *Shades/Tints*: Preserves $H, S$, steps $L$ across $[10\%, 95\%]$ calibrated for surface elevation.
-
 ---
 
-### 3.2. 21-Engine Shader & Canvas Pipeline (`GradientCanvas.svelte`)
+## 3. Testing and Validation
 
-The canvas utilizes a 60fps high-DPI `Canvas2D` and WebGL compositing pipeline:
-
-```mermaid
-flowchart LR
-    A[Engine Parameters & Color Pins] --> B[Category Renderer]
-    B -->|Fields: Flow/Aurora/Mesh/Sky| C[Multi-Point Radial & Bezier Mesh Buffer]
-    B -->|Stripes: Bars/Prism/Waves/Lines| D[Procedural Wave & Envelope Step Buffer]
-    B -->|Objects: Rings/Blocks/Beehive/Conic| E[Geometric Grid & Polar Coordinate Buffer]
-    C & D & E --> F[Post-Processing: Soften Blur + Noise Grain Dither]
-    F --> G[Live Canvas Viewport & Pin Layer]
-    G --> H[Export: CSS / SASS / SVG / PNG / MP4]
-```
-
-#### Pin & Timeline Interaction Contract
-- **Canvas Pins**: Rendered as interactive SVG/DOM overlays directly over the canvas with pointer event capture for smooth dragging.
-- **Ring Handles**: Radius calculation `dist(pointer, pinCenter)` updates the color emitter reach parameter.
-- **Timeline Distribution**: Multi-stop slider maps segment widths $w_i = \frac{reach_i}{\sum reach} \times 100\%$, allowing direct proportion adjustment.
-
----
-
-### 3.3. Multi-Format Export Pipeline (`ExportModal.svelte` & `video-exporter.ts`)
-
-1. **CSS Generator**: Formats pure CSS `background: linear-gradient(...)`, multi-radial layers, or CSS variables.
-2. **SASS Generator**: Formats single-tab indented `.sass` variables:
-   ```sass
-   $bg: #ffffff
-   $bg-surface: #f8f9fa
-   $theme-color: #04825b
-   ```
-3. **SVG Generator**: Creates standalone XML SVG with `<defs><linearGradient>...` or `<radialGradient>` and `<filter id="noise">`.
-4. **PNG Generator**: `canvas.toBlob('image/png')` rendered at 1x, 2x, or 4x pixel density.
-5. **MP4 Video Recorder**: Uses `canvas.captureStream(60)` and `MediaRecorder` with `video/mp4; codecs=avc1.42E01E,mp4a.40.2` (or `video/webm` fallback) to record an animated 3-second seamless loop.
-
----
-
-## 4. Testing & Validation Plan
-
-Each numbered Behavior invariant from `PRODUCT.md` is validated:
-
-| Invariant | Test Target | Verification Method |
+| Product Invariant (from Spec §4) | Validation Technique | Expected Result |
 |---|---|---|
-| **3.1-3.3: 21 Generator Engines** | `GradientCanvas.svelte` | Automated render test across all 21 types with 0 errors; visual canvas smoke test. |
-| **3.3: Canvas Pin Dragging** | `GradientCanvas.svelte` | Pointer down, drag, pointer up events update coordinates in `studioState` at 60fps. |
-| **3.4: 9-Column Palette Mapping** | `PaletteGenerator.svelte` | Verifies all 9 semantic tokens are rendered with valid hex and contrast scores. |
-| **3.4: Per-Color Locking** | `color-harmony.ts` | Unit test: lock column index 0 & 7; trigger `randomize()` 100 times; verify locked columns never mutate. |
-| **3.5: 70+ Gallery Presets** | `gallery-presets.ts` | All 70+ presets load into `studioState` without undefined properties. |
-| **3.5: Palette Explorer** | `artisan-colors.ts` | Search substring filter and sort by Hue/Luminance return correct sorted arrays. |
-| **3.6: Multi-Format Export** | `ExportModal.svelte` | Validates generated CSS, SASS, SVG, PNG, and JSON strings against test fixtures. |
-| **Zero Regressions on Themer** | `ThemePicker.svelte` | `pnpm run check && pnpm run package` passes with 0 errors/warnings. |
-| **Kit Consumer Verification** | `acrolls/examples/kit-consumer` | `pnpm run check && pnpm run build` succeeds without SASS or SSR errors. |
+| **§4.1.1 `flow` turbulence** | Change `Scale`, `Distortion`, `Swirl` sliders | Visual filaments distort organically in real-time. |
+| **§4.1.2 `sky` horizon** | Change `Elevation` slider (0°–90°) | Sun position shifts smoothly between horizon and zenith. |
+| **§4.1.3 `aurora` curtains** | Change `Lights`, `Fold`, `Drift` sliders | Sinusoidal ray curtain pleats fold and drift across canvas. |
+| **§4.1.12 `lines` tubes** | Select *Snake, Loops, Ribbon, Doodle, Wander* | Canvas draws smooth continuous ribbon tube along selected path. |
+| **§4.1.13 `balls` metaballs** | Move ball pins close to each other | Overlapping balls merge with smooth gooey liquid necks. |
+| **§4.1.14 `forms` 24 silhouettes**| Click each of the 24 SVG silhouette cards | Shape boundary clips the inner gradient on the canvas cleanly. |
+| **§4.2 12-Colourway pie wheels** | Click *Solar, Lagoon, Coral, Aerial, etc.* | Immediately updates all pin colors on the active canvas. |
+| **§4.3 Arrangement presets** | Click arrangement preset card | Repositions canvas pins without overwriting current colors. |
+| **Type Check & Compilation** | `pnpm run check && pnpm run package` | **0 errors, 0 warnings**, and clean `dist/` build. |
 
 ---
 
-## 5. Implementation Sequencing
+## 4. Parallelization
 
-We will execute the implementation sequentially across 6 focused milestones:
-
-1. **Milestone 1: Mathematical Foundations & Color Harmony**
-   - Create `color-converter.ts`, `color-harmony.ts` (8 harmony algorithms, WCAG contrast ratio calculations, per-swatch locking engine).
-   - Create `artisan-colors.ts` and `tokens.ts` mappings.
-2. **Milestone 2: 9-Column Lockable Palette Generator**
-   - Build `PaletteGenerator.svelte` and `_palette-gen.sass` (9 semantic columns, interactive locks, live contrast badges, harmony selector, randomize/reset buttons, and *"Apply as Active Theme"* action).
-3. **Milestone 3: 21 Gradient Generator Engines & Shaders**
-   - Build `fields-renderer.ts`, `stripes-renderer.ts`, `objects-renderer.ts`.
-   - Build `GradientCanvas.svelte` with high-DPI 60fps rendering, draggable canvas pins, ring reach handles, and `TimelineBar.svelte`.
-4. **Milestone 4: Studio UI, Presets & Catalogs**
-   - Build `ThemeStudio.svelte`, `GeneratorControls.svelte`, `GalleryView.svelte` (70+ presets), `PaletteCatalog.svelte`, `SavedView.svelte`, and `_studio.sass`.
-5. **Milestone 5: Multi-Format Export Engine**
-   - Build `ExportModal.svelte` (CSS, single-tab SASS, SVG, PNG 1x/2x/4x, WebGL shader, JSON, and client MP4 loop recorder).
-6. **Milestone 6: Packaging, Verification & Documentation**
-   - Connect Studio launcher in `<ThemePicker />` and export `ThemeStudio` in `src/lib/index.ts`.
-   - Run `svelte-check`, build, package, and verify in consumer projects.
+- **Execution Mode**: Single-agent sequential execution.
+- **Rationale**: The mathematical algorithms in `canvas-shaders.ts`, the dataset definitions (`colourways.ts`, `silhouettes.ts`, `arrangements.ts`), and the UI components (`GradientCanvas.svelte`, `GeneratorControls.svelte`) share state types and must be integrated cohesively into the Svelte 5 runes lifecycle.
