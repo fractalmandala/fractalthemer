@@ -16,13 +16,14 @@
 	let { class: className = '', onApply }: Props = $props();
 
 	let baseColor = $state('#9948E0');
-	let harmonyMode = $state<HarmonyMode>('split-comp');
+	let harmonyMode = $state<HarmonyMode>('thematic');
 	let isDark = $state(false);
 	let columns = $state<PaletteColumn[]>([]);
 	let activeFormat = $state<'sass' | 'css' | 'tailwind' | 'hex' | 'hsl' | 'scss'>('sass');
 	let copied = $state(false);
 
 	const harmonyModes: { id: HarmonyMode; label: string }[] = [
+		{ id: 'thematic', label: 'Thematic' },
 		{ id: 'monochromatic', label: 'Monochromatic' },
 		{ id: 'analogous', label: 'Analogous' },
 		{ id: 'complementary', label: 'Complementary' },

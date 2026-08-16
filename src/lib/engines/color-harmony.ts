@@ -2,6 +2,7 @@
 import { hexToHsl, hslToHex, getContrastRatio, normalizeHex, type HSL } from './color-converter.js';
 
 export type HarmonyMode =
+	| 'thematic'
 	| 'monochromatic'
 	| 'analogous'
 	| 'complementary'
@@ -61,6 +62,23 @@ export function generateSemanticPalette(
 	let lightnessMap: number[] = [];
 
 	switch (mode) {
+		case 'thematic': {
+			// 7 tinted whites/offwhites (light) or 7 tinted darks/neargreys (dark) + 2 theme colors
+			const altHue = (baseHsl.h + 25) % 360;
+			hues = [
+				baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h,
+				baseHsl.h, baseHsl.h, baseHsl.h,
+				baseHsl.h, altHue
+			];
+			satMap = isDarkTheme
+				? [18, 15, 14, 13, 16, 12, 14, baseHsl.s, Math.max(60, baseHsl.s)]
+				: [7, 9, 11, 8, 14, 10, 12, baseHsl.s, Math.max(60, baseHsl.s)];
+			lightnessMap = isDarkTheme
+				? [7, 11, 14, 18, 22, 16, 25, Math.max(54, baseHsl.l), Math.min(78, baseHsl.l + 8)]
+				: [99, 96, 93, 98, 90, 94, 84, Math.min(52, baseHsl.l), Math.max(34, baseHsl.l - 8)];
+			break;
+		}
+
 		case 'monochromatic':
 			hues = [baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h, baseHsl.h];
 			satMap = isDarkTheme ? [14, 18, 22, 26, 30, 24, 20, baseHsl.s, Math.max(50, baseHsl.s - 10)] : [10, 15, 20, 15, 25, 18, 20, baseHsl.s, Math.max(50, baseHsl.s - 10)];
