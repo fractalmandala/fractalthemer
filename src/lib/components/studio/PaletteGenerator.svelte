@@ -187,7 +187,7 @@
 		<!-- Actions -->
 		<div class="palette-actions">
 			<button type="button" class="palette-btn" onclick={toggleMode} title="Toggle Light/Dark Theme">
-				{isDark ? '🌙 Dark Mode' : '☀️ Light Mode'}
+				{isDark ? '☀️ Light Mode' : '🌙 Dark Mode'}
 			</button>
 			<button type="button" class="palette-btn" onclick={randomize} title="Randomize unlocked colors">
 				🎲 Randomize
