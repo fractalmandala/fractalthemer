@@ -79,7 +79,7 @@ In [`package.json`](../../package.json), the package defines clear subpath expor
 | `fractalthemer` | `./dist/index.js` | Components, `themeState`, types, and constants |
 | `fractalthemer/styles.css` | `./dist/styles/index.css` | Precompiled, drop-in CSS stylesheet bundle |
 | `fractalthemer/styles` | `./dist/styles/index.sass` | SASS root bundle importing all partials |
-| `fractalthemer/tokens` | `./dist/styles/_tokens.sass` | Raw SASS design tokens and Utopia scales |
+| `fractalthemer/tokens` | `./dist/styles/_tokens.sass` | Raw SASS theme color design tokens |
 | `fractalthemer/themes` | `./dist/styles/_themes.sass` | Raw SASS 42 theme classes |
 | `fractalthemer/auras` | `./dist/styles/_auras.sass` | Raw SASS aura shaders & gradient backdrops |
 | `fractalthemer/picker` | `./dist/styles/_theme-picker.sass` | Raw SASS 100vh responsive drawer styles |

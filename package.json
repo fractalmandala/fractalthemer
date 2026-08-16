@@ -1,6 +1,6 @@
 {
 	"name": "fractalthemer",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"description": "Standalone Svelte 5 theming system with 42 curated light & dark themes, GPU-accelerated atmospheric auras, and an off-canvas drawer",
 	"license": "MIT",
 	"type": "module",
@@ -14,8 +14,12 @@
 			"default": "./dist/index.js"
 		},
 		"./styles.css": "./dist/styles/index.css",
-		"./styles/*": "./dist/styles/*",
 		"./styles": "./dist/styles/index.sass",
+		"./styles/tokens": "./dist/styles/_tokens.sass",
+		"./styles/themes": "./dist/styles/_themes.sass",
+		"./styles/auras": "./dist/styles/_auras.sass",
+		"./styles/picker": "./dist/styles/_theme-picker.sass",
+		"./styles/*": "./dist/styles/*",
 		"./tokens": "./dist/styles/_tokens.sass",
 		"./themes": "./dist/styles/_themes.sass",
 		"./auras": "./dist/styles/_auras.sass",

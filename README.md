@@ -165,99 +165,45 @@ Read the complete guide and documentation, with API guide, tokens list, and more
 
 ---
 
-## 📐 Semantic Token Contract
-
-All themes populate the standard semantic variable interface, allowing UI components, markdown prose, terminals, and forms to automatically adapt:
-
-| CSS Variable | Category | Purpose & Description |
-|---|---|---|
-| `--bg` | Surface | App canvas base backdrop surface |
-| `--bg-surface` | Surface | Primary card and surface container background |
-| `--bg-raised` | Surface | Elevated modals, floating headers, popovers |
-| `--bg-panel` | Surface | Navbars, lateral sidebars, drawer panels |
-| `--bg-footer` | Surface | Footer container background |
-| `--bg-popover` | Surface | Popup menus, dropdowns, contextual dialogs |
-| `--bg-dialog` | Surface | Dialog backdrop container |
-| `--bg-terminal` | Surface | Terminal and code block backdrop |
-| `--bg-input` | Surface | Form inputs, select boxes, textareas |
-| `--bg-canvas` | Surface | Outer viewport canvas surface |
-| `--border` | Border | Standard card, panel, and separator border |
-| `--border-subtle` | Border | Faint inner dividers and item separators |
-| `--text-primary` | Typography | Headings, titles, high-contrast text |
-| `--text-secondary` | Typography | Body text, descriptions, labels |
-| `--text-muted` | Typography | Captions, metadata, timestamps |
-| `--text-inverse` | Typography | High-contrast text on brand accent buttons |
-| `--theme-color` | Accent | Primary brand action color, active indicators |
-| `--theme-color-alt` | Accent | Hover state for primary action buttons |
-| `--state-hover` | State | Background tint on interactive element hover |
-| `--state-hover-subtle`| State | Subtle background tint on list item hover |
-| `--state-selected` | State | Active tab, selected item highlight |
-
----
-
-## 🌈 Featured Gradient Presets (180+ Total)
-
-`fractalthemer` exports the full `GRADIENT_PRESETS` catalog with 180+ curated linear gradients:
-
-```typescript
-import { GRADIENT_PRESETS } from 'fractalthemer';
-
-// Each preset satisfies the GradientPreset interface:
-// { id: string; name: string; colors: string[]; css: string; }
-```
-
-| Preset | ID | Color Hex Stops |
-|---|---|---|
-| **Omolon** | `omolon` | `#091E3A`, `#2F80ED`, `#2D9EE0` |
-| **Farhan** | `farhan` | `#9400D3`, `#4B0082` |
-| **Purple** | `purple` | `#c84e89`, `#F15F79` |
-| **Ibtesam** | `ibtesam` | `#00F5A0`, `#00D9F5` |
-| **Radioactive Heat** | `radioactive-heat` | `#F7941E`, `#72C6EF`, `#00A651` |
-| **The Sky And The Sea** | `the-sky-and-the-sea` | `#F7941E`, `#004E8F` |
-| **From Ice To Fire** | `from-ice-to-fire` | `#72C6EF`, `#004E8F` |
-| **Blue & Orange** | `blue-orange` | `#FD8112`, `#0085CA` |
-| **Lunada** | `lunada` | `#5433FF`, `#20BDFF`, `#A5FECB` |
-| **Mango** | `mango` | `#ffe259`, `#ffa751` |
-| **YouTube** | `youtube` | `#e52d27`, `#b31217` |
-| **Instagram** | `instagram` | `#833ab4`, `#fd1d1d`, `#fcb045` |
-| **Netflix** | `netflix` | `#8E0E00`, `#1F1C18` |
-| **After the Rain** | `after-the-rain` | `#ff75c3`, `#ffa647`, `#ffe83f`, `#9fff5b`, `#70e2ff`, `#cd93ff` |
-| **Neon Life** | `neon-life` | `#B3FFAB`, `#12FFF7` |
-| **Hyper Blue** | `hyper-blue` | `#59CDE9`, `#0A2A88` |
-
-*(Explore the full list in the [Gradients Catalog](./docs/themes/03-gradients-catalog.md))*
-
----
-
-## 📚 Complete Documentation Suite
-
-Comprehensive architecture specifications, component breakdowns, and integration guides are available in the [`docs/`](./docs/INDEX.md) folder:
-
-### 🏛 Architecture
-- [**Documentation Index**](./docs/INDEX.md): Central map and navigation registry.
-- [**System Architecture & Topology**](./docs/architecture/01-overview.md): High-level system structure, exports, and design principles.
-- [**State & Svelte 5 Runes**](./docs/architecture/02-state-and-reactivity.md): In-depth walkthrough of `$state`, `$derived`, and the `ThemeState` manager.
-- [**Tokens & CSS Contract**](./docs/architecture/03-tokens-and-css-contract.md): Utopia fluid typography/space scales and 3-tier elevation surfaces.
-
-### 🧩 Components
-- [**`<ThemePicker />`**](./docs/components/ThemePicker.md): 100vh right sliding drawer, responsive 360px/180px layout, tabs, search, and props.
-- [**`<AuraBackground />`**](./docs/components/AuraBackground.md): Multi-layer GPU blend shader rendering, filter mechanics, and gradient backdrops.
-- [**`<ThemeToggle />`**](./docs/components/ThemeToggle.md): Compact Sun/Moon button for dense toolbars.
-- [**`<ThemeScript />`**](./docs/components/ThemeScript.md): Head script injector for zero-flicker SSR hydration.
-
-### 📖 Guides
-- [**Quickstart Guide**](./docs/guides/01-quickstart.md): Step-by-step setup in any SvelteKit project.
-- [**Zero-Flicker SSR Guide**](./docs/guides/02-anti-flicker-guide.md): How storage synchronization and inline `<script>` initialization prevent theme flashing.
-- [**Custom Themes & Studio Guide**](./docs/guides/03-custom-themes.md): Runtime token overriding, custom aura layers, and `localStorage` persistence.
-- [**Responsive Drawer Ergonomics**](./docs/guides/04-responsive-drawer.md): Mobile drawer ergonomics, touch scrolling, and 180px vs 360px viewport behavior.
-
-### 🎨 Catalogs
-- [**42 Curated Themes Catalog**](./docs/themes/01-theme-catalog.md): Complete index of all 21 Light and 21 Dark curated themes with swatch values and descriptions.
-- [**Atmospheric Auras Catalog**](./docs/themes/02-auras-catalog.md): Complete listing of atmospheric gradient blend presets, node coordinates, and blend modes.
-- [**180+ Vibrant Gradients Catalog**](./docs/themes/03-gradients-catalog.md): Comprehensive catalog of 180+ curated vibrant gradient presets and background samplers.
-
----
-
 ## 📜 License
 
 MIT © [Fractal Mandala](https://github.com/fractalmandala)
+
+This package uses and extends the MIT License of [uiGradients](https://github.com/Ghosh/uiGradients?tab=MIT-1-ov-file) by Indrashish Ghosh -
+
+```
+MIT License
+Copyright (c) 2017 Indrashish Ghosh
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+```
+
+And the MIT License for [Aura gradients](https://github.com/CristianOlivera1/Aura?tab=MIT-1-ov-file) by Cristian Olivera-
+
+```
+MIT License
+
+Copyright (c) 2026 CristianOlivera1
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```

@@ -27,5 +27,6 @@ export const CORE_TOKENS: TokenMeta[] = [
 	{ key: 'state-hover-subtle', label: 'Subtle Hover', category: 'state', description: 'Gentle hover state on list items', defaultVal: '#F1F5F9' },
 	{ key: 'state-selected', label: 'Selected State', category: 'state', description: 'Active tab, selected item highlight', defaultVal: '#CBD5E1' },
 	{ key: 'theme-color', label: 'Brand Accent', category: 'accent', description: 'Primary brand action color, active badges, highlights', defaultVal: '#04825B' },
-	{ key: 'theme-color-alt', label: 'Accent Alternate', category: 'accent', description: 'Hover state for brand accent buttons', defaultVal: '#047857' }
+	{ key: 'theme-color-alt', label: 'Accent Alternate', category: 'accent', description: 'Hover state for brand accent buttons', defaultVal: '#047857' },
+	{ key: 'feedback-error', label: 'Error Feedback', category: 'state', description: 'Validation errors and destructive alerts', defaultVal: '#DC2626' }
 ];

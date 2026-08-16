@@ -1,91 +1,12 @@
 // Mode marker contract — Fractal Themer
 //   [data-mode='light'|'dark']  the OS-backed binary axis (set on <html>)
 //   [data-theme='<name>']       named palettes, orthogonal to mode
-//   [data-bg-style='plain'|'aura'] background rendering style
+//   [data-bg-style='plain'|'aura'|'gradient'] background rendering style
 
 :root
-	// Default color-scheme
 	color-scheme: light
 
-	// Fonts
-	--font-sans: "Funnel Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif
-	--font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
-
-	// Fluid type scale — Utopia 360→1240, 18px@1.2→20px@1.25
-	--text-xs: 10.4px
-	--text-sm: 12px
-	--text-md: 14px
-	--text-bs: clamp(0.9375rem, 0.9119rem + 0.1136vw, 1rem)
-	--text-lg: clamp(1.125rem, 1.0739rem + 0.2273vw, 1.25rem)
-	--text-xl: clamp(1.35rem, 1.2631rem + 0.3864vw, 1.5625rem)
-	--text-2xl: clamp(1.62rem, 1.4837rem + 0.6057vw, 1.9531rem)
-	--text-3xl: clamp(1.944rem, 1.7405rem + 0.9044vw, 2.4414rem)
-	--text-4xl: clamp(2.3328rem, 2.0387rem + 1.3072vw, 3.0518rem)
-	--text-5xl: clamp(2.7994rem, 2.384rem + 1.8461vw, 3.8147rem)
-
-	// Fluid space scale — t-shirt naming, 360→1240 viewport
-	--space-3xs: clamp(0.3125rem, 0.3125rem + 0vw, 0.3125rem)
-	--space-2xs: clamp(0.5625rem, 0.5369rem + 0.1136vw, 0.625rem)
-	--space-xs: clamp(0.875rem, 0.8494rem + 0.1136vw, 0.9375rem)
-	--space-s: clamp(1.125rem, 1.0739rem + 0.2273vw, 1.25rem)
-	--space-m: clamp(1.6875rem, 1.6108rem + 0.3409vw, 1.875rem)
-	--space-l: clamp(2.25rem, 2.1477rem + 0.4545vw, 2.5rem)
-	--space-xl: clamp(3.375rem, 3.2216rem + 0.6818vw, 3.75rem)
-	--space-2xl: clamp(4.5rem, 4.2955rem + 0.9091vw, 5rem)
-	--space-3xl: clamp(6.75rem, 6.4432rem + 1.3636vw, 7.5rem)
-	--space-s-l: clamp(1.125rem, 0.5625rem + 2.5vw, 2.5rem)
-
-	// Radius scale
-	--radius-0: 0
-	--radius-2: 2px
-	--radius-4: 4px
-	--radius-6: 6px
-	--radius-8: 8px
-	--radius-12: 12px
-	--radius-16: 16px
-	--radius-24: 24px
-	--radius-full: 9999px
-
-	// Shadow scale
-	--shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06)
-	--shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08)
-	--shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12)
-	--shadow-focus: 0 0 0 3px var(--ring, rgba(4, 130, 91, 0.3))
-
-	// Layering scale
-	--z-base: 0
-	--z-raised: 10
-	--z-sticky: 100
-	--z-modal: 200
-	--z-toast: 300
-
-	// Layout
-	--header-height: 56px
-	--footer-height: 56px
-	--shell-pad: var(--space-s-l)
-	--layout-max: 1536px
-	--sidebar-min: 200px
-	--sidebar-max: 360px
-	--bare-min: 600px
-	--bare-max: 1024px
-	--body-min: 600px
-	--body-max: 800px
-	--measure: 70ch
-	--grid-max-width: 77.5rem
-	--grid-gutter: var(--space-s-l)
-	--grid-columns: 12
-
-	// Feedback palette
-	--red-500: #ef4444
-	--amber-500: #f59e0b
-	--emerald-500: #10b981
-	--sky-500: #0ea5e9
-	--feedback-danger: var(--red-500)
-	--feedback-warning: var(--amber-500)
-	--feedback-success: var(--emerald-500)
-	--feedback-info: var(--sky-500)
-
-	// Light mode fallback baseline
+	// Base Surfaces
 	--bg: #FFFFFF
 	--bg-surface: #F8F9FA
 	--bg-raised: #FFFFFF
@@ -96,42 +17,26 @@
 	--bg-terminal: #0F172A
 	--bg-input: #FFFFFF
 	--bg-canvas: #F8F9FA
-	--border: #E2E8F0
-	--border-subtle: #EDF2F7
+
+	// Text & Typography Contrast
 	--text-primary: #0F172A
 	--text-secondary: #475569
 	--text-muted: #7F91AA
-	--state-hover: #E2E8F0
-	--state-hover-subtle: #F1F5F9
-	--state-selected: #CBD5E1
+	--text-inverse: #FFFFFF
+
+	// Borders & Dividers
+	--border: #E2E8F0
+	--border-subtle: #EDF2F7
+
+	// Brand Accent & Theme
 	--theme-color: #04825B
 	--theme-color-alt: #047857
 	--theme: var(--theme-color)
-	--text-inverse: #FFFFFF
+
+	// Interactive State Tints
+	--state-hover: #E2E8F0
+	--state-hover-subtle: #F1F5F9
+	--state-selected: #CBD5E1
+
+	// Feedback
 	--feedback-error: #DC2626
-	--syntax-heading: #047857
-	--syntax-link: #04825B
-	--syntax-code: #DC2626
-	--syntax-quote: #475569
-	--syntax-marker: #04825B
-	--syntax-meta: #7C3AED
-	--syntax-comment: #7F91AA
-	--canvas-postit-bg: #FEF3C7
-	--canvas-postit-text: #1F1B0A
-	--shadow-popover: 0 4px 16px rgba(15, 23, 42, 0.08)
-	--shadow-drag: 0 10px 28px rgba(15, 23, 42, 0.14)
-	--bg-palette: rgba(15, 23, 42, 0.25)
-	--shadow-palette: rgba(15, 23, 42, 0.2)
-	--bg-badge: rgba(5, 150, 105, 0.12)
-	--shadow-pdf-viewer: rgba(15, 23, 42, 0.05)
-	--scrollbar-thumb: #CBD5E1
-	--md-h1: #0F172A
-	--md-h2: #04825B
-	--md-h3: #7C3AED
-	--md-bold: #047857
-	--md-code: #DC2626
-	--md-code-back: #F1F5F9
-	--md-bullet: #04825B
-	--md-bullet-in: #04825B
-	--md-blockquote: #475569
-	--border-md-table: #E2E8F0
