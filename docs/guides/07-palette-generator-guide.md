@@ -2,9 +2,9 @@
 id: palette-generator-guide
 title: 9-Column Semantic Theme Palette Generator Guide
 type: guide
-tags: [palette, colors, harmony, locking, semantic-tokens, wcag]
-summary: Guide to creating custom theme suites using the 9-column semantic palette generator, per-swatch color locking, and WCAG contrast checks.
-relates_to: [palette-generator-component, tokens-and-css-contract]
+tags: [palette, colors, harmony, locking, semantic-tokens, wcag, thematic]
+summary: Guide to creating custom theme suites using the 9-column semantic palette generator, per-swatch color locking, interactive color pickers, 9 harmony algorithms (including Thematic), and persistent custom theme saving.
+relates_to: [palette-generator-component, tokens-and-css-contract, custom-themes]
 updated: 2026-08-16
 ---
 
@@ -27,14 +27,23 @@ Every generated palette directly controls the 9 core semantic variables:
 | 5 | `--state-hover` | Neutral hover background tint |
 | 6 | `--state-hover-subtle` | Gentle list-item and row hover tint |
 | 7 | `--border` | Primary separator and card outline border |
-| 8 | `--theme-color` | Primary brand action and accent color |
+| 8 | `--theme-color` | Primary brand action and accent color (BASE) |
 | 9 | `--theme-color-alt` | Accent hover/focus button state |
 
 ---
 
-## 🔒 2. Per-Color Locking Invariant
+## 🎯 2. Interactive Column Color Pickers
 
-The Palette Generator introduces **per-color locking**:
+Every column card footer is an interactive color popover:
+- **Click anywhere on a column footer card** (`--bg`, `--bg-surface`, `--theme-color`, etc.) to open the native color picker.
+- Selecting a new color updates the hex, HSL, and WCAG contrast ratings in real time.
+- The edited column is automatically locked, and all other unlocked columns dynamically re-harmonize around your chosen hue!
+
+---
+
+## 🔒 3. Per-Color Locking Invariant
+
+The Palette Generator supports full **per-color locking**:
 - Click the Lock icon (`🔒` / `🔓`) in the header of any column to freeze that exact color.
 - When you click **🎲 Randomize**, **↺ Reset**, or switch harmony modes, **all locked colors remain 100% untouched**.
 - Unlocked columns automatically harmonize around the locked anchors.
@@ -42,29 +51,34 @@ The Palette Generator introduces **per-color locking**:
 
 ---
 
-## 🎯 3. Color Harmony Algorithms
+## 🔮 4. The 9 Color Harmony Algorithms
 
-Select any of the 8 mathematical harmony modes:
-- **Monochromatic**: Steps luminance across uniform hue.
-- **Analogous**: Adjacent spectral hues ($H \pm 15^\circ, \pm 30^\circ, \pm 45^\circ$).
-- **Complementary**: Exact $180^\circ$ opposite hue pairings.
-- **Split-Complementary**: Base hue paired with $150^\circ$ and $210^\circ$ complements.
-- **Triadic**: Balanced $120^\circ$ equilateral triangle hues.
-- **Tetradic**: $90^\circ$ rectangular dual-complementary pairs.
-- **Shades**: Darkened steps calibrated for dark mode surfaces.
-- **Tints**: Lightened steps calibrated for light mode surfaces.
+Select any of the 9 mathematical harmony modes:
+1. **Thematic** (*Recommended*): 
+   - **Light Mode**: 7 delicate variations of tinted whites, off-whites, and soft neutrals ($S \approx 7\% - 14\%$, $L \approx 99\% \to 84\%$) + 2 vibrant brand accents.
+   - **Dark Mode**: 7 rich variations of tinted darks, near-blacks, and charcoal surfaces ($S \approx 12\% - 18\%$, $L \approx 7\% \to 25\%$) + 2 vibrant brand accents.
+2. **Monochromatic**: Steps luminance and saturation curves across a uniform hue.
+3. **Analogous**: Harmonic adjacent spectral hues ($H \pm 15^\circ, \pm 30^\circ$).
+4. **Complementary**: Exact $180^\circ$ opposite hue pairings for brand and hover tokens.
+5. **Split-Complementary**: Base hue paired with $150^\circ$ and $210^\circ$ complements.
+6. **Triadic**: Balanced $120^\circ$ equilateral triangle hues ($H, H + 120^\circ, H + 240^\circ$).
+7. **Tetradic**: $90^\circ$ rectangular dual-complementary pairs ($H, H + 90^\circ, H + 180^\circ, H + 270^\circ$).
+8. **Shades**: Stepped dark luminance decay calibrated for dark mode surfaces.
+9. **Tints**: Stepped pastel luminance lightening calibrated for light mode surfaces.
 
 ---
 
-## 👁 4. Live WCAG Contrast Auditing
+## 👁 5. Live WCAG Contrast Auditing
 
 Each column displays real-time contrast scores:
 - `W: <ratio>`: Contrast ratio against pure white (`#FFFFFF`).
 - `B: <ratio>`: Contrast ratio against pure black (`#000000`).
-- Badges indicate **AAA** ($\ge 7:1$) and **AA** ($\ge 4.5:1$) compliance.
 
 ---
 
-## ✦ 5. Instant Theme Application
+## 💾 6. Persistent Theme Saving & Drawer Integration
 
-Click **✦ Apply Theme** to instantly inject the 9 generated tokens into `document.documentElement` and `themeState`. Your running application updates immediately.
+1. Click **"✦ Save as Theme"** in the top action bar.
+2. Enter a name for your theme (e.g. *“Amber Velvet”* or *“Emerald Sunset”*).
+3. The theme is saved into `localStorage['customThemes']` and applied immediately to `:root`.
+4. Your theme instantly appears under the **Custom** tab in `<ThemePicker />` with live color swatches and delete actions.
