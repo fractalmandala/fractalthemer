@@ -1,6 +1,6 @@
 # fractalthemer
 
-> An ultra-light, zero-runtime-overhead theming and ambient background system for SvelteKit and modern web applications. Features 42 curated light & dark themes, 203 atmospheric GPU auras, 257 CSS background patterns, vibrant gradient presets, and a responsive drawer with strict background isolation.
+> An ultra-light, zero-runtime-overhead theming and ambient background system for SvelteKit and modern web applications. Features 41 curated light & dark themes, 203 atmospheric GPU auras, 382 gradient presets, 257 CSS background patterns, and a responsive drawer with strict background isolation.
 
 [![npm version](https://img.shields.io/npm/v/fractalthemer.svg)](https://www.npmjs.com/package/fractalthemer)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -10,9 +10,9 @@
 
 ## ✨ Features
 
-### 🏛 42 Curated Light & Dark Themes
+### 🏛 41 Curated Light & Dark Themes
 - **21 Light Themes**: Clean editorial palettes, soft off-whites, terracotta ceramics, and vibrant accents (*Emerald Light, Paper Light, Botanical, Latte, Clay Studio, Nord Light, Matcha, Sunset Amber*, etc.).
-- **21 Dark Themes**: Deep obsidian canvases, velvety darks, and neon synthwaves (*Dracula, Catppuccin Mocha, Nord Dark, Gruvbox, OneDark Pro, Synthwave, Obsidian Crimson, Amethyst Void*, etc.).
+- **20 Dark Themes**: Deep obsidian canvases, velvety darks, and neon synthwaves (*Dracula, Catppuccin Mocha, Nord Dark, Gruvbox, OneDark Pro, Synthwave, Obsidian Crimson, Amethyst Void*, etc.).
 - **22 Semantic CSS Tokens**: Standardized `:root` CSS variables mapped across `--bg`, `--bg-surface`, `--bg-panel`, `--text-primary`, `--theme-color`, `--border`, etc.
 
 ### 🌌 203 Atmospheric GPU Aura Presets
@@ -28,7 +28,7 @@
 
 ### 🛡️ Strict Background Interchangeability & Isolation
 - **1 Unified Navigation System**: Seamlessly switch between `Plain`, `Aura`, `Gradient`, and `Pattern` in the drawer.
-- **Full Isolation**: Setting any background type automatically clears and replaces previous styles, eliminating leftover blurs, overlays, or conflicting CSS properties.
+- **Full Isolation**: Only the selected background family is rendered, while the last preset in every family is retained for instant switching without leftover blurs, overlays, or conflicting CSS properties.
 - **Pointer-Events Isolation**: Backdrops operate strictly at `z-index: -1` with `pointer-events: none !important`.
 
 ### ⚡ Pure Svelte 5 Runes & Zero-Flicker SSR
@@ -157,7 +157,7 @@ import 'fractalthemer/styles.css';
 
 // Or granular sub-modules:
 @use 'fractalthemer/tokens'   // 22 semantic color tokens (_tokens.sass)
-@use 'fractalthemer/themes'   // 42 curated theme classes (_themes.sass)
+@use 'fractalthemer/themes'   // 41 curated theme classes (_themes.sass)
 @use 'fractalthemer/auras'    // GPU gradient aura & pattern shaders (_auras.sass)
 @use 'fractalthemer/picker'   // Responsive right drawer (_theme-picker.sass)
 ```
@@ -181,7 +181,7 @@ Comprehensive architecture guides, component APIs, and token specifications:
 - [`<ThemeScript />`](./docs/components/ThemeScript.md): Head script injector for zero-flicker SSR hydration.
 
 ### 🎨 Catalogs
-- [42 Curated Themes Catalog](./docs/themes/01-theme-catalog.md): Complete index of all 21 Light and 21 Dark curated themes.
+- [41 Curated Themes Catalog](./docs/themes/01-theme-catalog.md): Complete index of all 21 Light and 20 Dark curated themes.
 - [Atmospheric Auras Catalog](./docs/themes/02-auras-catalog.md): 203 atmospheric gradient blend presets.
 - [Gradient Presets Catalog](./docs/themes/03-gradients-catalog.md): Curated gradient backgrounds.
 

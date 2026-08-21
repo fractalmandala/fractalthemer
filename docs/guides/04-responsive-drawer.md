@@ -42,7 +42,7 @@ Desktop (>= 1025px)                       Mobile (<= 1024px)
 - **Width**: `360px`.
 - **Card Layout**: Multi-column auto-fill grid (`grid-template-columns: repeat(auto-fill, minmax(130px, 1fr))`).
 - **Header**: Inline style toggle group side-by-side with the Studio link and Close button.
-- **Tabs**: Full tab labels with theme counts (`All (42)`, `Light (21)`, `Dark (21)`).
+- **Tabs**: Full tab labels with theme counts (`All (41)`, `Light (21)`, `Dark (20)`).
 
 ### 2. Mobile / Compact (`≤ 1024px`)
 - **Width**: `180px`.
@@ -56,7 +56,7 @@ Desktop (>= 1025px)                       Mobile (<= 1024px)
 ## 🖐 Touch Ergonomics & Scrolling
 
 1. **`overflow-y: scroll`**: Enables momentum touch scrolling on iOS (`-webkit-overflow-scrolling: touch`).
-2. **Sticky Header & Footer**: Style switcher controls and reset actions stay anchored at top and bottom while the user scrolls through the 42 themes.
+2. **Sticky Header & Footer**: Style switcher controls and reset actions stay anchored at top and bottom while the user scrolls through the 41 themes and background catalogs.
 3. **Backdrop Dismiss**: Clicking or tapping the semi-transparent blurred backdrop closes the drawer instantly.
 
 ---

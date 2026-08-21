@@ -10,7 +10,7 @@ updated: 2026-08-16
 
 # Fractal Themer Documentation
 
-`fractalthemer` is an ultra-light, drop-in theming and atmospheric background engine for Svelte 5 and SvelteKit. It provides full control over binary light/dark modes, 42 curated tiered color palettes, 203 GPU-accelerated gradient auras, 257 vector-grade CSS patterns, and a responsive right off-canvas drawer with strict background isolation.
+`fractalthemer` is an ultra-light, drop-in theming and atmospheric background engine for Svelte 5 and SvelteKit. It provides full control over binary light/dark modes, 41 curated tiered color palettes, 203 GPU-accelerated gradient auras, 382 gradient presets, 257 vector-grade CSS patterns, and a responsive right off-canvas drawer with strict background isolation.
 
 ---
 
@@ -35,7 +35,7 @@ updated: 2026-08-16
 - [**API & Conditional Rendering Guide**](./guides/05-api-guide.md): `{#if themeState.isDark}` templates and component recipes.
 
 ### 🎨 Palettes & Backgrounds
-- [**Theme Catalog (42 Themes)**](./themes/01-theme-catalog.md): Complete index of all 21 Light and 21 Dark curated themes with swatch values and descriptions.
+- [**Theme Catalog (41 Themes)**](./themes/01-theme-catalog.md): Complete index of all 21 Light and 20 Dark curated themes with swatch values and descriptions.
 - [**Auras Catalog (203 Presets)**](./themes/02-auras-catalog.md): Listing of atmospheric gradient blend presets and blend modes.
 - [**Gradients Catalog**](./themes/03-gradients-catalog.md): Comprehensive catalog of curated vibrant gradient presets.
 
@@ -52,7 +52,7 @@ updated: 2026-08-16
 | Mode Toggle | [`src/lib/components/ThemeToggle.svelte`](../src/lib/components/ThemeToggle.svelte) | Quick Sun/Moon toggle |
 | Master Styles | [`src/lib/styles/index.sass`](../src/lib/styles/index.sass) | SASS root bundle |
 | Tokens Sass | [`src/lib/styles/_tokens.sass`](../src/lib/styles/_tokens.sass) | CSS custom properties & fluid scales |
-| Themes Sass | [`src/lib/styles/_themes.sass`](../src/lib/styles/_themes.sass) | 42 theme definitions |
+| Themes Sass | [`src/lib/styles/_themes.sass`](../src/lib/styles/_themes.sass) | 41 theme definitions |
 | Auras Sass | [`src/lib/styles/_auras.sass`](../src/lib/styles/_auras.sass) | GPU blend layer & pattern styles |
 | Drawer Sass | [`src/lib/styles/_theme-picker.sass`](../src/lib/styles/_theme-picker.sass) | Drawer layout & animations |
 | Theme Data | [`src/lib/data/themes.ts`](../src/lib/data/themes.ts) | Metadata and token maps |

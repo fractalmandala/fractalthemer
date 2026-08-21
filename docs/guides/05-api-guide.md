@@ -60,7 +60,7 @@ Render different logos or imagery depending on whether the user is in light or d
 
 ---
 
-### 🎨 Background Style Conditional Blocks (`plain` vs `aura` vs `gradient`)
+### 🎨 Background Style Conditional Blocks (`plain` vs `aura` vs `gradient` vs `pattern`)
 
 ```svelte
 <script lang="ts">
@@ -110,7 +110,7 @@ import { themeState } from 'fractalthemer';
 // 1. Binary Light / Dark Flip
 themeState.toggleMode(); // Flips to default light/dark equivalent
 
-// 2. Direct Theme Selection (any of the 42 themes)
+// 2. Direct Theme Selection (any of the 41 themes)
 themeState.setTheme('theme-dracula-dark');
 themeState.setTheme('theme-nord-dark');
 themeState.setTheme('theme-catppuccin-mocha');
@@ -145,7 +145,7 @@ console.log(themeState.activeAuraPreset); // Current active AuraPreset or null
 
 ---
 
-### 🌈 180+ Linear Gradient Presets API
+### 🌈 382 Linear Gradient Presets API
 
 ```typescript
 import { themeState, GRADIENT_PRESETS } from 'fractalthemer';
@@ -159,13 +159,13 @@ themeState.setGradient('the-sky-and-the-sea');
 themeState.clearGradient();
 
 // Inspect gradient presets:
-console.log(themeState.allGradients.length); // 180+
+console.log(themeState.allGradients.length); // 382
 console.log(themeState.activeGradientPreset); // Current active GradientPreset or null
 ```
 
 ---
 
-### 📐 Background Mode Toggle (`plain` | `aura` | `gradient`)
+### 📐 Background Mode Toggle (`plain` | `aura` | `gradient` | `pattern`)
 
 ```typescript
 import { themeState } from 'fractalthemer';
@@ -174,9 +174,10 @@ import { themeState } from 'fractalthemer';
 themeState.setBgStyle('plain');    // Flat background surface
 themeState.setBgStyle('aura');     // Multi-layer GPU blend shader
 themeState.setBgStyle('gradient'); // Full viewport linear gradient
+themeState.setBgStyle('pattern');  // Full viewport CSS pattern
 
 // Cycle through modes:
-themeState.toggleBgStyle(); // 'plain' -> 'aura' -> 'gradient' -> 'plain'
+themeState.toggleBgStyle(); // 'plain' -> 'aura' -> 'gradient' -> 'pattern' -> 'plain'
 ```
 
 ---
@@ -349,5 +350,5 @@ Display active theme and aura details with live color swatches:
 - [Zero-Flicker SSR Guide](./02-anti-flicker-guide.md)
 - [ThemePicker Component Spec](../components/ThemePicker.md)
 - [AuraBackground Component Spec](../components/AuraBackground.md)
-- [Theme Catalog (42 Themes)](../themes/01-theme-catalog.md)
-- [Gradient Presets Catalog (180+ Gradients)](../themes/03-gradients-catalog.md)
+- [Theme Catalog (41 Themes)](../themes/01-theme-catalog.md)
+- [Gradient Presets Catalog (382 Gradients)](../themes/03-gradients-catalog.md)

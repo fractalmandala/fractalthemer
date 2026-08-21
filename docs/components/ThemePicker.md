@@ -98,7 +98,7 @@ const filteredGradients = $derived.by(() => {
           ├── <div class="theme-style-switcher"> (Sticky Plain vs Aura vs Gradient + Close Button)
           ├── <div class="theme-tabs"> (Sticky All / Light / Dark / Gradients / Custom / Next Filter Tabs)
           ├── <div class="theme-search-bar"> (Sticky Live Search Input)
-          ├── <div class="theme-grid-container"> (Scrollable Themes or 180+ Gradients Grid)
+          ├── <div class="theme-grid-container"> (Scrollable Themes or 382 Gradients Grid)
           │    ├── {#each filteredThemes as theme}
           │    │    └── <button class="theme-card"> (Theme preview dot swatches + Aura tag)
           │    └── {#each filteredGradients as grad}

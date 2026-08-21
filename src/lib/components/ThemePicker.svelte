@@ -2,9 +2,9 @@
 	import { onMount, type Snippet } from 'svelte';
 	import { themeState } from '../state/theme.svelte.js';
 	import { LIGHT_THEMES, DARK_THEMES, type ThemeInfo } from '../data/themes.js';
-	import { AURA_PRESETS, type AuraPreset } from '../data/auras.js';
-	import { GRADIENT_PRESETS, type GradientPreset } from '../data/gradients.js';
-	import { PATTERNS, PATTERN_CATEGORIES, type Pattern, type PatternCategory } from '../data/patterns.js';
+	import { AURA_PRESETS } from '../data/auras.js';
+	import { GRADIENT_PRESETS } from '../data/gradients.js';
+	import { PATTERNS } from '../data/patterns.js';
 	import Sun from '../icons/Sun.svelte';
 	import Moon from '../icons/Moon.svelte';
 	import Palette from '../icons/Palette.svelte';
@@ -30,6 +30,11 @@
 	let themeSubFilter = $state<'all' | 'light' | 'dark' | 'custom'>('all');
 	let searchFilter = $state<string>('');
 	let pickerEl = $state<HTMLDivElement | null>(null);
+
+	function selectView(view: 'plain' | 'aura' | 'gradient' | 'pattern') {
+		currentView = view;
+		themeState.setBgStyle(view);
+	}
 
 	function patternStyleToCss(style: Record<string, string | number | undefined> | undefined): string {
 		if (!style) return '';
@@ -193,8 +198,8 @@
 						type="button"
 						class="is-icon"
 						class:active={currentView === 'plain'}
-						onclick={() => (currentView = 'plain')}
-						title="Explore 42 curated and custom color themes"
+						onclick={() => selectView('plain')}
+						title={`Explore ${themeState.allThemes.length} curated and custom color themes`}
 					>
 						<Plain/>Plain
 					</button>
@@ -202,7 +207,7 @@
 						type="button"
 						class="is-icon"
 						class:active={currentView === 'gradient'}
-						onclick={() => (currentView = 'gradient')}
+						onclick={() => selectView('gradient')}
 						title="Explore plain gradient background presets"
 					>
 						<Gradients/>
@@ -212,8 +217,8 @@
 						type="button"
 						class="is-icon"
 						class:active={currentView === 'pattern'}
-						onclick={() => (currentView = 'pattern')}
-						title="Explore 257 CSS background patterns"
+						onclick={() => selectView('pattern')}
+						title={`Explore ${themeState.allPatterns.length} CSS background patterns`}
 					>
 						<Patterns/>
 						Patterns
@@ -222,8 +227,8 @@
 						type="button"
 						class="is-icon"
 						class:active={currentView === 'aura'}
-						onclick={() => (currentView = 'aura')}
-						title="Explore 203 atmospheric aura gradients"
+						onclick={() => selectView('aura')}
+						title={`Explore ${themeState.allAuras.length} atmospheric aura gradients`}
 					>
 						<AuraIcon/>
 						Auras
@@ -231,10 +236,14 @@
 				</div>
 				<div class="row gap8 ycenter">
 			<div class="row ycenter gap8">
-				<button
-					type="button"
-					class="is-icon"
-					onclick={() => themeState.resetDefault()}
+					<button
+						type="button"
+						class="is-icon"
+						onclick={() => {
+							themeState.resetDefault();
+							currentView = 'plain';
+							searchFilter = '';
+						}}
 					title="Set default theme (.theme-light-default)"
 				>
 					<Undo/>
@@ -312,7 +321,13 @@
 				<input
 					type="text"
 					class="theme-search-input"
-					placeholder={currentView === 'plain' ? 'Search 42 themes...' : currentView === 'aura' ? 'Search 203 aura gradients...' : currentView === 'gradient' ? 'Search gradients...' : 'Search 257 CSS patterns...'}
+					placeholder={currentView === 'plain'
+						? `Search ${themeState.allThemes.length} themes...`
+						: currentView === 'aura'
+							? `Search ${themeState.allAuras.length} aura gradients...`
+							: currentView === 'gradient'
+								? `Search ${themeState.allGradients.length} gradients...`
+								: `Search ${themeState.allPatterns.length} CSS patterns...`}
 					bind:value={searchFilter}
 				/>
 			</div>

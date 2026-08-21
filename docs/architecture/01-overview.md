@@ -52,11 +52,11 @@ fractalthemer/
 │   │   ├── index.css                  # Precompiled CSS bundle
 │   │   ├── index.sass                 # SASS master stylesheet
 │   │   ├── _tokens.sass               # Source SASS tokens & Utopia scales
-│   │   ├── _themes.sass               # Source SASS 42 themes
+│   │   ├── _themes.sass               # Source SASS 41 themes
 │   │   ├── _auras.sass                # Source SASS auras & pattern shaders
 │   │   └── _theme-picker.sass         # Source SASS 100vh drawer
 │   ├── data/
-│   │   ├── themes.js                  # 42 Themes dataset & metadata
+│   │   ├── themes.js                  # 41 Themes dataset & metadata
 │   │   ├── gradients.js               # Gradient presets dataset
 │   │   ├── patterns.js                # 257 CSS patterns dataset
 │   │   └── auras.js                   # Aura coordinates & layer presets
@@ -65,7 +65,7 @@ fractalthemer/
 └── src/lib/                           # Source files
     ├── components/                    # Svelte 5 components
     ├── state/                         # Reactive runes state (themeState)
-    ├── data/                          # 42 Theme, Aura, Gradient & Pattern definitions
+    ├── data/                          # 41 Theme, Aura, Gradient & Pattern definitions
     ├── icons/                         # Embedded SVG icons
     └── styles/                        # Indented SASS source
 ```
@@ -82,7 +82,7 @@ In [`package.json`](../../package.json), the package defines clear subpath expor
 | `fractalthemer/styles.css` | `./dist/styles/index.css` | Precompiled, drop-in CSS stylesheet bundle |
 | `fractalthemer/styles` | `./dist/styles/index.sass` | SASS root bundle importing all partials |
 | `fractalthemer/tokens` | `./dist/styles/_tokens.sass` | Raw SASS theme color design tokens |
-| `fractalthemer/themes` | `./dist/styles/_themes.sass` | Raw SASS 42 theme classes |
+| `fractalthemer/themes` | `./dist/styles/_themes.sass` | Raw SASS 41 theme classes |
 | `fractalthemer/auras` | `./dist/styles/_auras.sass` | Raw SASS aura shaders & gradient backdrops |
 | `fractalthemer/picker` | `./dist/styles/_theme-picker.sass` | Raw SASS 100vh responsive drawer styles |
 | `fractalthemer/styles/*` | `./dist/styles/*` | Raw SASS wildcard subpath for custom builds |

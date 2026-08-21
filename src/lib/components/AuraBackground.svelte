@@ -19,7 +19,17 @@
 		aria-hidden="true"
 		style="position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;"
 	>
-		{#if themeState.activeCustomAuraLayers && themeState.activeCustomAuraLayers.length > 0}
+		{#if themeState.activeAuraPreset?.layers?.length}
+			{#each themeState.activeAuraPreset.layers as layer, i (layer.layer || i)}
+				<div
+					class="aura-layer"
+					style:background={layer.background}
+					style:mix-blend-mode={layer.blendMode || 'normal'}
+					style:filter={`blur(${layer.blurMobile || layer.blur || 75}px)`}
+					style:opacity={layer.opacity !== undefined ? layer.opacity : 1}
+				></div>
+			{/each}
+		{:else if themeState.activeCustomAuraLayers && themeState.activeCustomAuraLayers.length > 0}
 			{#each themeState.activeCustomAuraLayers as layer, i (layer.layer || i)}
 				<div
 					class="aura-layer"

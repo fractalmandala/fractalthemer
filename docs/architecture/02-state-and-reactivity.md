@@ -35,12 +35,13 @@ export class ThemeState {
 | Field | Type | Description |
 |---|---|---|
 | `current` | `string` | Active theme identifier (e.g. `'theme-sun-dark'`, `'theme-light-default'`) |
-| `bgStyle` | `'plain' \| 'aura' \| 'gradient'` | Backdrop mode: flat distraction-free canvas vs. multi-layer GPU aura vs. linear gradient preset |
+| `bgStyle` | `'plain' \| 'aura' \| 'gradient' \| 'pattern'` | Active backdrop family; the selected preset for each family is retained independently |
 | `activeGradient` | `string \| null` | Slug identifier of active gradient preset (e.g. `'omolon'`, `'radioactive-heat'`) |
 | `isOpen` | `boolean` | Controls visibility and transition state of the 100vh right off-canvas drawer |
 | `customThemes` | `ThemeInfo[]` | User-created custom themes restored from `localStorage` |
 | `activeCustomOverrides` | `Record<string, string> \| null` | Runtime CSS variable overrides when a custom theme is active |
-| `activeCustomAuraLayers` | `AuraLayer[] \| null` | Dynamic aura gradient nodes for custom crafted themes |
+| `activePattern` | `string \| null` | Slug identifier of the active CSS pattern preset |
+| `activeCustomAuraLayers` | `AuraLayer[] \| null` | Dynamic aura gradient nodes for the active custom theme |
 
 ---
 
@@ -116,11 +117,11 @@ Toggles between Light and Dark mode. Intelligently picks corresponding light and
 toggleMode(): void
 ```
 
-### 5. `setBgStyle(style: 'plain' | 'aura' | 'gradient')` and `toggleBgStyle()`
-Switches background styling. Updates the `data-bg-style` attribute on `<html>` and persists to `localStorage`. `toggleBgStyle()` cycles between plain, aura, and gradient.
+### 5. `setBgStyle(style: 'plain' | 'aura' | 'gradient' | 'pattern')` and `toggleBgStyle()`
+Switches background styling. Updates the `data-bg-style` attribute on `<html>` and persists to `localStorage`. Each family keeps its most recently selected preset, so changing families never loses the user’s last choice. `toggleBgStyle()` cycles between plain, aura, gradient, and pattern.
 
 ### 6. `cycleNext()` and `cycleRandom()`
-Iterates sequentially or picks a random theme from the 42 built-in and custom theme pool.
+Iterates sequentially or picks a random theme from the 41 built-in and custom theme pool.
 
 ### 6. `saveCustomTheme(...)` and `deleteCustomTheme(id: string)`
 Creates and persists custom user-defined themes with custom token key-value pairs and aura gradient layer specifications.

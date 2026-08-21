@@ -140,7 +140,7 @@ If your project is built with indented SASS (`.sass`) or SCSS, you can `@use` th
 
 // Or granular partials:
 @use 'fractalthemer/tokens'  // Fluid typography, spacing, and CSS custom properties
-@use 'fractalthemer/themes'  // 42 theme classes (.theme-*)
+@use 'fractalthemer/themes'  // 41 theme classes (.theme-*)
 @use 'fractalthemer/auras'   // Multi-layer GPU blend shaders & gradient canvas
 @use 'fractalthemer/picker'  // 100vh drawer and controls
 ```

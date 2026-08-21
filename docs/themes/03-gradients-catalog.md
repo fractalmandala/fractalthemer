@@ -1,16 +1,16 @@
 ---
 id: gradients-catalog
-title: Vibrant Gradient Presets Catalog (180+ Presets)
+title: Vibrant Gradient Presets Catalog (382 Presets)
 type: design
 tags: [gradients, presets, background-styles, colors, samplers, mesh]
-summary: Complete catalog of all 180+ curated linear and atmospheric gradient presets in fractalthemer with color hex swatches and CSS rules.
+summary: Complete catalog of all 382 curated linear and atmospheric gradient presets in fractalthemer with color hex swatches and CSS rules.
 relates_to: [auras-catalog, theme-picker-component, aura-background-component]
 updated: 2026-08-16
 ---
 
-# Vibrant Gradient Presets Catalog (180+ Presets)
+# Vibrant Gradient Presets Catalog (382 Presets)
 
-`fractalthemer` provides over **180 vibrant, named gradient presets** that can be activated as the application viewport background or sampled interactively in the theme drawer.
+`fractalthemer` provides **382 vibrant, named gradient presets** that can be activated as the application viewport background or sampled interactively in the theme drawer.
 
 ---
 

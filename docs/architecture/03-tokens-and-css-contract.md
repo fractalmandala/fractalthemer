@@ -12,7 +12,7 @@ updated: 2026-08-16
 
 `fractalthemer` focuses strictly on theme colors and contrast. It purposefully does **not** export global font scales or spacing scales, leaving typography sizing and layout spacing completely under your application's control.
 
-All 42 themes supply the complete semantic token contract defined in [`_tokens.sass`](../../src/lib/styles/_tokens.sass) and [`_themes.sass`](../../src/lib/styles/_themes.sass).
+All 41 themes supply the complete semantic token contract defined in [`_tokens.sass`](../../src/lib/styles/_tokens.sass) and [`_themes.sass`](../../src/lib/styles/_themes.sass).
 
 ---
 
@@ -137,4 +137,3 @@ Every theme provides tiered background surfaces to maintain distinct visual hier
   font-size: 12px;
 }
 ```
-

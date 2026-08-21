@@ -68,6 +68,36 @@ export class ThemeState {
 		return PATTERNS.find((p) => p.id === this.activePattern) ?? null;
 	}
 
+	private ensureBackgroundPreset(style: BgStyle) {
+		if (style === 'aura' && !this.activeAura) {
+			const customLayers = this.currentTheme.isCustom ? this.currentTheme.customAura?.layers : null;
+			if (customLayers?.length) {
+				this.activeCustomAuraLayers = customLayers;
+			} else if (this.currentTheme.auraId && AURA_PRESETS.some((a) => a.id === this.currentTheme.auraId)) {
+				this.activeAura = this.currentTheme.auraId;
+			}
+		}
+
+		if (style === 'gradient' && !this.activeGradient) {
+			this.activeGradient = GRADIENT_PRESETS[0]?.id ?? null;
+		}
+
+		if (style === 'pattern' && !this.activePattern) {
+			this.activePattern = PATTERNS[0]?.id ?? null;
+		}
+	}
+
+	private persistBackgroundState() {
+		if (typeof window === 'undefined') return;
+
+		try {
+			localStorage.setItem('bgStyle', this.bgStyle);
+			if (this.activeAura) localStorage.setItem('aura', this.activeAura);
+			if (this.activeGradient) localStorage.setItem('gradient', this.activeGradient);
+			if (this.activePattern) localStorage.setItem('pattern', this.activePattern);
+		} catch {}
+	}
+
 	init() {
 		if (typeof window === 'undefined') return;
 
@@ -117,6 +147,8 @@ export class ThemeState {
 			this.bgStyle = 'plain';
 		}
 
+		this.ensureBackgroundPreset(this.bgStyle);
+		this.persistBackgroundState();
 		this.apply(this.current, this.bgStyle);
 	}
 
@@ -130,7 +162,7 @@ export class ThemeState {
 			if (target.customAura?.layers) {
 				this.activeCustomAuraLayers = target.customAura.layers;
 			}
-		} else if (!this.activeAura) {
+		} else {
 			this.activeCustomOverrides = null;
 			this.activeCustomAuraLayers = null;
 		}
@@ -145,23 +177,9 @@ export class ThemeState {
 
 	setBgStyle(style: BgStyle) {
 		this.bgStyle = style;
-		if (style === 'plain') {
-			this.activeAura = null;
-			this.activeCustomAuraLayers = null;
-			this.activeGradient = null;
-			this.activePattern = null;
-			if (typeof window !== 'undefined') {
-				try {
-					localStorage.removeItem('aura');
-					localStorage.removeItem('gradient');
-					localStorage.removeItem('pattern');
-				} catch {}
-			}
-		}
+		this.ensureBackgroundPreset(style);
 		if (typeof window !== 'undefined') {
-			try {
-				localStorage.setItem('bgStyle', style);
-			} catch {}
+			this.persistBackgroundState();
 			this.apply(this.current, style);
 		}
 	}
@@ -170,24 +188,16 @@ export class ThemeState {
 		const target = AURA_PRESETS.find((a) => a.id === id);
 		if (!target) return;
 		this.activeAura = id;
-		this.activeCustomAuraLayers = target.layers;
-		this.activeGradient = null;
-		this.activePattern = null;
 		this.bgStyle = 'aura';
 		if (typeof window !== 'undefined') {
-			try {
-				localStorage.setItem('aura', id);
-				localStorage.setItem('bgStyle', 'aura');
-				localStorage.removeItem('gradient');
-				localStorage.removeItem('pattern');
-			} catch {}
+			this.persistBackgroundState();
 			this.apply(this.current, 'aura');
 		}
 	}
 
 	clearAura() {
 		this.activeAura = null;
-		this.activeCustomAuraLayers = null;
+		this.activeCustomAuraLayers = this.currentTheme.isCustom ? this.currentTheme.customAura?.layers ?? null : null;
 		if (typeof window !== 'undefined') {
 			try {
 				localStorage.removeItem('aura');
@@ -200,17 +210,9 @@ export class ThemeState {
 		const target = GRADIENT_PRESETS.find((g) => g.id === id);
 		if (!target) return;
 		this.activeGradient = id;
-		this.activeAura = null;
-		this.activeCustomAuraLayers = null;
-		this.activePattern = null;
 		this.bgStyle = 'gradient';
 		if (typeof window !== 'undefined') {
-			try {
-				localStorage.setItem('gradient', id);
-				localStorage.setItem('bgStyle', 'gradient');
-				localStorage.removeItem('aura');
-				localStorage.removeItem('pattern');
-			} catch {}
+			this.persistBackgroundState();
 			this.apply(this.current, 'gradient');
 		}
 	}
@@ -231,17 +233,9 @@ export class ThemeState {
 		const target = PATTERNS.find((p) => p.id === id);
 		if (!target) return;
 		this.activePattern = id;
-		this.activeAura = null;
-		this.activeCustomAuraLayers = null;
-		this.activeGradient = null;
 		this.bgStyle = 'pattern';
 		if (typeof window !== 'undefined') {
-			try {
-				localStorage.setItem('pattern', id);
-				localStorage.setItem('bgStyle', 'pattern');
-				localStorage.removeItem('aura');
-				localStorage.removeItem('gradient');
-			} catch {}
+			this.persistBackgroundState();
 			this.apply(this.current, 'pattern');
 		}
 	}
@@ -299,10 +293,14 @@ export class ThemeState {
 	resetDefault() {
 		this.activeCustomOverrides = null;
 		this.activeCustomAuraLayers = null;
+		this.activeAura = null;
 		this.activeGradient = null;
+		this.activePattern = null;
 		if (typeof window !== 'undefined') {
 			try {
+				localStorage.removeItem('aura');
 				localStorage.removeItem('gradient');
+				localStorage.removeItem('pattern');
 			} catch {}
 		}
 		this.clearCustomOverrides();

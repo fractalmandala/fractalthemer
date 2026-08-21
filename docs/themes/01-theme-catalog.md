@@ -1,16 +1,16 @@
 ---
 id: theme-catalog
-title: Curated Themes Catalog (42 Palettes)
+title: Curated Themes Catalog (41 Palettes)
 type: design
 tags: [themes, palettes, color-schemes, light-mode, dark-mode]
-summary: Exhaustive reference catalog of all 42 curated light and dark themes in fractalthemer with swatch values, descriptions, and linked auras.
+summary: Exhaustive reference catalog of all 41 curated light and dark themes in fractalthemer with swatch values, descriptions, and linked auras.
 relates_to: [auras-catalog, tokens-and-css-contract]
 updated: 2026-08-16
 ---
 
-# Curated Themes Catalog (42 Palettes)
+# Curated Themes Catalog (41 Palettes)
 
-`fractalthemer` ships with **42 meticulously crafted themes** (21 Light themes and 21 Dark themes). Each theme provides complete coverage across elevation surfaces, text contrasts, syntax tokens, and markdown rendering.
+`fractalthemer` ships with **41 meticulously crafted themes** (21 Light themes and 20 Dark themes). Each theme provides complete coverage across elevation surfaces, text contrasts, syntax tokens, and markdown rendering.
 
 ---
 
