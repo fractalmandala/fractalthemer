@@ -3,8 +3,8 @@
 	import { themeState } from '../state/theme.svelte.js';
 	import { LIGHT_THEMES, DARK_THEMES, type ThemeInfo } from '../data/themes.js';
 	import { AURA_PRESETS } from '../data/auras.js';
-	import { GRADIENT_PRESETS } from '../data/gradients.js';
-	import { PATTERNS } from '../data/patterns.js';
+	import { GRADIENT_PRESETS, isGradientDark } from '../data/gradients.js';
+	import { PATTERNS, isPatternDark } from '../data/patterns.js';
 	import Sun from '../icons/Sun.svelte';
 	import Moon from '../icons/Moon.svelte';
 	import Palette from '../icons/Palette.svelte';
@@ -100,7 +100,9 @@
 	});
 
 	const filteredAuras = $derived.by(() => {
-		let list = AURA_PRESETS;
+		// Presets are classified light/dark — only those fitting the active mode
+		// are offered, so the rendered backdrop always matches the theme mode.
+		let list = AURA_PRESETS.filter((a) => a.dark === themeState.isDark);
 		if (!searchFilter.trim()) return list;
 
 		const q = searchFilter.toLowerCase().trim();
@@ -115,15 +117,16 @@
 	});
 
 	const filteredGradients = $derived.by(() => {
-		if (!searchFilter.trim()) return GRADIENT_PRESETS;
+		const list = GRADIENT_PRESETS.filter((g) => isGradientDark(g) === themeState.isDark);
+		if (!searchFilter.trim()) return list;
 		const q = searchFilter.toLowerCase().trim();
-		return GRADIENT_PRESETS.filter(
+		return list.filter(
 			(g) => g.name.toLowerCase().includes(q) || g.id.toLowerCase().includes(q)
 		);
 	});
 
 	const filteredPatterns = $derived.by(() => {
-		let list = PATTERNS;
+		const list = PATTERNS.filter((p) => isPatternDark(p) === themeState.isDark);
 		if (!searchFilter.trim()) return list;
 
 		const q = searchFilter.toLowerCase().trim();
@@ -254,7 +257,7 @@
 								currentView = 'plain';
 								searchFilter = '';
 							}}
-							title="Set default theme (.theme-light-default)"
+							title="Reset theme and background to defaults — custom accent is kept"
 						>
 							<Undo />
 						</button>
@@ -391,10 +394,10 @@
 					placeholder={currentView === 'plain'
 						? `Search ${themeState.allThemes.length} themes...`
 						: currentView === 'aura'
-							? `Search ${themeState.allAuras.length} aura gradients...`
+							? `Search ${filteredAuras.length} ${themeState.isDark ? 'dark' : 'light'} aura gradients...`
 							: currentView === 'gradient'
-								? `Search ${themeState.allGradients.length} gradients...`
-								: `Search ${themeState.allPatterns.length} CSS patterns...`}
+								? `Search ${filteredGradients.length} ${themeState.isDark ? 'dark' : 'light'} gradients...`
+								: `Search ${filteredPatterns.length} ${themeState.isDark ? 'dark' : 'light'} CSS patterns...`}
 					bind:value={searchFilter}
 				/>
 			</div>

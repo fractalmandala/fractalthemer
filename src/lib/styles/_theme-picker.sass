@@ -108,11 +108,12 @@
 
 .theme-popover
 	position: fixed
-	top: 0
 	right: 0
-	bottom: 0
-	height: 100vh
-	height: 100dvh
+	// Hang below the site header — consumers define --header-height; the 0px
+	// fallback keeps full-height behavior when they don't.
+	top: var(--header-height, 0px)
+	height: calc(100vh - var(--header-height, 0px))
+	height: calc(100dvh - var(--header-height, 0px))
 	z-index: 9999
 	display: flex
 	flex-direction: column
@@ -124,6 +125,13 @@
 	scrollbar-width: thin
 	animation: themeDrawerSlideIn 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards
 	width: min(94vw, 480px)
+
+// Mobile: cover half the viewport width so the page behind stays visible and
+// the live effect of picking presets can be watched.
+@media (max-width: 768px)
+	.theme-popover
+		width: 50vw
+		min-width: 200px
 
 .theme-style-switcher
 	position: sticky

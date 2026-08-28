@@ -1,6 +1,6 @@
 {
   "name": "fractalthemer",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Ultra-light Svelte 5 theming system with 42 curated light & dark themes, 203 atmospheric GPU auras, 257 CSS background patterns, and responsive drawer",
   "license": "MIT",
   "type": "module",

@@ -159,6 +159,115 @@ export class ThemeState {
 		return PATTERNS.find((p) => p.id === this.activePattern) ?? null;
 	}
 
+	// ---- Per-mode background memory -------------------------------------------
+	// Gradients, patterns and auras are each classified light or dark. Picks are
+	// remembered PER MODE (ft-<family>-<light|dark>) so a light/dark flip
+	// restores the other mode's pick instead of clobbering or dropping it.
+	private modePickKey(family: 'aura' | 'gradient' | 'pattern', dark: boolean): string {
+		return `ft-${family}-${dark ? 'dark' : 'light'}`;
+	}
+
+	private saveModePick(family: 'aura' | 'gradient' | 'pattern', id: string, dark: boolean) {
+		if (typeof window === 'undefined') return;
+		try {
+			localStorage.setItem(this.modePickKey(family, dark), id);
+		} catch {}
+	}
+
+	private fitsMode(family: 'aura' | 'gradient' | 'pattern', id: string, dark: boolean): boolean {
+		if (family === 'aura') {
+			const a = AURA_PRESETS.find((x) => x.id === id);
+			return !!a && a.dark === dark;
+		}
+		if (family === 'gradient') {
+			const g = GRADIENT_PRESETS.find((x) => x.id === id);
+			return !!g && isGradientDark(g) === dark;
+		}
+		const p = PATTERNS.find((x) => x.id === id);
+		return !!p && isPatternDark(p) === dark;
+	}
+
+	// The user's remembered pick for (family, mode) when it fits, else the first
+	// preset of the family that fits the mode; null when the family has none.
+	private modePick(family: 'aura' | 'gradient' | 'pattern', dark: boolean): string | null {
+		if (typeof window !== 'undefined') {
+			try {
+				const saved = localStorage.getItem(this.modePickKey(family, dark));
+				if (saved && this.fitsMode(family, saved, dark)) return saved;
+			} catch {}
+		}
+		if (family === 'aura') return AURA_PRESETS.find((a) => a.dark === dark)?.id ?? null;
+		if (family === 'gradient') return GRADIENT_PRESETS.find((g) => isGradientDark(g) === dark)?.id ?? null;
+		return PATTERNS.find((p) => isPatternDark(p) === dark)?.id ?? null;
+	}
+
+	// Legacy picks (saved before per-mode memory, or picked while the picker
+	// still mixed modes): archive them under their own fitting mode, then refill
+	// the active slot with a pick that fits the current mode.
+	private normalizePick(family: 'aura' | 'gradient' | 'pattern', dark: boolean) {
+		const current = family === 'aura' ? this.activeAura : family === 'gradient' ? this.activeGradient : this.activePattern;
+		if (!current || this.fitsMode(family, current, dark)) return;
+
+		let trueDark: boolean | null = null;
+		if (family === 'aura') {
+			trueDark = AURA_PRESETS.find((a) => a.id === current)?.dark ?? null;
+		} else if (family === 'gradient') {
+			const g = GRADIENT_PRESETS.find((x) => x.id === current);
+			trueDark = g ? isGradientDark(g) : null;
+		} else {
+			const p = PATTERNS.find((x) => x.id === current);
+			trueDark = p ? isPatternDark(p) : null;
+		}
+		if (trueDark !== null) this.saveModePick(family, current, trueDark);
+
+		const replacement = this.modePick(family, dark);
+		if (family === 'aura') {
+			this.activeAura = replacement;
+			this.activeCustomAuraLayers = replacement ? AURA_PRESETS.find((a) => a.id === replacement)?.layers ?? null : null;
+		} else if (family === 'gradient') {
+			this.activeGradient = replacement;
+		} else {
+			this.activePattern = replacement;
+		}
+	}
+
+	// On a light/dark flip: archive the current picks under the leaving mode,
+	// then restore each family's pick for the target mode and re-persist. Custom
+	// themes keep their own aura layers — those belong to the theme, not a mode.
+	private refitBackgrounds(targetIsDark: boolean) {
+		const leavingIsDark = !targetIsDark;
+		if (this.activeAura && this.fitsMode('aura', this.activeAura, leavingIsDark)) {
+			this.saveModePick('aura', this.activeAura, leavingIsDark);
+		}
+		if (this.activeGradient && this.fitsMode('gradient', this.activeGradient, leavingIsDark)) {
+			this.saveModePick('gradient', this.activeGradient, leavingIsDark);
+		}
+		if (this.activePattern && this.fitsMode('pattern', this.activePattern, leavingIsDark)) {
+			this.saveModePick('pattern', this.activePattern, leavingIsDark);
+		}
+
+		if (this.currentTheme.isCustom) return;
+
+		const nextAura = this.modePick('aura', targetIsDark);
+		const nextGradient = this.modePick('gradient', targetIsDark);
+		const nextPattern = this.modePick('pattern', targetIsDark);
+		let changed = false;
+		if (nextAura && nextAura !== this.activeAura) {
+			this.activeAura = nextAura;
+			this.activeCustomAuraLayers = AURA_PRESETS.find((a) => a.id === nextAura)?.layers ?? null;
+			changed = true;
+		}
+		if (nextGradient && nextGradient !== this.activeGradient) {
+			this.activeGradient = nextGradient;
+			changed = true;
+		}
+		if (nextPattern && nextPattern !== this.activePattern) {
+			this.activePattern = nextPattern;
+			changed = true;
+		}
+		if (changed) this.persistBackgroundState();
+	}
+
 	private ensureBackgroundPreset(style: BgStyle) {
 		if (style === 'aura' && !this.activeAura) {
 			const customLayers = this.currentTheme.isCustom ? this.currentTheme.customAura?.layers : null;
@@ -166,15 +275,18 @@ export class ThemeState {
 				this.activeCustomAuraLayers = customLayers;
 			} else if (this.currentTheme.auraId && AURA_PRESETS.some((a) => a.id === this.currentTheme.auraId)) {
 				this.activeAura = this.currentTheme.auraId;
+			} else {
+				this.activeAura = this.modePick('aura', this.isDark);
+				this.activeCustomAuraLayers = this.activeAura ? AURA_PRESETS.find((a) => a.id === this.activeAura)?.layers ?? null : null;
 			}
 		}
 
 		if (style === 'gradient' && !this.activeGradient) {
-			this.activeGradient = GRADIENT_PRESETS[0]?.id ?? null;
+			this.activeGradient = this.modePick('gradient', this.isDark);
 		}
 
 		if (style === 'pattern' && !this.activePattern) {
-			this.activePattern = PATTERNS[0]?.id ?? null;
+			this.activePattern = this.modePick('pattern', this.isDark);
 		}
 	}
 
@@ -252,6 +364,13 @@ export class ThemeState {
 			}
 		} catch {}
 
+		// Picks saved before per-mode memory (or under the other mode) are
+		// re-homed so the restored state always fits the restored theme's mode.
+		const initDark = this.isDark;
+		this.normalizePick('aura', initDark);
+		this.normalizePick('gradient', initDark);
+		this.normalizePick('pattern', initDark);
+
 		this.ensureBackgroundPreset(this.bgStyle);
 		this.persistBackgroundState();
 		this.apply(this.current, this.bgStyle);
@@ -261,15 +380,26 @@ export class ThemeState {
 		const target = this.allThemes.find((t) => t.id === id);
 		if (!target) return;
 
+		const prevIsDark = this.isDark;
 		this.current = id;
 		if (target.isCustom && target.tokens) {
 			this.activeCustomOverrides = target.tokens;
 			if (target.customAura?.layers) {
+				// Null the preset slot so the theme's own aura renders instead of
+				// being shadowed by the last preset aura the user had selected.
+				this.activeAura = null;
 				this.activeCustomAuraLayers = target.customAura.layers;
 			}
 		} else {
 			this.activeCustomOverrides = null;
 			this.activeCustomAuraLayers = null;
+		}
+
+		// A theme switch that flips light/dark re-homes the mode-classified
+		// backgrounds: the leaving mode's picks are archived, the target mode's
+		// picks are restored, and persistence stays in sync.
+		if (target.mode !== (prevIsDark ? 'dark' : 'light')) {
+			this.refitBackgrounds(target.mode === 'dark');
 		}
 
 		if (typeof window !== 'undefined') {
@@ -425,6 +555,10 @@ export class ThemeState {
 	}
 
 	toggleMode() {
+		// The twin (or first matching-mode) theme switch below re-homes the
+		// mode-classified backgrounds: setTheme detects the mode flip and runs
+		// refitBackgrounds, which archives each family's pick for the leaving
+		// mode and restores the target mode's pick, then re-persists everything.
 		const targetMode = this.isDark ? 'light' : 'dark';
 		const twinId = THEME_TWINS[this.current];
 		
@@ -435,17 +569,6 @@ export class ThemeState {
 			if (matching.length) this.setTheme(matching[0].id);
 		}
 
-		// Adapt background preset to target mode
-		if (this.bgStyle === 'aura' && this.activeAuraPreset && this.activeAuraPreset.dark !== (targetMode === 'dark')) {
-			const candidate = AURA_PRESETS.find((a) => a.dark === (targetMode === 'dark'));
-			if (candidate) this.activeAura = candidate.id;
-		} else if (this.bgStyle === 'gradient' && this.activeGradientPreset && isGradientDark(this.activeGradientPreset) !== (targetMode === 'dark')) {
-			const candidate = GRADIENT_PRESETS.find((g) => isGradientDark(g) === (targetMode === 'dark'));
-			if (candidate) this.activeGradient = candidate.id;
-		} else if (this.bgStyle === 'pattern' && this.activePatternObject && isPatternDark(this.activePatternObject) !== (targetMode === 'dark')) {
-			const candidate = PATTERNS.find((p) => isPatternDark(p) === (targetMode === 'dark'));
-			if (candidate) this.activePattern = candidate.id;
-		}
 	}
 
 	cycleNext() {
@@ -463,11 +586,11 @@ export class ThemeState {
 		}
 	}
 
+	// Resets the theme and background style to defaults. The custom accent layer
+	// is deliberately NOT touched: accent colors persist across resets, theme
+	// switches and refreshes and are only cleared by the user themselves via
+	// resetCustomAccent (the accent row's reset button).
 	resetDefault() {
-		this.useCustomAccent = false;
-		this.accentAltTouched = false;
-		this.customAccentColor = '#04825B';
-		this.customAccentAltColor = '#047857';
 		this.activeCustomOverrides = null;
 		this.activeCustomAuraLayers = null;
 		this.activeAura = null;
@@ -478,8 +601,6 @@ export class ThemeState {
 				localStorage.removeItem('aura');
 				localStorage.removeItem('gradient');
 				localStorage.removeItem('pattern');
-				localStorage.removeItem('useCustomAccent');
-				localStorage.removeItem('customAccentColor');
 			} catch {}
 		}
 		this.clearCustomOverrides();

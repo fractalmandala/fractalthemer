@@ -98,14 +98,14 @@ get activeGradientPreset(): GradientPreset | null {
 ## 🛠 Core State Methods
 
 ### 1. `init()`
-Executed on `onMount` in browser contexts. Reads `localStorage` for `theme`, `bgStyle`, `gradient`, `aura`, `pattern`, `customThemes`, and the custom accent keys (`useCustomAccent`, `customAccentColor`, `customAccentAltColor`), validates against known schemas, and synchronizes the DOM attributes:
+Executed on `onMount` in browser contexts. Reads `localStorage` for `theme`, `bgStyle`, `gradient`, `aura`, `pattern`, `customThemes`, and the custom accent keys (`useCustomAccent`, `customAccentColor`, `customAccentAltColor`), validates against known schemas, and synchronizes the DOM attributes. Background picks that don't fit the restored theme's mode are re-homed (`normalizePick`: archived under their own fitting mode, slot refilled with a pick that fits), so restored state always matches the restored mode:
 
 ```typescript
 init(): void
 ```
 
 ### 2. `setTheme(id: string)`
-Switches the active palette to `id`. Removes prior `.theme-*` classes from `<html>`, adds the new class, updates `data-theme`, `data-mode`, and `colorScheme`, and stores the preference:
+Switches the active palette to `id`. Removes prior `.theme-*` classes from `<html>`, adds the new class, updates `data-theme`, `data-mode`, and `colorScheme`, and stores the preference. When the switch flips light/dark, it also **refits the mode-classified backgrounds** (`refitBackgrounds`): each family's current pick is archived under the leaving mode, the target mode's remembered pick is restored, and persistence is re-synced — the visible backdrop always fits the new mode:
 
 ```typescript
 setTheme(id: string): void
@@ -120,7 +120,7 @@ clearGradient(): void
 ```
 
 ### 4. `toggleMode()`
-Toggles between Light and Dark mode. Intelligently picks corresponding light and dark flagship themes:
+Toggles between Light and Dark mode by switching to the current theme's twin (or the first theme of the target mode). The mode flip inside `setTheme()` re-homes the mode-classified backgrounds — picks are archived for the leaving mode and restored for the target mode — so gradients, patterns, and auras always fit the active mode and per-mode picks survive toggles and refreshes:
 
 ```typescript
 toggleMode(): void
@@ -145,6 +145,8 @@ resetCustomAccent(): void                    // the only manual path that clears
 ```
 
 `alt` starts as an auto-derived shade (−12% lightness) of the accent. `init()` detects a hand-tuned alt by comparing the saved value against the derived one, so the touched flag survives reloads without extra storage.
+
+The drawer's header **Reset** (`resetDefault()`) intentionally does **not** touch this layer — it resets the theme and background style only. Accent colors persist until the user clears them via the accent row's undo (`resetCustomAccent`).
 
 ---
 

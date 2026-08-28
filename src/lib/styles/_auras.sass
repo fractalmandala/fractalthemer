@@ -132,19 +132,10 @@
 		.pattern-overlay-soft
 			background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.4) 100%)
 
-[data-mode="light"]
-	.aura-gradient-backdrop
-		.gradient-canvas
-			opacity: 0.28
-			mix-blend-mode: multiply
-		.gradient-overlay-soft
-			background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.6) 100%)
-	.aura-pattern-backdrop
-		.pattern-canvas
-			opacity: 0.32
-			mix-blend-mode: multiply
-		.pattern-overlay-soft
-			background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.5) 100%)
+// Light mode inherits the base opacities above: presets are mode-filtered in
+// the picker, so a light-mode backdrop is designed for light mode and renders
+// at full strength. The old multiply wash (0.28/0.32) made light backdrops
+// nearly invisible and is gone.
 
 .fullwrapper, .appshell, .appshel
 	position: relative
