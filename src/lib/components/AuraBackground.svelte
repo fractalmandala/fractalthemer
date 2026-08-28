@@ -54,7 +54,7 @@
 	<div
 		class="aura-gradient-backdrop"
 		aria-hidden="true"
-		style="position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; background-color: var(--bg);"
+		style="position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;"
 	>
 		<div
 			class="gradient-canvas"
@@ -70,7 +70,7 @@
 	<div
 		class="aura-pattern-backdrop"
 		aria-hidden="true"
-		style="position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; background-color: var(--bg);"
+		style="position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;"
 	>
 		<div
 			class="pattern-canvas"

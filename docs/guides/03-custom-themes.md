@@ -5,7 +5,7 @@ type: design
 tags: [custom-themes, runtime-tokens, localstorage, persistence, studio]
 summary: Guide to creating, saving, persisting, and dynamically applying user-generated custom themes and custom aura layers.
 relates_to: [state-and-reactivity, tokens-and-css-contract, auras-catalog]
-updated: 2026-08-16
+updated: 2026-08-28
 ---
 
 # Custom Themes & Runtime Creation Guide
@@ -120,7 +120,31 @@ themeState.clearCustomOverrides();
 
 ---
 
+## 🎯 The Persistent Custom Accent Layer
+
+Alongside custom themes, users can override the brand accent — `--theme-color` and `--theme-color-alt` — with a layer that rides **on top of every theme**, including custom ones:
+
+```typescript
+import { themeState } from 'fractalthemer';
+
+themeState.setCustomAccentColor('#7C3AED');    // applies + persists, auto-derives alt
+themeState.setCustomAccentAltColor('#4C1D95'); // take control of the hover accent
+themeState.resetCustomAccent();                // back to the theme's own accents
+```
+
+Semantics:
+
+- **Override layer, not a theme property.** `apply()` sets the theme's tokens first and re-applies the accent last — the accent wins over built-in and custom themes alike. Switching themes never touches it.
+- **Survives everything.** Persisted to `localStorage` (`useCustomAccent`, `customAccentColor`, `customAccentAltColor`) and applied pre-paint by the anti-flicker script — no accent flash on hard refresh.
+- **Smart alt.** `--theme-color-alt` auto-derives (−12% lightness) from the accent until the user sets it directly; `init()` detects a hand-tuned alt on reload and preserves it.
+- **Manual reset only.** `resetCustomAccent()` clears the layer; `resetDefault()` clears everything. The picker exposes the same controls (Accent + Alt pickers with an `· auto` hint, and a reset button).
+
+Full persistence table: [API Guide §4](./05-api-guide.md).
+
+---
+
 ## 🔗 Related Documents
 
 - [State & Reactivity](../architecture/02-state-and-reactivity.md)
 - [Tokens Contract](../architecture/03-tokens-and-css-contract.md)
+- [API & Conditional Rendering Guide](./05-api-guide.md)

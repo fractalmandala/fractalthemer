@@ -5,7 +5,7 @@ type: design
 tags: [ssr, anti-flicker, fouc, localstorage, hydration, sveltekit]
 summary: In-depth guide explaining how fractalthemer eliminates theme flicker on initial page load and server-side rendering.
 relates_to: [quickstart-guide, theme-script-component, state-and-reactivity]
-updated: 2026-08-16
+updated: 2026-08-28
 ---
 
 # Zero-Flicker SSR & Hydration Guide
@@ -45,7 +45,9 @@ By inserting a blocking, micro-sized (0.4KB) script synchronously in the HTML `<
 
 ## 🛠 Methods to Apply Anti-Flicker
 
-### Method A: Direct HTML Injection in `src/app.html` (Recommended)
+> The script below is the canonical behavior of `getAntiFlickerScript()` (formatted here for readability — generate it programmatically to always stay in sync). It applies, in order: theme class + mode/data attributes, custom theme tokens, and the persistent custom accent.
+
+### Method A: Direct HTML Injection in `src/app.html`
 
 Place the following script directly in `src/app.html`:
 
@@ -62,22 +64,40 @@ Place the following script directly in `src/app.html`:
         'theme-midnight-emerald-dark', 'theme-obsidian-crimson-dark',
         'theme-synthwave-dark', 'theme-deep-ocean-dark', 'theme-amethyst-void-dark'
       ];
-      var saved = localStorage.getItem('theme') || 'theme-light-default';
-      var savedBg = localStorage.getItem('bgStyle') || 'plain';
-      var isDark = darkThemes.indexOf(saved) !== -1 || saved.indexOf('-dark') !== -1 || saved.indexOf('-mocha') !== -1;
+      var savedTheme = localStorage.getItem('theme') || 'theme-light-default';
+      var savedBgStyle = localStorage.getItem('bgStyle') || 'plain';
+      var validBgStyles = ['plain', 'aura', 'gradient', 'pattern'];
+      if (validBgStyles.indexOf(savedBgStyle) === -1) { savedBgStyle = 'plain'; }
+      var isDark = darkThemes.indexOf(savedTheme) !== -1 || savedTheme.indexOf('-dark') !== -1 || savedTheme.indexOf('-mocha') !== -1;
       var mode = isDark ? 'dark' : 'light';
       var root = document.documentElement;
-      root.classList.add(saved);
+      root.classList.add(savedTheme);
       root.setAttribute('data-theme', mode);
       root.setAttribute('data-mode', mode);
-      root.setAttribute('data-theme-id', saved);
-      root.setAttribute('data-theme-family', saved);
-      root.setAttribute('data-bg-style', savedBg);
+      root.setAttribute('data-theme-id', savedTheme);
+      root.setAttribute('data-theme-family', savedTheme);
+      root.setAttribute('data-bg-style', savedBgStyle);
       root.style.colorScheme = mode;
+      var customTokens = localStorage.getItem('customTokens');
+      if (customTokens) {
+        try {
+          var parsed = JSON.parse(customTokens);
+          for (var k in parsed) { root.style.setProperty('--' + k, parsed[k]); }
+        } catch (e) {}
+      }
+      var useAccent = localStorage.getItem('useCustomAccent');
+      if (useAccent === 'true') {
+        var acc = localStorage.getItem('customAccentColor');
+        var accAlt = localStorage.getItem('customAccentAltColor');
+        if (acc) { root.style.setProperty('--theme-color', acc); root.style.setProperty('--theme', acc); }
+        if (accAlt) { root.style.setProperty('--theme-color-alt', accAlt); root.style.setProperty('--theme-hover', accAlt); }
+      }
     } catch (e) {}
   })();
 </script>
 ```
+
+Storage keys read pre-paint: `theme`, `bgStyle`, `customTokens`, `useCustomAccent`, `customAccentColor`, `customAccentAltColor`.
 
 ### Method B: Programmatic Generation via `getAntiFlickerScript()`
 

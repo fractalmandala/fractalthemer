@@ -14,13 +14,20 @@
 		display: none !important
 	body, html
 		background-color: transparent !important
-	.site-shell, .app-shell, .site-body, .docs, .fullwrapper, .appshell, .appshel, .bodywrapper, .appbody, .blume-root, .blume-body
+	.site-shell, .app-shell, .site-body, .docs, .fullwrapper, .appshell, .appshel, .bodywrapper, .appbody, .blume-root, .blume-body, .site-main, .site-article, .landing-hero, .landing-section
 		background: transparent !important
 		background-color: transparent !important
 		background-image: none !important
+	.site-sidebar, .docs-nav, .navtree
+		background: color-mix(in srgb, var(--bg-surface) 25%, transparent) !important
+		backdrop-filter: blur(14px)
+		-webkit-backdrop-filter: blur(14px)
+	.sidebar-section[data-open] .sidebar-section__trigger
+		background: transparent !important
 	.appheader, .site-header
-		backdrop-filter: blur(12px)
-		-webkit-backdrop-filter: blur(12px)
+		background: color-mix(in srgb, var(--bg-canvas) 20%, transparent) !important
+		backdrop-filter: blur(14px)
+		-webkit-backdrop-filter: blur(14px)
 
 [data-bg-style="gradient"]
 	.aura-ambient, .aura-pattern-backdrop
@@ -29,11 +36,18 @@
 		display: block
 	body, html
 		background-color: transparent !important
-	.site-shell, .app-shell, .site-body, .docs, .fullwrapper, .appshell, .appshel, .bodywrapper, .appbody, .blume-root, .blume-body
+	.site-shell, .app-shell, .site-body, .docs, .fullwrapper, .appshell, .appshel, .bodywrapper, .appbody, .blume-root, .blume-body, .site-main, .site-article, .landing-hero, .landing-section
 		background: transparent !important
 		background-color: transparent !important
 		background-image: none !important
+	.site-sidebar, .docs-nav, .navtree
+		background: color-mix(in srgb, var(--bg-surface) 25%, transparent) !important
+		backdrop-filter: blur(16px)
+		-webkit-backdrop-filter: blur(16px)
+	.sidebar-section[data-open] .sidebar-section__trigger
+		background: transparent !important
 	.appheader, .site-header
+		background: color-mix(in srgb, var(--bg-canvas) 20%, transparent) !important
 		backdrop-filter: blur(16px)
 		-webkit-backdrop-filter: blur(16px)
 
@@ -44,11 +58,18 @@
 		display: block
 	body, html
 		background-color: transparent !important
-	.site-shell, .app-shell, .site-body, .docs, .fullwrapper, .appshell, .appshel, .bodywrapper, .appbody, .blume-root, .blume-body
+	.site-shell, .app-shell, .site-body, .docs, .fullwrapper, .appshell, .appshel, .bodywrapper, .appbody, .blume-root, .blume-body, .site-main, .site-article, .landing-hero, .landing-section
 		background: transparent !important
 		background-color: transparent !important
 		background-image: none !important
+	.site-sidebar, .docs-nav, .navtree
+		background: color-mix(in srgb, var(--bg-surface) 35%, transparent) !important
+		backdrop-filter: blur(14px)
+		-webkit-backdrop-filter: blur(14px)
+	.sidebar-section[data-open] .sidebar-section__trigger
+		background: transparent !important
 	.appheader, .site-header
+		background: color-mix(in srgb, var(--bg-canvas) 30%, transparent) !important
 		backdrop-filter: blur(14px)
 		-webkit-backdrop-filter: blur(14px)
 
@@ -74,14 +95,14 @@
 	.gradient-canvas
 		position: absolute
 		inset: 0
-		opacity: 0.3
+		opacity: 0.92
 		pointer-events: none !important
 		transition: background 0.4s ease, opacity 0.4s ease
 	.gradient-overlay-soft
 		position: absolute
 		inset: 0
 		pointer-events: none !important
-		background: radial-gradient(circle at 50% 50%, transparent 50%, rgba(0, 0, 0, 0.08) 100%)
+		background: radial-gradient(circle at 50% 50%, transparent 60%, rgba(0, 0, 0, 0.12) 100%)
 
 .aura-pattern-backdrop
 	background-color: var(--bg)
@@ -89,25 +110,24 @@
 	.pattern-canvas
 		position: absolute
 		inset: 0
-		opacity: 0.35
+		opacity: 0.75
 		pointer-events: none !important
 		transition: opacity 0.4s ease
 	.pattern-overlay-soft
 		position: absolute
 		inset: 0
 		pointer-events: none !important
-		background: radial-gradient(circle at 50% 50%, transparent 50%, rgba(0, 0, 0, 0.06) 100%)
+		background: radial-gradient(circle at 50% 50%, transparent 60%, rgba(0, 0, 0, 0.08) 100%)
 
 [data-mode="dark"]
 	.aura-gradient-backdrop
 		.gradient-canvas
-			opacity: 0.42
-			mix-blend-mode: screen
+			opacity: 0.95
 		.gradient-overlay-soft
-			background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.5) 100%)
+			background: radial-gradient(circle at 50% 50%, transparent 50%, rgba(0, 0, 0, 0.4) 100%)
 	.aura-pattern-backdrop
 		.pattern-canvas
-			opacity: 0.45
+			opacity: 0.85
 			mix-blend-mode: screen
 		.pattern-overlay-soft
 			background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.4) 100%)

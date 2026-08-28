@@ -142,7 +142,7 @@
 	{#if showModeToggle}
 		<button
 			type="button"
-			class="theme-icon-btn"
+			class="is-icon"
 			title={themeState.isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
 			aria-label={themeState.isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
 			onclick={() => themeState.toggleMode()}
@@ -161,7 +161,7 @@
 	{:else}
 		<button
 			type="button"
-			class="theme-icon-btn"
+			class="is-icon"
 			aria-haspopup="dialog"
 			aria-expanded={themeState.isOpen}
 			title="Choose theme and aura background"
@@ -289,19 +289,48 @@
 					<span>Custom Accent</span>
 				</label>
 				{#if themeState.useCustomAccent}
-					<div class="row ycenter gap-2xs">
-						<input
-							type="color"
-							value={themeState.customAccentColor}
-							oninput={(e) => themeState.setCustomAccentColor((e.target as HTMLInputElement).value)}
-							style="width: 1.75rem; height: 1.75rem; border: 1px solid var(--border); border-radius: var(--radius-3); background: transparent; cursor: pointer; padding: 1px;"
-						/>
-						<input
-							type="text"
-							value={themeState.customAccentColor}
-							onchange={(e) => themeState.setCustomAccentColor((e.target as HTMLInputElement).value)}
-							style="width: 5.2rem; font-family: var(--font-mono); font-size: 0.72rem; padding: 0.15rem 0.4rem; border: 1px solid var(--border); border-radius: var(--radius-3); background: var(--bg-input); color: var(--text-primary);"
-						/>
+					<div style="display: flex; flex-direction: column; gap: 6px; align-items: flex-end;">
+						<div class="row ycenter gap-2xs">
+							<span style="font-size: 0.68rem; font-weight: 600; color: var(--text-secondary);">Accent</span>
+							<input
+								type="color"
+								value={themeState.customAccentColor}
+								oninput={(e) => themeState.setCustomAccentColor((e.target as HTMLInputElement).value)}
+								style="width: 1.75rem; height: 1.75rem; border: 1px solid var(--border); border-radius: var(--radius-3); background: transparent; cursor: pointer; padding: 1px;"
+							/>
+							<input
+								type="text"
+								value={themeState.customAccentColor}
+								onchange={(e) => themeState.setCustomAccentColor((e.target as HTMLInputElement).value)}
+								style="width: 5.2rem; font-family: var(--font-mono); font-size: 0.72rem; padding: 0.15rem 0.4rem; border: 1px solid var(--border); border-radius: var(--radius-3); background: var(--bg-input); color: var(--text-primary);"
+							/>
+						</div>
+						<div class="row ycenter gap-2xs">
+							<span style="font-size: 0.68rem; font-weight: 600; color: var(--text-secondary);">
+								Alt (hover){#if !themeState.accentAltTouched}<span title="Auto-derived from the accent — set it to take control"> · auto</span>{/if}
+							</span>
+							<input
+								type="color"
+								value={themeState.customAccentAltColor}
+								oninput={(e) => themeState.setCustomAccentAltColor((e.target as HTMLInputElement).value)}
+								style="width: 1.75rem; height: 1.75rem; border: 1px solid var(--border); border-radius: var(--radius-3); background: transparent; cursor: pointer; padding: 1px;"
+							/>
+							<input
+								type="text"
+								value={themeState.customAccentAltColor}
+								onchange={(e) => themeState.setCustomAccentAltColor((e.target as HTMLInputElement).value)}
+								style="width: 5.2rem; font-family: var(--font-mono); font-size: 0.72rem; padding: 0.15rem 0.4rem; border: 1px solid var(--border); border-radius: var(--radius-3); background: var(--bg-input); color: var(--text-primary);"
+							/>
+						</div>
+						<button
+							type="button"
+							class="theme-icon-btn"
+							aria-label="Reset custom accent"
+							title="Reset accent to the theme's own"
+							onclick={() => themeState.resetCustomAccent()}
+						>
+							<Undo />
+						</button>
 					</div>
 				{/if}
 			</div>

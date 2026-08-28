@@ -5,7 +5,7 @@ type: design
 tags: [svelte5, runes, state-management, reactivity, localstorage]
 summary: Deep dive into the ThemeState class, reactive runes ($state, $derived), storage persistence, and DOM synchronization.
 relates_to: [architecture-overview, theme-picker-component, custom-themes-guide]
-updated: 2026-08-16
+updated: 2026-08-28
 ---
 
 # Svelte 5 Reactive State & Runes Architecture
@@ -27,6 +27,11 @@ export class ThemeState {
     customThemes = $state<ThemeInfo[]>([]);
     activeCustomOverrides = $state<Record<string, string> | null>(null);
     activeCustomAuraLayers = $state<AuraLayer[] | null>(null);
+    // Persistent custom accent (override layer above any theme)
+    useCustomAccent = $state<boolean>(false);
+    customAccentColor = $state<string>('#04825B');
+    customAccentAltColor = $state<string>('#047857');
+    accentAltTouched = $state<boolean>(false);
 }
 ```
 
@@ -42,6 +47,10 @@ export class ThemeState {
 | `activeCustomOverrides` | `Record<string, string> \| null` | Runtime CSS variable overrides when a custom theme is active |
 | `activePattern` | `string \| null` | Slug identifier of the active CSS pattern preset |
 | `activeCustomAuraLayers` | `AuraLayer[] \| null` | Dynamic aura gradient nodes for the active custom theme |
+| `useCustomAccent` | `boolean` | Master switch for the persistent custom accent override layer |
+| `customAccentColor` | `string` | Current accent override hex, applied to `--theme-color` (+ `--theme`) |
+| `customAccentAltColor` | `string` | Current alt override hex, applied to `--theme-color-alt` (+ `--theme-hover`) |
+| `accentAltTouched` | `boolean` | Whether the user has hand-set the alt accent (stops auto-derivation until reset) |
 
 ---
 
@@ -89,7 +98,7 @@ get activeGradientPreset(): GradientPreset | null {
 ## 🛠 Core State Methods
 
 ### 1. `init()`
-Executed on `onMount` in browser contexts. Reads `localStorage` for `theme`, `bgStyle`, `gradient`, and `customThemes`, validates against known schemas, and synchronizes the DOM attributes:
+Executed on `onMount` in browser contexts. Reads `localStorage` for `theme`, `bgStyle`, `gradient`, `aura`, `pattern`, `customThemes`, and the custom accent keys (`useCustomAccent`, `customAccentColor`, `customAccentAltColor`), validates against known schemas, and synchronizes the DOM attributes:
 
 ```typescript
 init(): void
@@ -126,6 +135,17 @@ Iterates sequentially or picks a random theme from the 41 built-in and custom th
 ### 6. `saveCustomTheme(...)` and `deleteCustomTheme(id: string)`
 Creates and persists custom user-defined themes with custom token key-value pairs and aura gradient layer specifications.
 
+### 7. Custom Accent Methods
+The accent is an **override layer**, not a theme property: it is applied last in `apply()`, wins over every theme's own accents, survives theme switches and refreshes, and is cleared only by an explicit reset.
+
+```typescript
+setCustomAccentColor(color: string): void   // applies + persists; auto-derives alt until touched
+setCustomAccentAltColor(color: string): void // hand-set the hover accent; stops auto-derivation
+resetCustomAccent(): void                    // the only manual path that clears the layer
+```
+
+`alt` starts as an auto-derived shade (−12% lightness) of the accent. `init()` detects a hand-tuned alt by comparing the saved value against the derived one, so the touched flag survives reloads without extra storage.
+
 ---
 
 ## 🌐 DOM Mutation Model
@@ -147,14 +167,25 @@ apply(id: string, style?: BgStyle) {
 
     const theme = this.allThemes.find((t) => t.id === id);
     if (theme) {
-        root.setAttribute('data-theme', theme.id);
+        root.setAttribute('data-theme', theme.mode);
         root.setAttribute('data-mode', theme.mode);
         root.setAttribute('data-bg-style', currentStyle);
         root.style.colorScheme = theme.mode;
 
+        // 1. Theme's own token values (+ --theme / --theme-hover aliases)
+        if (theme.tokens) { /* set --<key> for each token */ }
+
+        // 2. Custom theme overrides
         if (theme.isCustom && theme.tokens) {
             this.applyCustomOverrides(theme.tokens, theme.customAura?.layers);
         }
+
+        // 3. Accent override layer — applied LAST so it wins over any theme
+        if (this.useCustomAccent) { /* set --theme-color, --theme-color-alt, --theme, --theme-hover */ }
+
+        // 4. Glass regime — vivid backdrops turn -bg-* surfaces translucent
+        if (currentStyle !== 'plain') { /* re-emit each -bg-* as color-mix(in srgb, <literal> N%, transparent) + --glass-blur */ }
+        else { root.style.removeProperty('--glass-blur'); }
     }
 }
 ```

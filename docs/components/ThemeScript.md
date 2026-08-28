@@ -6,7 +6,7 @@ tags: [components, anti-flicker, ssr, sveltekit, head-script]
 summary: Component specification for injecting zero-flicker initialization script into <svelte:head>.
 relates_to: [anti-flicker-guide, quickstart-guide]
 source: src/lib/components/ThemeScript.svelte
-updated: 2026-08-16
+updated: 2026-08-28
 ---
 
 # ThemeScript Component & SSR Injection Reference
@@ -18,7 +18,7 @@ updated: 2026-08-16
 ## 🎯 Functional Specification
 
 - **Role**: Emits a synchronous inline `<script>` into the HTML `<head>`.
-- **Purpose**: Reads `localStorage` for `theme` and `bgStyle` before first paint to prevent Flash of Unstyled Content (FOUC).
+- **Purpose**: Reads `localStorage` before first paint — `theme`, `bgStyle`, custom theme tokens (`customTokens`), and the persistent custom accent (`useCustomAccent` / `customAccentColor` / `customAccentAltColor`) — and applies them to `<html>` so neither the mode, the palette, nor the accent ever flashes.
 - **Alternative**: You can also use the exported `getAntiFlickerScript()` function directly in `src/app.html`.
 
 ---

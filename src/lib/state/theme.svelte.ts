@@ -72,6 +72,24 @@ function shiftColorLightness(hex: string, percent: number): string {
 	return `#${toHex(newR)}${toHex(newG)}${toHex(newB)}`;
 }
 
+const HEX_RE = /^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i;
+
+// Glass regime: when a vivid background (aura, gradient, pattern) owns the
+// canvas, opaque -bg-* surfaces would clash with it. These alphas (percent of
+// the theme's own literal color, mixed toward transparent) let the single
+// backdrop show through. bg-terminal stays opaque for code legibility.
+const GLASS_TOKEN_ALPHAS: Record<string, number> = {
+	bg: 0,
+	'bg-canvas': 25,
+	'bg-panel': 45,
+	'bg-footer': 50,
+	'bg-surface': 55,
+	'bg-raised': 60,
+	'bg-input': 78,
+	'bg-popover': 85,
+	'bg-dialog': 88
+};
+
 export class ThemeState {
 	current = $state<string>(DEFAULT_THEME_ID);
 	bgStyle = $state<BgStyle>('plain');
@@ -83,10 +101,15 @@ export class ThemeState {
 	activeCustomOverrides = $state<Record<string, string> | null>(null);
 	activeCustomAuraLayers = $state<AuraLayer[] | null>(null);
 
-	// Accent Color Customization State
+	// Accent Color Customization State. The accent is an override LAYER above
+	// theme selection: it survives theme switches, refreshes, and sessions, and
+	// is only cleared by an explicit reset.
 	useCustomAccent = $state<boolean>(false);
 	customAccentColor = $state<string>('#04825B');
 	customAccentAltColor = $state<string>('#047857');
+	// Alt starts as an auto-derived shade of the accent; once the user sets it
+	// by hand it stops tracking the accent until reset.
+	accentAltTouched = $state<boolean>(false);
 
 	get allThemes(): ThemeInfo[] {
 		return [...THEMES, ...this.customThemes];
@@ -215,6 +238,20 @@ export class ThemeState {
 			this.bgStyle = 'plain';
 		}
 
+		// Restore the persistent custom accent (previously only written, never read
+		// back — which reset it on every refresh).
+		try {
+			const savedAccent = localStorage.getItem('customAccentColor');
+			if (savedAccent && HEX_RE.test(savedAccent)) {
+				const derivedAlt = shiftColorLightness(savedAccent, -12);
+				const savedAlt = localStorage.getItem('customAccentAltColor');
+				this.customAccentColor = savedAccent;
+				this.customAccentAltColor = savedAlt && HEX_RE.test(savedAlt) ? savedAlt : derivedAlt;
+				this.accentAltTouched = !!savedAlt && savedAlt !== derivedAlt;
+				this.useCustomAccent = localStorage.getItem('useCustomAccent') === 'true';
+			}
+		} catch {}
+
 		this.ensureBackgroundPreset(this.bgStyle);
 		this.persistBackgroundState();
 		this.apply(this.current, this.bgStyle);
@@ -334,12 +371,44 @@ export class ThemeState {
 
 	setCustomAccentColor(color: string) {
 		this.customAccentColor = color;
-		this.customAccentAltColor = shiftColorLightness(color, -12);
+		if (!this.accentAltTouched) {
+			this.customAccentAltColor = shiftColorLightness(color, -12);
+		}
 		this.useCustomAccent = true;
 		if (typeof window !== 'undefined') {
 			try {
 				localStorage.setItem('customAccentColor', color);
+				localStorage.setItem('customAccentAltColor', this.customAccentAltColor);
 				localStorage.setItem('useCustomAccent', 'true');
+			} catch {}
+		}
+		this.apply(this.current, this.bgStyle);
+	}
+
+	setCustomAccentAltColor(color: string) {
+		this.customAccentAltColor = color;
+		this.accentAltTouched = true;
+		this.useCustomAccent = true;
+		if (typeof window !== 'undefined') {
+			try {
+				localStorage.setItem('customAccentAltColor', color);
+				localStorage.setItem('useCustomAccent', 'true');
+			} catch {}
+		}
+		this.apply(this.current, this.bgStyle);
+	}
+
+	// The only manual path that clears the accent override layer.
+	resetCustomAccent() {
+		this.useCustomAccent = false;
+		this.accentAltTouched = false;
+		this.customAccentColor = '#04825B';
+		this.customAccentAltColor = '#047857';
+		if (typeof window !== 'undefined') {
+			try {
+				localStorage.removeItem('customAccentColor');
+				localStorage.removeItem('customAccentAltColor');
+				localStorage.removeItem('useCustomAccent');
 			} catch {}
 		}
 		this.apply(this.current, this.bgStyle);
@@ -396,6 +465,9 @@ export class ThemeState {
 
 	resetDefault() {
 		this.useCustomAccent = false;
+		this.accentAltTouched = false;
+		this.customAccentColor = '#04825B';
+		this.customAccentAltColor = '#047857';
 		this.activeCustomOverrides = null;
 		this.activeCustomAuraLayers = null;
 		this.activeAura = null;
@@ -548,6 +620,12 @@ export class ThemeState {
 				}
 			}
 
+			if (theme.isCustom && theme.tokens) {
+				this.applyCustomOverrides(theme.tokens, theme.customAura?.layers);
+			}
+
+			// The accent layer is applied LAST so it wins over any theme's own
+			// accent — built-in or custom.
 			if (this.useCustomAccent) {
 				root.style.setProperty('--theme-color', this.customAccentColor);
 				root.style.setProperty('--theme-color-alt', this.customAccentAltColor);
@@ -561,8 +639,20 @@ export class ThemeState {
 				root.style.removeProperty('--bg-gradient');
 			}
 
-			if (theme.isCustom && theme.tokens) {
-				this.applyCustomOverrides(theme.tokens, theme.customAura?.layers);
+			// Glass regime: with a vivid background owning the canvas, -bg-* tokens
+			// turn translucent (mixed from the theme's own literals) so surfaces stop
+			// competing with the backdrop. --glass-blur feeds backdrop-filter in
+			// styles/_glass.sass. In plain mode the opaque token values stand.
+			if (currentStyle === 'plain') {
+				root.style.removeProperty('--glass-blur');
+			} else {
+				for (const [key, alpha] of Object.entries(GLASS_TOKEN_ALPHAS)) {
+					const literal = theme.tokens?.[key] ?? CORE_TOKENS.find((t) => t.key === key)?.defaultVal;
+					if (literal) {
+						root.style.setProperty('--' + key, `color-mix(in srgb, ${literal} ${alpha}%, transparent)`);
+					}
+				}
+				root.style.setProperty('--glass-blur', '14px');
 			}
 		}
 	}

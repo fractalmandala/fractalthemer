@@ -249,3 +249,14 @@ The user can switch between 9 distinct generator paradigms via the primary engin
    - `Space`: Toggles preview mode.
 3. **Storage Invariants**: All modifications to saved presets and active working session survive browser reloads via `localStorage` synchronization.
 4. **Offline Capability**: The studio is 100% functional offline with zero network requests required for generation, rendering, or export.
+
+---
+
+### 12. Runtime Integration Contract (fractalthemer core)
+
+The studio is a design surface for the same backdrop families the runtime ships. Its integration with the `themeState` runtime obeys the following contract:
+
+1. **Backdrop Activation**: Applying a studio creation to the app maps onto `themeState` — `setBgStyle('gradient' | 'pattern')` plus the corresponding preset registration in `data/gradients.ts` / `data/patterns.ts`. The studio never mutates the DOM directly.
+2. **Glass Regime Awareness**: Under any vivid backdrop (`aura` / `gradient` / `pattern`), the runtime re-emits every `-bg-*` token as a translucent `color-mix` and auto-frosts app chrome (see `docs/architecture/03-tokens-and-css-contract.md` §6). Studio canvas contrast checks must therefore evaluate sample typography against the composite backdrop, not against an opaque token value.
+3. **Custom Accent Respect**: Studio previews render accents through `--theme-color` / `--theme-color-alt` so the persistent custom accent layer (`localStorage`: `useCustomAccent`, `customAccentColor`, `customAccentAltColor`) remains authoritative inside the studio.
+4. **Storage Separation**: The studio's Saved view uses its own keys and never writes the runtime keys above except through an explicit "apply to app" action.

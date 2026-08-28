@@ -5,12 +5,12 @@ type: design
 tags: [theming, svelte5, auras, dark-mode, tokens, documentation, patterns]
 summary: Central navigation manifest and architecture map for the fractalthemer Svelte 5 theming system.
 relates_to: [architecture-overview, theme-picker-component, theme-catalog]
-updated: 2026-08-16
+updated: 2026-08-28
 ---
 
 # Fractal Themer Documentation
 
-`fractalthemer` is an ultra-light, drop-in theming and atmospheric background engine for Svelte 5 and SvelteKit. It provides full control over binary light/dark modes, 41 curated tiered color palettes, 203 GPU-accelerated gradient auras, 382 gradient presets, 257 vector-grade CSS patterns, and a responsive right off-canvas drawer with strict background isolation.
+`fractalthemer` is an ultra-light, drop-in theming and atmospheric background engine for Svelte 5 and SvelteKit. It provides full control over binary light/dark modes, 41 curated tiered color palettes, 203 GPU-accelerated gradient auras, 382 gradient presets, 257 vector-grade CSS patterns, a persistent custom accent layer, an automatic glass regime for vivid backdrops, and a responsive right off-canvas drawer with strict background isolation.
 
 ---
 
@@ -19,7 +19,7 @@ updated: 2026-08-16
 ### 🏛 Architecture & Core Concepts
 - [**System Overview**](./architecture/01-overview.md): High-level system architecture, package structure, and design principles.
 - [**State & Reactivity**](./architecture/02-state-and-reactivity.md): Detailed breakdown of the Svelte 5 `$state` and `$derived` runes in `themeState`.
-- [**Tokens & CSS Contract**](./architecture/03-tokens-and-css-contract.md): Utopia fluid type/space scales, elevation surfaces, and semantic custom properties.
+- [**Tokens & CSS Contract**](./architecture/03-tokens-and-css-contract.md): 30 semantic custom properties, the two background regimes (opaque `plain` vs. auto-glass vivid), and the `[data-glass]` blur contract.
 
 ### 🧩 Components Reference
 - [**ThemePicker.svelte**](./components/ThemePicker.md): Complete functional logic for the unified 1-system right off-canvas drawer (Plain, Aura, Gradient, Pattern).
@@ -54,6 +54,7 @@ updated: 2026-08-16
 | Tokens Sass | [`src/lib/styles/_tokens.sass`](../src/lib/styles/_tokens.sass) | CSS custom properties & fluid scales |
 | Themes Sass | [`src/lib/styles/_themes.sass`](../src/lib/styles/_themes.sass) | 41 theme definitions |
 | Auras Sass | [`src/lib/styles/_auras.sass`](../src/lib/styles/_auras.sass) | GPU blend layer & pattern styles |
+| Glass Sass | [`src/lib/styles/_glass.sass`](../src/lib/styles/_glass.sass) | Glass regime: `--glass-blur` + auto chrome frost |
 | Drawer Sass | [`src/lib/styles/_theme-picker.sass`](../src/lib/styles/_theme-picker.sass) | Drawer layout & animations |
 | Theme Data | [`src/lib/data/themes.ts`](../src/lib/data/themes.ts) | Metadata and token maps |
 | Pattern Data | [`src/lib/data/patterns.ts`](../src/lib/data/patterns.ts) | 257 CSS pattern definitions |

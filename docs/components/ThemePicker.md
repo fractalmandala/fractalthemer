@@ -6,7 +6,7 @@ tags: [components, drawer, themepicker, off-canvas, svelte5, ui]
 summary: Complete functional logic and specification for the 100vh right off-canvas theme drawer, tabs, filters, and mobile breakpoints.
 relates_to: [state-and-reactivity, responsive-drawer-guide, aura-background-component]
 source: src/lib/components/ThemePicker.svelte
-updated: 2026-08-16
+updated: 2026-08-28
 ---
 
 # ThemePicker Component & 100vh Off-Canvas Drawer
@@ -17,13 +17,14 @@ The [`ThemePicker.svelte`](../../src/lib/components/ThemePicker.svelte) componen
 
 ## 🎯 Functional Specification
 
-- **Role**: Primary UI drawer allowing users to switch themes, toggle plain vs. aura background modes, filter by Light/Dark/Custom palettes, cycle randomly, and reset preferences.
+- **Role**: Primary UI drawer allowing users to switch themes, toggle plain vs. aura background modes, filter by Light/Dark/Custom palettes, cycle randomly, reset preferences, and manage the persistent custom accent.
+- **Custom Accent Control Row**: A checkbox enables the persistent accent override layer; two color+hex field pairs — **Accent** and **Alt (hover)** (the latter marked `· auto` while still auto-derived) — edit `--theme-color` / `--theme-color-alt` live, and an undo button resets the layer back to the active theme's own accents. The layer persists across theme switches and refreshes (see [State & Reactivity §7](../architecture/02-state-and-reactivity.md)).
 - **Placement**: Fixed to the right viewport edge (`right: 0; top: 0; bottom: 0;`).
 - **Dimensions**:
   - Desktop (`≥ 1025px`): `width: 360px`, `height: 100vh` (and `100dvh`).
   - Mobile / Tablet (`≤ 1024px`): `width: 180px`, `height: 100vh` (and `100dvh`).
 - **Scrolling**: `overflow-y: scroll` with thin scrollbars, sticky headers, and sticky footers.
-- **Dismissal**: Dismisses on outside click (via `.theme-drawer-backdrop`), `Escape` keyboard shortcut, explicit close `✕` button, or selecting the Studio link.
+- **Dismissal**: Dismisses on outside click (via `.theme-drawer-backdrop`), `Escape` keyboard shortcut, or the explicit close `✕` button.
 
 ---
 
@@ -31,8 +32,6 @@ The [`ThemePicker.svelte`](../../src/lib/components/ThemePicker.svelte) componen
 
 ```typescript
 interface Props {
-    studioHref?: string;          // Target URL for Studio button (default: '/studio')
-    showStudioLink?: boolean;     // Whether to display the Studio navigation button (default: false)
     showModeToggle?: boolean;     // Whether to show the Sun/Moon button next to palette trigger (default: true)
     triggerButton?: Snippet;      // Optional custom Svelte 5 snippet to override the palette button
 }
@@ -96,6 +95,7 @@ const filteredGradients = $derived.by(() => {
       ├── <div class="theme-drawer-backdrop"> (Click outside dismiss overlay)
       └── <div class="theme-popover" role="dialog"> (100vh Fixed Drawer)
           ├── <div class="theme-style-switcher"> (Sticky Plain vs Aura vs Gradient + Close Button)
+          ├── <div class="theme-accent-bar"> (Custom Accent checkbox + Accent/Alt pickers + reset)
           ├── <div class="theme-tabs"> (Sticky All / Light / Dark / Gradients / Custom / Next Filter Tabs)
           ├── <div class="theme-search-bar"> (Sticky Live Search Input)
           ├── <div class="theme-grid-container"> (Scrollable Themes or 382 Gradients Grid)

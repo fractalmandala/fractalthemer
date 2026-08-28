@@ -6,7 +6,7 @@ tags: [components, toggle, dark-mode, light-mode, svelte5]
 summary: Standalone Sun/Moon quick toggle button component for compact toolbars and navigation bars.
 relates_to: [theme-picker-component, state-and-reactivity]
 source: src/lib/components/ThemeToggle.svelte
-updated: 2026-08-16
+updated: 2026-08-28
 ---
 
 # ThemeToggle Component Reference
@@ -47,6 +47,8 @@ interface Props {
   <ThemeToggle class="my-custom-toggle" />
 </nav>
 ```
+
+**Building your own instead?** The entire behavior is two reactive reads: `onclick={() => themeState.toggleMode()}` plus `{#if themeState.isDark}` for the icon. See [Recipe D: Build Your Own Mode & Picker Toggles](../guides/05-api-guide.md) for a copy-paste version with any markup or icon set.
 
 ---
 

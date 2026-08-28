@@ -5,7 +5,7 @@ type: design
 tags: [quickstart, installation, sveltekit, layout, setup]
 summary: Step-by-step procedure to install, configure, and mount fractalthemer in any new or existing SvelteKit project.
 relates_to: [docs-index, anti-flicker-guide, responsive-drawer-guide]
-updated: 2026-08-16
+updated: 2026-08-28
 ---
 
 # SvelteKit Quickstart & Integration Guide
@@ -28,64 +28,32 @@ yarn add fractalthemer
 
 ---
 
-## ⚡ Step 2: Configure `app.html` for Zero Flicker
+## ⚡ Step 2: Zero-Flicker Initialization
 
-Open `src/app.html` and add the startup script directly inside `<head>` above `%sveltekit.head%`:
+The simplest path is `<ThemeScript />` in your root layout — it injects a tiny synchronous script into `<head>` that applies the saved theme, background style, custom theme tokens, and custom accent before first paint:
 
-```html
-<!doctype html>
-<html lang="en" class="theme-light-default" data-theme="theme-light-default" data-mode="light" data-bg-style="plain">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script>
-      (function () {
-        try {
-          var darkThemes = [
-            'theme-lagoona-dark', 'theme-frozen-dark', 'theme-night-dark',
-            'theme-inkworm-dark', 'theme-monochrono-dark', 'theme-fouram-dark',
-            'theme-wintercame-dark', 'theme-sun-dark', 'theme-console-dark',
-            'theme-dracula-dark', 'theme-catppuccin-mocha', 'theme-nord-dark',
-            'theme-gruvbox-dark', 'theme-onedark-pro', 'theme-rose-pine-dark',
-            'theme-midnight-emerald-dark', 'theme-obsidian-crimson-dark',
-            'theme-synthwave-dark', 'theme-deep-ocean-dark', 'theme-amethyst-void-dark'
-          ];
-          var saved = localStorage.getItem('theme') || 'theme-light-default';
-          var savedBg = localStorage.getItem('bgStyle') || 'plain';
-          var isDark = darkThemes.indexOf(saved) !== -1 || saved.indexOf('-dark') !== -1 || saved.indexOf('-mocha') !== -1;
-          var mode = isDark ? 'dark' : 'light';
-          var root = document.documentElement;
-          root.classList.add(saved);
-          root.setAttribute('data-theme', mode);
-          root.setAttribute('data-mode', mode);
-          root.setAttribute('data-theme-id', saved);
-          root.setAttribute('data-theme-family', saved);
-          root.setAttribute('data-bg-style', savedBg);
-          root.style.colorScheme = mode;
-        } catch (e) {}
-      })();
-    </script>
-    %sveltekit.head%
-  </head>
-  <body data-sveltekit-preload-data="hover">
-    <div style="display: contents">%sveltekit.body%</div>
-  </body>
-</html>
+```svelte
+<ThemeScript />
 ```
+
+Prefer configuring `src/app.html` manually? Copy the generated script from the [Zero-Flicker SSR Guide](./02-anti-flicker-guide.md) — it covers all three methods (manual inline script, `getAntiFlickerScript()`, and the component).
 
 ---
 
 ## 🎨 Step 3: Mount Components in `src/routes/+layout.svelte`
 
-Import the stylesheet and place `<AuraBackground />` and `<ThemePicker />` in your root layout:
+Import the stylesheet and place `<ThemeScript />`, `<AuraBackground />`, and `<ThemePicker />` in your root layout:
 
 ```svelte
 <script lang="ts">
   import 'fractalthemer/styles.css';
-  import { AuraBackground, ThemePicker } from 'fractalthemer';
+  import { ThemeScript, AuraBackground, ThemePicker } from 'fractalthemer';
 
   let { children } = $props();
 </script>
+
+<!-- Zero-flicker initialization (before first paint) -->
+<ThemeScript />
 
 <!-- Ambient gradient backdrop (renders when aura mode is enabled) -->
 <AuraBackground />
@@ -130,6 +98,8 @@ Style your components using the standard CSS custom properties:
 }
 ```
 
+> **Note:** Read surfaces through the tokens and let the background regime decide opacity. Under a vivid backdrop (aura / gradient / pattern), these same token backgrounds automatically turn translucent glass and app chrome frosts — see [Tokens & CSS Contract §6](../architecture/03-tokens-and-css-contract.md).
+
 ---
 
 ## 🎨 Step 5: (Optional) Using Raw Indented SASS
@@ -141,9 +111,10 @@ If your project is built with indented SASS (`.sass`) or SCSS, you can `@use` th
 @use 'fractalthemer/styles'
 
 // Or granular partials:
-@use 'fractalthemer/tokens'  // Fluid typography, spacing, and CSS custom properties
+@use 'fractalthemer/tokens'  // 30 semantic CSS custom properties
 @use 'fractalthemer/themes'  // 41 theme classes (.theme-*)
 @use 'fractalthemer/auras'   // Multi-layer GPU blend shaders & gradient canvas
+@use 'fractalthemer/glass'   // Auto glass regime: --glass-blur + chrome frost
 @use 'fractalthemer/picker'  // 100vh drawer and controls
 ```
 

@@ -145,3 +145,41 @@ Every theme provides tiered background surfaces to maintain distinct visual hier
   font-size: 12px;
 }
 ```
+
+## 🧊 6. Glass Regime (Vivid Backgrounds)
+
+The layered surface tokens above are **opaque by design** — in `plain` mode, the contrast between `--bg-panel` (sidebar) and `--bg-surface` (main area) *is* the layout. But when a vivid background (aura, gradient, pattern) owns the canvas, opaque surfaces would clash with and hide it.
+
+So the two regimes are mutually exclusive:
+
+- **`plain`** — `-bg-*` tokens are opaque; surfaces carry the design.
+- **`aura` / `gradient` / `pattern`** — the backdrop becomes the only background. ThemeState re-emits every `-bg-*` token as `color-mix(in srgb, <theme literal> N%, transparent)` inline on `:root`, so all surfaces turn glass automatically — no consumer CSS changes needed. `--bg` goes fully transparent, floating layers (`--bg-popover`, `--bg-dialog`, `--bg-input`) stay nearly opaque for legibility, and `--bg-terminal` stays opaque for code readability.
+
+The blur half ships in `fractalthemer/styles` (`_glass.sass`) and is **fully automatic** — no markup changes required:
+
+```css
+:root[data-bg-style='aura'],   /* same for gradient / pattern */
+:root[data-bg-style='gradient'],
+:root[data-bg-style='pattern'] {
+  --glass-blur: 14px;
+}
+
+/* App chrome frosted automatically in vivid modes */
+:root[data-bg-style='aura'] :where(header, nav, aside, footer, dialog,
+    [role='banner'], [role='navigation'], [role='complementary'],
+    [role='contentinfo'], [role='dialog'], [popover], [data-glass]) {
+  backdrop-filter: blur(var(--glass-blur, 14px)) saturate(140%);
+  -webkit-backdrop-filter: blur(var(--glass-blur, 14px)) saturate(140%);
+}
+```
+
+Design notes:
+
+- **Auto by default.** Structural chrome (`header`, `nav`, `aside`, `footer`, `dialog`, popover, and the standard ARIA landmarks) gets the frost the moment a vivid background is active — regardless of how the consumer names their classes. `data-glass` remains as an opt-in for custom surfaces (a `.sidebar` div, a `.card`).
+- **Safe where nothing is painted.** Chrome elements with no `-bg-*` background just frost the backdrop behind them — the classic glass navbar effect. Everything outside the chrome list is left untouched: an unpainted page stays crisp, and painted surfaces already read as glass from the token translucency alone (blur is the garnish, not the mechanism).
+- **Zero specificity.** The `:where()` wrapper means any consumer rule can override or unset the blur (`backdrop-filter: none`) with a single class.
+- Tune depth globally by overriding `--glass-blur`.
+
+### Consuming tokens in both regimes
+
+Never hardcode assumptions about opacity: read surfaces through the tokens and let the regime decide. A `background: var(--bg-panel)` sidebar is opaque in `plain` and frosted under an aura — same code, correct in both worlds.

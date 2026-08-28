@@ -5,7 +5,7 @@ type: guide
 tags: [architecture, runes, svelte5, api, conditional-rendering]
 summary: Comprehensive guide for programmatic control with themeState, conditional Svelte 5 template rendering ({#if themeState.isDark}), reactive class bindings, and UI component recipes.
 relates_to: [theme-picker-component, tokens-and-css-contract, aura-background-component]
-updated: 2026-08-16
+updated: 2026-08-28
 ---
 
 # 🛠 Programmatic API & Svelte 5 Usage Guide
@@ -196,6 +196,32 @@ console.log(themeState.isOpen); // boolean
 
 ---
 
+### 🎯 Persistent Custom Accent API
+
+The accent is an **override layer** above any theme — it survives theme switches, refreshes, and sessions, and is cleared only by an explicit reset:
+
+```typescript
+import { themeState } from 'fractalthemer';
+
+// Set the accent: applies + persists to localStorage, auto-derives the alt shade
+themeState.setCustomAccentColor('#7C3AED');
+
+// Take control of the hover accent (stops auto-derivation until reset)
+themeState.setCustomAccentAltColor('#4C1D95');
+
+// Manual reset — the only path back to the theme's own accents
+themeState.resetCustomAccent();
+
+// Reactive state
+console.log(themeState.useCustomAccent);     // boolean
+console.log(themeState.customAccentColor);   // override hex
+console.log(themeState.customAccentAltColor);
+```
+
+The overrides map to `--theme-color` (+ `--theme`) and `--theme-color-alt` (+ `--theme-hover`). Persistence keys and behavior notes: [§4 Persistence Model](#-4-persistence-model).
+
+---
+
 ## 🧩 3. Custom Component Recipes
 
 ### Recipe A: Minimalist Custom Theme Switcher Button
@@ -343,6 +369,80 @@ Display active theme and aura details with live color swatches:
 ```
 
 ---
+
+### Recipe D: Build Your Own Mode & Picker Toggles
+
+Skip `<ThemeToggle />` and the drawer's built-in icons entirely — every toggle is just `themeState` plus two reactive reads. **Verified API:** `toggleMode()` flips light/dark, `togglePicker()` opens/closes the drawer, and the states you branch on are `themeState.isDark` and `themeState.isOpen`.
+
+```svelte
+<script lang="ts">
+  import { themeState } from 'fractalthemer';
+</script>
+
+<!-- 1. Mode toggle — {#if themeState.isDark} picks the icon -->
+<button
+  type="button"
+  class="my-toggle"
+  aria-label={themeState.isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+  onclick={() => themeState.toggleMode()}
+>
+  {#if themeState.isDark}
+    ☀️ <!-- dark is active; clicking goes light -->
+  {:else}
+    🌙
+  {/if}
+</button>
+
+<!-- 2. Picker toggle — {#if themeState.isOpen} swaps the open/close affordance -->
+<button
+  type="button"
+  class="my-toggle"
+  aria-haspopup="dialog"
+  aria-expanded={themeState.isOpen}
+  onclick={() => themeState.togglePicker()}
+>
+  {#if themeState.isOpen}
+    ✕
+  {:else}
+    🎨
+  {/if}
+</button>
+```
+
+Notes:
+
+- **Any markup works** — text, emoji, your own icon set, `currentColor` SVGs. The examples are deliberately unstyled so you bring your own CSS.
+- **Open-only triggers:** use `themeState.openPicker()` for a palette icon that should only ever open; the drawer's backdrop, `Escape` key, and `✕` button handle closing.
+- **No event wiring beyond `onclick`.** `isDark` and `isOpen` are Svelte 5 `$state`/`$derived`, so both buttons re-render instantly when anything (including the drawer's own controls) changes them.
+- **The drawer UI stays fractalthemer's** — only the trigger is yours. Drawer ergonomics and breakpoints: [Responsive Drawer Guide](./04-responsive-drawer.md).
+
+---
+
+## 💾 4. Persistence Model
+
+Everything the picker touches survives refreshes, sessions, and theme switches via `localStorage`. The custom accent is an **override layer**, not a theme property — it rides on top of whatever theme is active until explicitly reset.
+
+| Key | Written by | Purpose |
+|---|---|---|
+| `theme` | `setTheme()` | Active theme id |
+| `bgStyle` | `setBgStyle()` | `plain` \| `aura` \| `gradient` \| `pattern` |
+| `aura` / `gradient` / `pattern` | setters | Active preset id per style |
+| `customThemes` / `customTokens` | `saveCustomTheme()` | User-authored themes |
+| `useCustomAccent` | accent setters | Master switch for the accent layer |
+| `customAccentColor` | `setCustomAccentColor()` | Overrides `--theme-color` (+ `--theme`) |
+| `customAccentAltColor` | `setCustomAccentAltColor()` | Overrides `--theme-color-alt` (+ `--theme-hover`) |
+
+Behavior notes:
+
+- **Accent survives theme switches.** `apply()` sets the theme's own tokens first, then re-applies the accent layer last — the accent always wins. It also ships in the anti-flicker inline script, so it is applied before first paint (no accent flash on hard refresh).
+- **Alt starts auto.** `--theme-color-alt` is derived (−12% lightness) from the accent until the user sets it directly; afterwards the two are independent until reset.
+- **Reset is manual only.** `themeState.resetCustomAccent()` clears the accent layer; `resetDefault()` clears everything. Switching themes never touches it.
+
+```ts
+themeState.setCustomAccentColor('#7C3AED');      // sets + persists, derives alt
+themeState.setCustomAccentAltColor('#4C1D95');   // takes control of alt
+themeState.resetCustomAccent();                  // back to the theme's own accents
+```
 
 ## 🔗 Related Documentation
 

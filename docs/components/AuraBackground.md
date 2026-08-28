@@ -6,7 +6,7 @@ tags: [components, auras, gradients, shaders, blend-modes, gpu-acceleration]
 summary: Mechanics of the multi-layer GPU blend gradient background, CSS filter blur nodes, and theme synchronization.
 relates_to: [theme-picker-component, auras-catalog, tokens-and-css-contract]
 source: src/lib/components/AuraBackground.svelte
-updated: 2026-08-16
+updated: 2026-08-28
 ---
 
 # AuraBackground Component & GPU Gradient Engine
@@ -24,6 +24,7 @@ The [`AuraBackground.svelte`](../../src/lib/components/AuraBackground.svelte) co
   - `transform: translateZ(0)` & `will-change: transform`: Forces composite layer creation on the GPU.
   - `pointer-events: none`: Ensures zero interference with mouse, touch, or click gestures.
 - **Zero DOM Pollution in Plain Mode**: When `themeState.bgStyle === 'plain'`, the component evaluates `{#if themeState.isAura}` to false and unmounts completely from the DOM.
+- **Glass Regime Synergy**: In any vivid mode (`aura` / `gradient` / `pattern`), `themeState` re-emits the `-bg-*` tokens translucent and `_glass.sass` auto-frosts app chrome — so this component's backdrop reads as the single canvas behind glass surfaces (see [Tokens Contract §6](../architecture/03-tokens-and-css-contract.md)).
 
 ---
 
