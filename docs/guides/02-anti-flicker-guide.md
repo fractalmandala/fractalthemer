@@ -67,9 +67,11 @@ Place the following script directly in `src/app.html`:
       var isDark = darkThemes.indexOf(saved) !== -1 || saved.indexOf('-dark') !== -1 || saved.indexOf('-mocha') !== -1;
       var mode = isDark ? 'dark' : 'light';
       var root = document.documentElement;
-      root.className = saved;
-      root.setAttribute('data-theme', saved);
+      root.classList.add(saved);
+      root.setAttribute('data-theme', mode);
       root.setAttribute('data-mode', mode);
+      root.setAttribute('data-theme-id', saved);
+      root.setAttribute('data-theme-family', saved);
       root.setAttribute('data-bg-style', savedBg);
       root.style.colorScheme = mode;
     } catch (e) {}

@@ -28,7 +28,7 @@ updated: 2026-08-16
 ```typescript
 interface Props {
     defaultTheme?: string;                 // Fallback theme if none in storage (default: 'theme-light-default')
-    defaultBgStyle?: 'plain' | 'aura';    // Fallback background style (default: 'plain')
+    defaultBgStyle?: 'plain' | 'aura' | 'gradient' | 'pattern';    // Fallback background style (default: 'plain')
 }
 ```
 

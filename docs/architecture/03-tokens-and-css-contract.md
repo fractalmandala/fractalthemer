@@ -88,15 +88,23 @@ Every theme provides tiered background surfaces to maintain distinct visual hier
 
 ---
 
-## 💫 5. Interactive State &amp; Feedback Tokens
+## 💫 5. Interactive State & Feedback Tokens
 
-
-| Token                  | Description                              |
-| ---------------------- | ---------------------------------------- |
-| `--state-hover`        | Neutral hover background tint            |
-| `--state-hover-subtle` | Gentle list-item hover tint              |
-| `--state-selected`     | Active tab, selected item highlight      |
-| `--feedback-error`     | Validation errors and destructive alerts |
+| Token | Description |
+|---|---|
+| `--state-hover` | Neutral hover background tint |
+| `--state-hover-subtle` | Gentle list-item hover tint |
+| `--state-selected` | Active tab, selected item highlight |
+| `--success` | Confirmed badges, success messages |
+| `--success-hover` | Hover state for success actions |
+| `--warning` | Warning alerts, pending state |
+| `--warning-hover` | Hover state for warning actions |
+| `--danger` | Destructive buttons, danger alerts |
+| `--danger-hover` | Hover state for danger actions |
+| `--info` | Information callouts, notifications |
+| `--info-hover` | Hover state for info actions |
+| `--feedback-error` | Validation errors and destructive alerts |
+| `--ring` | Focus ring glow outline |
 
 
 ---

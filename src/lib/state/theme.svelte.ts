@@ -14,14 +14,62 @@ function shiftColorLightness(hex: string, percent: number): string {
 	let clean = hex.replace('#', '').trim();
 	if (clean.length === 3) clean = clean.split('').map((c) => c + c).join('');
 	if (clean.length !== 6) return '#047857';
+
 	const num = parseInt(clean, 16);
-	let r = (num >> 16) + Math.round(255 * (percent / 100));
-	let g = ((num >> 8) & 0x00ff) + Math.round(255 * (percent / 100));
-	let b = (num & 0x0000ff) + Math.round(255 * (percent / 100));
-	r = Math.min(255, Math.max(0, r));
-	g = Math.min(255, Math.max(0, g));
-	b = Math.min(255, Math.max(0, b));
-	return '#' + (g | (b << 8) | (r << 16)).toString(16).padStart(6, '0');
+	const r = ((num >> 16) & 255) / 255;
+	const g = ((num >> 8) & 255) / 255;
+	const b = (num & 255) / 255;
+
+	const max = Math.max(r, g, b);
+	const min = Math.min(r, g, b);
+	let h = 0;
+	let s = 0;
+	const l = (max + min) / 2;
+
+	if (max !== min) {
+		const d = max - min;
+		s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+		switch (max) {
+			case r:
+				h = (g - b) / d + (g < b ? 6 : 0);
+				break;
+			case g:
+				h = (b - r) / d + 2;
+				break;
+			case b:
+				h = (r - g) / d + 4;
+				break;
+		}
+		h /= 6;
+	}
+
+	const newL = Math.max(0, Math.min(100, l * 100 + percent)) / 100;
+
+	let newR: number;
+	let newG: number;
+	let newB: number;
+
+	if (s === 0) {
+		newR = newG = newB = newL;
+	} else {
+		const hue2rgb = (p: number, q: number, t: number) => {
+			if (t < 0) t += 1;
+			if (t > 1) t -= 1;
+			if (t < 1 / 6) return p + (q - p) * 6 * t;
+			if (t < 1 / 2) return q;
+			if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+			return p;
+		};
+
+		const q = newL < 0.5 ? newL * (1 + s) : newL + s - newL * s;
+		const p = 2 * newL - q;
+		newR = hue2rgb(p, q, h + 1 / 3);
+		newG = hue2rgb(p, q, h);
+		newB = hue2rgb(p, q, h - 1 / 3);
+	}
+
+	const toHex = (x: number) => Math.round(x * 255).toString(16).padStart(2, '0');
+	return `#${toHex(newR)}${toHex(newG)}${toHex(newB)}`;
 }
 
 export class ThemeState {
@@ -481,21 +529,30 @@ export class ThemeState {
 
 		const theme = this.allThemes.find((t) => t.id === id);
 		if (theme) {
-			root.setAttribute('data-theme', theme.id);
+			root.setAttribute('data-theme', theme.mode);
 			root.setAttribute('data-mode', theme.mode);
+			root.setAttribute('data-theme-id', theme.id);
+			root.setAttribute('data-theme-family', theme.id);
 			root.setAttribute('data-bg-style', currentStyle);
 			root.style.colorScheme = theme.mode;
+
+			if (theme.tokens) {
+				for (const [key, value] of Object.entries(theme.tokens)) {
+					root.style.setProperty('--' + key, value);
+				}
+				if (theme.tokens['theme-color']) {
+					root.style.setProperty('--theme', theme.tokens['theme-color']);
+				}
+				if (theme.tokens['theme-color-alt']) {
+					root.style.setProperty('--theme-hover', theme.tokens['theme-color-alt']);
+				}
+			}
 
 			if (this.useCustomAccent) {
 				root.style.setProperty('--theme-color', this.customAccentColor);
 				root.style.setProperty('--theme-color-alt', this.customAccentAltColor);
 				root.style.setProperty('--theme', this.customAccentColor);
 				root.style.setProperty('--theme-hover', this.customAccentAltColor);
-			} else {
-				root.style.removeProperty('--theme-color');
-				root.style.removeProperty('--theme-color-alt');
-				root.style.removeProperty('--theme');
-				root.style.removeProperty('--theme-hover');
 			}
 
 			if (currentStyle === 'gradient' && this.activeGradientPreset) {
@@ -512,4 +569,5 @@ export class ThemeState {
 }
 
 export const themeState = new ThemeState();
+
 

@@ -119,15 +119,11 @@
 	background: var(--bg-popover, var(--bg-surface))
 	color: var(--text-primary)
 	border-left: 1px solid var(--border)
-	box-shadow: -8px 0 36px rgba(0, 0, 0, 0.2)
-	overflow-y: scroll
+	overflow-y: auto
 	-webkit-overflow-scrolling: touch
 	scrollbar-width: thin
 	animation: themeDrawerSlideIn 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards
-	@media (min-width: 1025px)
-		width: 540px
-	@media (max-width: 1024px)
-		width: 280px
+	width: min(94vw, 480px)
 
 .theme-style-switcher
 	position: sticky
@@ -140,10 +136,12 @@
 	background: var(--bg-surface)
 	border-bottom: 1px solid var(--border-subtle)
 	gap: 8px
+	flex-wrap: wrap
 
 .theme-style-toggle-group
 	display: flex
-	gap: 8px
+	gap: 4px
+	flex-wrap: wrap
 
 .theme-style-toggle-btn
 	display: inline-flex

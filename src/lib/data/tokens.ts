@@ -28,5 +28,13 @@ export const CORE_TOKENS: TokenMeta[] = [
 	{ key: 'state-selected', label: 'Selected State', category: 'state', description: 'Active tab, selected item highlight', defaultVal: '#CBD5E1' },
 	{ key: 'theme-color', label: 'Brand Accent', category: 'accent', description: 'Primary brand action color, active badges, highlights', defaultVal: '#04825B' },
 	{ key: 'theme-color-alt', label: 'Accent Alternate', category: 'accent', description: 'Hover state for brand accent buttons', defaultVal: '#047857' },
+	{ key: 'success', label: 'Success', category: 'state', description: 'Confirmed badges, success messages', defaultVal: '#10B981' },
+	{ key: 'success-hover', label: 'Success Hover', category: 'state', description: 'Hover state for success actions', defaultVal: '#059669' },
+	{ key: 'warning', label: 'Warning', category: 'state', description: 'Warning alerts, pending state', defaultVal: '#F59E0B' },
+	{ key: 'warning-hover', label: 'Warning Hover', category: 'state', description: 'Hover state for warning actions', defaultVal: '#D97706' },
+	{ key: 'danger', label: 'Danger', category: 'state', description: 'Destructive buttons, danger alerts', defaultVal: '#EF4444' },
+	{ key: 'danger-hover', label: 'Danger Hover', category: 'state', description: 'Hover state for danger actions', defaultVal: '#DC2626' },
+	{ key: 'info', label: 'Info', category: 'state', description: 'Information callouts, notifications', defaultVal: '#3B82F6' },
+	{ key: 'info-hover', label: 'Info Hover', category: 'state', description: 'Hover state for info actions', defaultVal: '#2563EB' },
 	{ key: 'feedback-error', label: 'Error Feedback', category: 'state', description: 'Validation errors and destructive alerts', defaultVal: '#DC2626' }
 ];

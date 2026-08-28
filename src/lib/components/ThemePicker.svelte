@@ -9,12 +9,12 @@
 	import Moon from '../icons/Moon.svelte';
 	import Palette from '../icons/Palette.svelte';
 	import Close from '../icons/Close.svelte';
-	import Undo from '$lib/icons/undo.svelte';
-	import Random from '$lib/icons/random.svelte';
-	import Plain from '$lib/icons/plain.svelte';
-	import Patterns from '$lib/icons/pattern.svelte';
-	import Gradients from '$lib/icons/gradient.svelte';
-	import AuraIcon from '$lib/icons/aura.svelte';
+	import Undo from '../icons/undo.svelte';
+	import Random from '../icons/random.svelte';
+	import Plain from '../icons/plain.svelte';
+	import Patterns from '../icons/pattern.svelte';
+	import Gradients from '../icons/gradient.svelte';
+	import AuraIcon from '../icons/aura.svelte';
 
 	interface Props {
 		showModeToggle?: boolean;
@@ -142,7 +142,7 @@
 	{#if showModeToggle}
 		<button
 			type="button"
-			class="is-icon"
+			class="theme-icon-btn"
 			title={themeState.isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
 			aria-label={themeState.isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
 			onclick={() => themeState.toggleMode()}
@@ -161,7 +161,7 @@
 	{:else}
 		<button
 			type="button"
-			class="is-icon"
+			class="theme-icon-btn"
 			aria-haspopup="dialog"
 			aria-expanded={themeState.isOpen}
 			title="Choose theme and aura background"
@@ -191,97 +191,95 @@
 
 		<div class="theme-popover" role="dialog" aria-label="Theme and Background Switcher">
 			<!-- 1 Unified System Top Header (Plain vs Aura vs Gradient vs Pattern) -->
-				<div class="box is-sticky">
-			<div class="theme-style-switcher box gap8">
-				<div class="theme-style-toggle-group row wrap">
-					<button
-						type="button"
-						class="is-icon"
-						class:active={currentView === 'plain'}
-						onclick={() => selectView('plain')}
-						title={`Explore ${themeState.allThemes.length} curated and custom color themes`}
-					>
-						<Plain/>Plain
-					</button>
-					<button
-						type="button"
-						class="is-icon"
-						class:active={currentView === 'gradient'}
-						onclick={() => selectView('gradient')}
-						title="Explore plain gradient background presets"
-					>
-						<Gradients/>
-						Gradients
-					</button>
-					<button
-						type="button"
-						class="is-icon"
-						class:active={currentView === 'pattern'}
-						onclick={() => selectView('pattern')}
-						title={`Explore ${themeState.allPatterns.length} CSS background patterns`}
-					>
-						<Patterns/>
-						Patterns
-					</button>
-					<button
-						type="button"
-						class="is-icon"
-						class:active={currentView === 'aura'}
-						onclick={() => selectView('aura')}
-						title={`Explore ${themeState.allAuras.length} atmospheric aura gradients`}
-					>
-						<AuraIcon/>
-						Auras
-					</button>
-				</div>
-				<div class="row gap8 ycenter">
-					<!-- Header Top-Right Mode Switcher -->
-					<button
-						type="button"
-						class="is-icon"
-						title={themeState.isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-						aria-label={themeState.isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-						onclick={() => themeState.toggleMode()}
-					>
-						{#if themeState.isDark}
-							<Sun />
-						{:else}
-							<Moon />
-						{/if}
-					</button>
-					<button
-						type="button"
-						class="is-icon"
-						onclick={() => {
-							themeState.resetDefault();
-							currentView = 'plain';
-							searchFilter = '';
-						}}
-						title="Set default theme (.theme-light-default)"
-					>
-						<Undo />
-					</button>
-					<button
-						type="button"
-						class="is-icon"
-						onclick={() => themeState.cycleRandom()}
-						title="Pick a random theme"
-					>
-						<Random />
-					</button>
-					<button
-						type="button"
-						class="is-icon"
-						aria-label="Close theme menu"
-						onclick={() => themeState.closePicker()}
-					>
-						<Close />
-					</button>
+			<div class="theme-drawer-header">
+				<div class="theme-style-switcher">
+					<div class="theme-style-toggle-group">
+						<button
+							type="button"
+							class="theme-style-toggle-btn"
+							class:active={currentView === 'plain'}
+							onclick={() => selectView('plain')}
+							title={`Explore ${themeState.allThemes.length} curated and custom color themes`}
+						>
+							<Plain/><span>Plain</span>
+						</button>
+						<button
+							type="button"
+							class="theme-style-toggle-btn"
+							class:active={currentView === 'gradient'}
+							onclick={() => selectView('gradient')}
+							title="Explore plain gradient background presets"
+						>
+							<Gradients/><span>Gradients</span>
+						</button>
+						<button
+							type="button"
+							class="theme-style-toggle-btn"
+							class:active={currentView === 'pattern'}
+							onclick={() => selectView('pattern')}
+							title={`Explore ${themeState.allPatterns.length} CSS background patterns`}
+						>
+							<Patterns/><span>Patterns</span>
+						</button>
+						<button
+							type="button"
+							class="theme-style-toggle-btn"
+							class:active={currentView === 'aura'}
+							onclick={() => selectView('aura')}
+							title={`Explore ${themeState.allAuras.length} atmospheric aura gradients`}
+						>
+							<AuraIcon/><span>Auras</span>
+						</button>
+					</div>
+					<div class="theme-header-actions" style="display: flex; align-items: center; gap: 4px;">
+						<!-- Header Top-Right Mode Switcher -->
+						<button
+							type="button"
+							class="theme-icon-btn"
+							title={themeState.isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+							aria-label={themeState.isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+							onclick={() => themeState.toggleMode()}
+						>
+							{#if themeState.isDark}
+								<Sun />
+							{:else}
+								<Moon />
+							{/if}
+						</button>
+						<button
+							type="button"
+							class="theme-icon-btn"
+							onclick={() => {
+								themeState.resetDefault();
+								currentView = 'plain';
+								searchFilter = '';
+							}}
+							title="Set default theme (.theme-light-default)"
+						>
+							<Undo />
+						</button>
+						<button
+							type="button"
+							class="theme-icon-btn"
+							onclick={() => themeState.cycleRandom()}
+							title="Pick a random theme"
+						>
+							<Random />
+						</button>
+						<button
+							type="button"
+							class="theme-icon-btn"
+							aria-label="Close theme menu"
+							onclick={() => themeState.closePicker()}
+						>
+							<Close />
+						</button>
+					</div>
 				</div>
 			</div>
 			<!-- Custom Accent Color Control Row -->
-			<div class="theme-accent-bar row ycenter xbetween pad-xs" style="border-bottom: 1px solid var(--border-subtle); padding: 0.5rem 0.75rem; background: var(--bg-surface);">
-				<label class="row ycenter gap-2xs" style="font-size: 0.76rem; font-weight: 600; cursor: pointer;">
+			<div class="theme-accent-bar" style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-subtle); padding: 0.5rem 0.85rem; background: var(--bg-surface);">
+				<label style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 600; cursor: pointer; color: var(--text-primary);">
 					<input
 						type="checkbox"
 						checked={themeState.useCustomAccent}
@@ -371,7 +369,6 @@
 					bind:value={searchFilter}
 				/>
 			</div>
-				</div>
 
 			<!-- Card Grids -->
 			<div class="theme-grid-container">
