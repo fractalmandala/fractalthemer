@@ -6,6 +6,7 @@ export interface ThemeInfo {
 	id: string;
 	name: string;
 	mode: 'light' | 'dark';
+	twinId?: string;
 	accentColor: string;
 	bgColor: string;
 	textColor: string;
@@ -22,6 +23,50 @@ export interface ThemeInfo {
 		layers: AuraLayer[];
 	};
 }
+
+export const THEME_TWINS: Record<string, string> = {
+	'theme-light-default': 'theme-night-dark',
+	'theme-night-dark': 'theme-light-default',
+	'theme-himalaya-light': 'theme-frozen-dark',
+	'theme-frozen-dark': 'theme-himalaya-light',
+	'theme-editorial-light': 'theme-inkworm-dark',
+	'theme-inkworm-dark': 'theme-editorial-light',
+	'theme-space-light': 'theme-deep-ocean-dark',
+	'theme-deep-ocean-dark': 'theme-space-light',
+	'theme-sun-light': 'theme-obsidian-crimson-dark',
+	'theme-obsidian-crimson-dark': 'theme-sun-light',
+	'theme-monochrono-light': 'theme-monochrono-dark',
+	'theme-monochrono-dark': 'theme-monochrono-light',
+	'theme-molly-light': 'theme-lagoona-dark',
+	'theme-lagoona-dark': 'theme-molly-light',
+	'theme-malana-light': 'theme-fouram-dark',
+	'theme-fouram-dark': 'theme-malana-light',
+	'theme-coresync-light': 'theme-console-dark',
+	'theme-console-dark': 'theme-coresync-light',
+	'theme-studio-light': 'theme-gruvbox-dark',
+	'theme-gruvbox-dark': 'theme-studio-light',
+	'theme-matcha-light': 'theme-midnight-emerald-dark',
+	'theme-midnight-emerald-dark': 'theme-matcha-light',
+	'theme-sakura-light': 'theme-amethyst-void-dark',
+	'theme-amethyst-void-dark': 'theme-sakura-light',
+	'theme-nordic-frost-light': 'theme-nord-dark',
+	'theme-nord-dark': 'theme-nordic-frost-light',
+	'theme-desert-dune-light': 'theme-catppuccin-mocha',
+	'theme-catppuccin-mocha': 'theme-desert-dune-light',
+	'theme-lavender-mist-light': 'theme-synthwave-dark',
+	'theme-synthwave-dark': 'theme-lavender-mist-light',
+	'theme-botanical-light': 'theme-dracula-dark',
+	'theme-dracula-dark': 'theme-botanical-light',
+	'theme-paper-crisp-light': 'theme-wintercame-dark',
+	'theme-wintercame-dark': 'theme-paper-crisp-light',
+	'theme-sandstone-light': 'theme-sun-dark',
+	'theme-sun-dark': 'theme-sandstone-light',
+	'theme-terracotta-studio-light': 'theme-onedark-pro',
+	'theme-onedark-pro': 'theme-terracotta-studio-light',
+	'theme-ivory-slate-light': 'theme-rose-pine-dark',
+	'theme-rose-pine-dark': 'theme-ivory-slate-light'
+};
+
 
 export interface TokenMeta {
 	key: string;

@@ -235,7 +235,20 @@
 					</button>
 				</div>
 				<div class="row gap8 ycenter">
-			<div class="row ycenter gap8">
+					<!-- Header Top-Right Mode Switcher -->
+					<button
+						type="button"
+						class="is-icon"
+						title={themeState.isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+						aria-label={themeState.isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+						onclick={() => themeState.toggleMode()}
+					>
+						{#if themeState.isDark}
+							<Sun />
+						{:else}
+							<Moon />
+						{/if}
+					</button>
 					<button
 						type="button"
 						class="is-icon"
@@ -244,19 +257,18 @@
 							currentView = 'plain';
 							searchFilter = '';
 						}}
-					title="Set default theme (.theme-light-default)"
-				>
-					<Undo/>
-				</button>
-				<button
-					type="button"
-					class="is-icon"
-					onclick={() => themeState.cycleRandom()}
-					title="Pick a random theme"
-				>
-					<Random/>
-				</button>
-			</div>
+						title="Set default theme (.theme-light-default)"
+					>
+						<Undo />
+					</button>
+					<button
+						type="button"
+						class="is-icon"
+						onclick={() => themeState.cycleRandom()}
+						title="Pick a random theme"
+					>
+						<Random />
+					</button>
 					<button
 						type="button"
 						class="is-icon"
@@ -266,6 +278,34 @@
 						<Close />
 					</button>
 				</div>
+			</div>
+			<!-- Custom Accent Color Control Row -->
+			<div class="theme-accent-bar row ycenter xbetween pad-xs" style="border-bottom: 1px solid var(--border-subtle); padding: 0.5rem 0.75rem; background: var(--bg-surface);">
+				<label class="row ycenter gap-2xs" style="font-size: 0.76rem; font-weight: 600; cursor: pointer;">
+					<input
+						type="checkbox"
+						checked={themeState.useCustomAccent}
+						onchange={(e) => themeState.setUseCustomAccent((e.target as HTMLInputElement).checked)}
+						style="accent-color: var(--theme-color);"
+					/>
+					<span>Custom Accent</span>
+				</label>
+				{#if themeState.useCustomAccent}
+					<div class="row ycenter gap-2xs">
+						<input
+							type="color"
+							value={themeState.customAccentColor}
+							oninput={(e) => themeState.setCustomAccentColor((e.target as HTMLInputElement).value)}
+							style="width: 1.75rem; height: 1.75rem; border: 1px solid var(--border); border-radius: var(--radius-3); background: transparent; cursor: pointer; padding: 1px;"
+						/>
+						<input
+							type="text"
+							value={themeState.customAccentColor}
+							onchange={(e) => themeState.setCustomAccentColor((e.target as HTMLInputElement).value)}
+							style="width: 5.2rem; font-family: var(--font-mono); font-size: 0.72rem; padding: 0.15rem 0.4rem; border: 1px solid var(--border); border-radius: var(--radius-3); background: var(--bg-input); color: var(--text-primary);"
+						/>
+					</div>
+				{/if}
 			</div>
 			<!-- Secondary Sub-Filter Row: Only for Plain Themes -->
 			{#if currentView === 'plain'}

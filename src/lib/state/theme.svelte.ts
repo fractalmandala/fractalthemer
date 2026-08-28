@@ -1,13 +1,28 @@
 import {
 	THEMES,
 	DEFAULT_THEME_ID,
+	THEME_TWINS,
 	type ThemeInfo,
 	type BgStyle
 } from '../data/themes.js';
 import { CORE_TOKENS } from '../data/tokens.js';
 import { AURA_PRESETS, type AuraLayer, type AuraPreset } from '../data/auras.js';
-import { GRADIENT_PRESETS, type GradientPreset } from '../data/gradients.js';
-import { PATTERNS, type Pattern } from '../data/patterns.js';
+import { GRADIENT_PRESETS, isGradientDark, type GradientPreset } from '../data/gradients.js';
+import { PATTERNS, isPatternDark, type Pattern } from '../data/patterns.js';
+
+function shiftColorLightness(hex: string, percent: number): string {
+	let clean = hex.replace('#', '').trim();
+	if (clean.length === 3) clean = clean.split('').map((c) => c + c).join('');
+	if (clean.length !== 6) return '#047857';
+	const num = parseInt(clean, 16);
+	let r = (num >> 16) + Math.round(255 * (percent / 100));
+	let g = ((num >> 8) & 0x00ff) + Math.round(255 * (percent / 100));
+	let b = (num & 0x0000ff) + Math.round(255 * (percent / 100));
+	r = Math.min(255, Math.max(0, r));
+	g = Math.min(255, Math.max(0, g));
+	b = Math.min(255, Math.max(0, b));
+	return '#' + (g | (b << 8) | (r << 16)).toString(16).padStart(6, '0');
+}
 
 export class ThemeState {
 	current = $state<string>(DEFAULT_THEME_ID);
@@ -19,6 +34,11 @@ export class ThemeState {
 	customThemes = $state<ThemeInfo[]>([]);
 	activeCustomOverrides = $state<Record<string, string> | null>(null);
 	activeCustomAuraLayers = $state<AuraLayer[] | null>(null);
+
+	// Accent Color Customization State
+	useCustomAccent = $state<boolean>(false);
+	customAccentColor = $state<string>('#04825B');
+	customAccentAltColor = $state<string>('#047857');
 
 	get allThemes(): ThemeInfo[] {
 		return [...THEMES, ...this.customThemes];
@@ -264,14 +284,50 @@ export class ThemeState {
 		}
 	}
 
+	setCustomAccentColor(color: string) {
+		this.customAccentColor = color;
+		this.customAccentAltColor = shiftColorLightness(color, -12);
+		this.useCustomAccent = true;
+		if (typeof window !== 'undefined') {
+			try {
+				localStorage.setItem('customAccentColor', color);
+				localStorage.setItem('useCustomAccent', 'true');
+			} catch {}
+		}
+		this.apply(this.current, this.bgStyle);
+	}
+
+	setUseCustomAccent(use: boolean) {
+		this.useCustomAccent = use;
+		if (typeof window !== 'undefined') {
+			try {
+				localStorage.setItem('useCustomAccent', use ? 'true' : 'false');
+			} catch {}
+		}
+		this.apply(this.current, this.bgStyle);
+	}
+
 	toggleMode() {
 		const targetMode = this.isDark ? 'light' : 'dark';
-		const matching = this.allThemes.filter((t) => t.mode === targetMode);
-		if (targetMode === 'light') {
-			this.setTheme(DEFAULT_THEME_ID);
+		const twinId = THEME_TWINS[this.current];
+		
+		if (twinId && this.allThemes.some((t) => t.id === twinId)) {
+			this.setTheme(twinId);
 		} else {
-			const candidate = matching.find((t) => t.id === 'theme-night-dark') ?? matching[0];
-			if (candidate) this.setTheme(candidate.id);
+			const matching = this.allThemes.filter((t) => t.mode === targetMode);
+			if (matching.length) this.setTheme(matching[0].id);
+		}
+
+		// Adapt background preset to target mode
+		if (this.bgStyle === 'aura' && this.activeAuraPreset && this.activeAuraPreset.dark !== (targetMode === 'dark')) {
+			const candidate = AURA_PRESETS.find((a) => a.dark === (targetMode === 'dark'));
+			if (candidate) this.activeAura = candidate.id;
+		} else if (this.bgStyle === 'gradient' && this.activeGradientPreset && isGradientDark(this.activeGradientPreset) !== (targetMode === 'dark')) {
+			const candidate = GRADIENT_PRESETS.find((g) => isGradientDark(g) === (targetMode === 'dark'));
+			if (candidate) this.activeGradient = candidate.id;
+		} else if (this.bgStyle === 'pattern' && this.activePatternObject && isPatternDark(this.activePatternObject) !== (targetMode === 'dark')) {
+			const candidate = PATTERNS.find((p) => isPatternDark(p) === (targetMode === 'dark'));
+			if (candidate) this.activePattern = candidate.id;
 		}
 	}
 
@@ -291,6 +347,7 @@ export class ThemeState {
 	}
 
 	resetDefault() {
+		this.useCustomAccent = false;
 		this.activeCustomOverrides = null;
 		this.activeCustomAuraLayers = null;
 		this.activeAura = null;
@@ -301,6 +358,8 @@ export class ThemeState {
 				localStorage.removeItem('aura');
 				localStorage.removeItem('gradient');
 				localStorage.removeItem('pattern');
+				localStorage.removeItem('useCustomAccent');
+				localStorage.removeItem('customAccentColor');
 			} catch {}
 		}
 		this.clearCustomOverrides();
@@ -427,6 +486,18 @@ export class ThemeState {
 			root.setAttribute('data-bg-style', currentStyle);
 			root.style.colorScheme = theme.mode;
 
+			if (this.useCustomAccent) {
+				root.style.setProperty('--theme-color', this.customAccentColor);
+				root.style.setProperty('--theme-color-alt', this.customAccentAltColor);
+				root.style.setProperty('--theme', this.customAccentColor);
+				root.style.setProperty('--theme-hover', this.customAccentAltColor);
+			} else {
+				root.style.removeProperty('--theme-color');
+				root.style.removeProperty('--theme-color-alt');
+				root.style.removeProperty('--theme');
+				root.style.removeProperty('--theme-hover');
+			}
+
 			if (currentStyle === 'gradient' && this.activeGradientPreset) {
 				root.style.setProperty('--bg-gradient', this.activeGradientPreset.css);
 			} else {
@@ -441,3 +512,4 @@ export class ThemeState {
 }
 
 export const themeState = new ThemeState();
+

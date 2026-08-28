@@ -3,7 +3,26 @@ export interface GradientPreset {
 	name: string;
 	colors: string[];
 	css: string;
+	dark?: boolean;
 }
+
+function getHexLuminance(hex: string): number {
+	const clean = hex.replace('#', '').trim();
+	if (clean.length < 6) return 0.5;
+	const r = parseInt(clean.substring(0, 2), 16);
+	const g = parseInt(clean.substring(2, 4), 16);
+	const b = parseInt(clean.substring(4, 6), 16);
+	if (isNaN(r) || isNaN(g) || isNaN(b)) return 0.5;
+	return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+}
+
+export function isGradientDark(g: GradientPreset): boolean {
+	if (g.dark !== undefined) return g.dark;
+	if (!g.colors || !g.colors.length) return false;
+	const avgLum = g.colors.reduce((sum, c) => sum + getHexLuminance(c), 0) / g.colors.length;
+	return avgLum < 0.5;
+}
+
 
 export const GRADIENT_PRESETS: GradientPreset[] = [
 	{

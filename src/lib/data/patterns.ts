@@ -5,6 +5,7 @@ export interface Pattern {
   id: string;
   name: string;
   category: PatternCategory;
+  dark?: boolean;
   badge?: string;
   description?: string;
   style: Record<string, string | number | undefined>;
@@ -8355,3 +8356,12 @@ export const gridPatterns: Pattern[] = [
 ];
 
 export const PATTERNS = gridPatterns;
+
+export function isPatternDark(p: Pattern): boolean {
+  if (p.dark !== undefined) return p.dark;
+  if (p.id.includes('dark') || p.name.toLowerCase().includes('dark') || p.id.includes('abyss') || p.id.includes('depth') || p.id.includes('night') || p.id.includes('void')) return true;
+  const bg = String(p.style?.background || p.style?.backgroundColor || '');
+  if (bg.includes('#000') || bg.includes('#0a') || bg.includes('#0d') || bg.includes('#07') || bg.includes('#01') || bg.includes('#11') || bg.includes('#12') || bg.includes('#0f') || bg.includes('#09')) return true;
+  return false;
+}
+
