@@ -89,8 +89,8 @@ Place the following script directly in `src/app.html`:
       if (useAccent === 'true') {
         var acc = localStorage.getItem('customAccentColor');
         var accAlt = localStorage.getItem('customAccentAltColor');
-        if (acc) { root.style.setProperty('--theme-color', acc); root.style.setProperty('--theme', acc); }
-        if (accAlt) { root.style.setProperty('--theme-color-alt', accAlt); root.style.setProperty('--theme-hover', accAlt); }
+        if (acc) { root.style.setProperty('--theme-color', acc); root.style.setProperty('--theme-color', acc); }
+        if (accAlt) { root.style.setProperty('--theme-color-alt', accAlt); root.style.setProperty('--theme-color-alt', accAlt); }
       }
     } catch (e) {}
   })();

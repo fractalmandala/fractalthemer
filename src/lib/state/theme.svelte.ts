@@ -613,10 +613,7 @@ export class ThemeState {
 					root.style.setProperty('--' + key, value);
 				}
 				if (theme.tokens['theme-color']) {
-					root.style.setProperty('--theme', theme.tokens['theme-color']);
-				}
-				if (theme.tokens['theme-color-alt']) {
-					root.style.setProperty('--theme-hover', theme.tokens['theme-color-alt']);
+					root.style.setProperty('--ring', `color-mix(in srgb, ${theme.tokens['theme-color']} 35%, transparent)`);
 				}
 			}
 
@@ -629,8 +626,6 @@ export class ThemeState {
 			if (this.useCustomAccent) {
 				root.style.setProperty('--theme-color', this.customAccentColor);
 				root.style.setProperty('--theme-color-alt', this.customAccentAltColor);
-				root.style.setProperty('--theme', this.customAccentColor);
-				root.style.setProperty('--theme-hover', this.customAccentAltColor);
 			}
 
 			if (currentStyle === 'gradient' && this.activeGradientPreset) {

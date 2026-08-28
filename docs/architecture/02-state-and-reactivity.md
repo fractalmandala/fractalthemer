@@ -48,8 +48,8 @@ export class ThemeState {
 | `activePattern` | `string \| null` | Slug identifier of the active CSS pattern preset |
 | `activeCustomAuraLayers` | `AuraLayer[] \| null` | Dynamic aura gradient nodes for the active custom theme |
 | `useCustomAccent` | `boolean` | Master switch for the persistent custom accent override layer |
-| `customAccentColor` | `string` | Current accent override hex, applied to `--theme-color` (+ `--theme`) |
-| `customAccentAltColor` | `string` | Current alt override hex, applied to `--theme-color-alt` (+ `--theme-hover`) |
+| `customAccentColor` | `string` | Current accent override hex, applied to `--theme-color` (+ `--theme-color`) |
+| `customAccentAltColor` | `string` | Current alt override hex, applied to `--theme-color-alt` (+ `--theme-color-alt`) |
 | `accentAltTouched` | `boolean` | Whether the user has hand-set the alt accent (stops auto-derivation until reset) |
 
 ---
@@ -172,7 +172,7 @@ apply(id: string, style?: BgStyle) {
         root.setAttribute('data-bg-style', currentStyle);
         root.style.colorScheme = theme.mode;
 
-        // 1. Theme's own token values (+ --theme / --theme-hover aliases)
+        // 1. Theme's own token values (+ --theme-color / --theme-color-alt aliases)
         if (theme.tokens) { /* set --<key> for each token */ }
 
         // 2. Custom theme overrides
@@ -181,7 +181,7 @@ apply(id: string, style?: BgStyle) {
         }
 
         // 3. Accent override layer — applied LAST so it wins over any theme
-        if (this.useCustomAccent) { /* set --theme-color, --theme-color-alt, --theme, --theme-hover */ }
+        if (this.useCustomAccent) { /* set --theme-color, --theme-color-alt, --theme-color, --theme-color-alt */ }
 
         // 4. Glass regime — vivid backdrops turn -bg-* surfaces translucent
         if (currentStyle !== 'plain') { /* re-emit each -bg-* as color-mix(in srgb, <literal> N%, transparent) + --glass-blur */ }

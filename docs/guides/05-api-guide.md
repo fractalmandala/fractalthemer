@@ -218,7 +218,7 @@ console.log(themeState.customAccentColor);   // override hex
 console.log(themeState.customAccentAltColor);
 ```
 
-The overrides map to `--theme-color` (+ `--theme`) and `--theme-color-alt` (+ `--theme-hover`). Persistence keys and behavior notes: [§4 Persistence Model](#-4-persistence-model).
+The overrides map to `--theme-color` (+ `--theme-color`) and `--theme-color-alt` (+ `--theme-color-alt`). Persistence keys and behavior notes: [§4 Persistence Model](#-4-persistence-model).
 
 ---
 
@@ -429,8 +429,8 @@ Everything the picker touches survives refreshes, sessions, and theme switches v
 | `aura` / `gradient` / `pattern` | setters | Active preset id per style |
 | `customThemes` / `customTokens` | `saveCustomTheme()` | User-authored themes |
 | `useCustomAccent` | accent setters | Master switch for the accent layer |
-| `customAccentColor` | `setCustomAccentColor()` | Overrides `--theme-color` (+ `--theme`) |
-| `customAccentAltColor` | `setCustomAccentAltColor()` | Overrides `--theme-color-alt` (+ `--theme-hover`) |
+| `customAccentColor` | `setCustomAccentColor()` | Overrides `--theme-color` (+ `--theme-color`) |
+| `customAccentAltColor` | `setCustomAccentAltColor()` | Overrides `--theme-color-alt` (+ `--theme-color-alt`) |
 
 Behavior notes:
 
