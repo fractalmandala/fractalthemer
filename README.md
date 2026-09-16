@@ -350,6 +350,27 @@ npx fractalthemer browser          # opens in your browser
 npx fractalthemer browser --out classes.html   # or just write the page
 ```
 
+### Editor intellisense — VSIX included
+
+The package also ships a **VS Code extension** with the full class system as
+completions, so the class names arrive as you type instead of living in a
+reference file:
+
+```
+node_modules/fractalthemer/src/lib/data/fractalthemer-intellisense-0.2.0.vsix
+```
+
+Install it straight from the package folder:
+
+```sh
+code --install-extension node_modules/fractalthemer/src/lib/data/fractalthemer-intellisense-0.2.0.vsix
+```
+
+(or Extensions panel → ⋯ → *Install from VSIX…*). It provides the 1,148
+canonical class completions with API-derived descriptions and hover
+documentation, works in HTML, Svelte, Vue, Astro, JSX/TSX, CSS, Sass and
+SCSS, and completes Svelte's `class:` directive.
+
 ## Development
 
 ```sh

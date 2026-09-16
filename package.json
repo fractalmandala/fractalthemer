@@ -71,7 +71,9 @@
     "src/lib/icons/Sun.svelte",
     "src/lib/icons/Moon.svelte",
     "scripts/class-vocab.mjs",
-    "src/lib/data/registry.api.md"
+    "src/lib/data/registry.api.md",
+    "src/lib/data/*.vsix",
+    "!dist/**/*.vsix"
   ],
   "sideEffects": [
     "**/*.css",
