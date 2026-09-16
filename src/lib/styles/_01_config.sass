@@ -1,0 +1,50 @@
+// ============================================================================
+// config — the builder knobs the Contract names. All !default: overridable at
+// compile time, never edited in place. The numbered filename is not a valid
+// Sass identifier, so a consumer MUST namespace the configuring load:
+//
+//   @use 'styles/01_config' as cfg with ($literal-max: 256)
+//   @use 'styles/index' as *
+//
+// Configure before anything else loads 01_config, or Sass rejects it.
+// ============================================================================
+@use '00_configsteps' as *
+// The responsive seam. Every loop-generated class takes -mob (below) and
+// -desk (at or above) this width.
+$breakpoint: 769px !default
+$responsive-modes: (mob: 'all and (max-width: #{$breakpoint - 1})', desk: 'all and (min-width: #{$breakpoint})') !default
+
+// Literal ladder: the discrete pixel values .gap-{N}, .radius-{N}, .w-{N}… emit.
+//
+// Fine at the bottom, where interfaces genuinely need precision. The coarse
+// ladder (multiples of $literal-step up to $literal-max) is switched off by
+// default — step equals max, so the emitted values are exactly $literal-fine.
+// Raise either knob to reintroduce coarse rungs; a continuous 1…256 range
+// emitted 7,302 rungs per band to serve maybe forty useful values; nobody
+// types .mar-left-193.
+$literal-fine: (0, 4, 8, 16, 32, 64) !default
+$literal-step: 64 !default
+$literal-max: 64 !default
+
+
+// Space literals stop earlier than sizing ones — with the coarse ladder off
+// both ceilings coincide, and the truncations only bite when a consumer raises
+// $literal-max. Gaps, paddings and margins dominate the emitted roster, and a
+// 512px gap is meaningless where a 512px width is not. Large spacing is the
+// preset steps' job: --space-3xl is already ~120px.
+$literal-space-max: 64 !default
+
+// Radius stops early for the same reason: .radius-full already handles pills,
+// and the shape presets top out at --radius-lg (~24-32px). A 512px corner is
+// not a corner.
+$literal-radius-max: 32 !default
+
+// Named steps for grid stepping and the shell rails (not the responsive seam).
+$breakpoints: (sm: 640px, md: 768px, bs: 1024px, lg: 1280px, xl: 1440px) !default
+
+
+// ============================================================================
+// base — element baseline. Builder infrastructure, not registry classes: the
+// registry is a list of classes; this only makes documents predictable so the
+// classes behave. Deliberately minimal — no typographic opinions beyond body.
+// ============================================================================

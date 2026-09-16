@@ -1,0 +1,5976 @@
+{
+	"generatedAt": "2026-09-16T06:39:03.222Z",
+	"totals": {
+		"class": 1134,
+		"token": 70,
+		"element": 18,
+		"keyframes": 0
+	},
+	"layers": [
+		{
+			"id": "00_tokens",
+			"label": "tokens",
+			"file": "tokens",
+			"order": 0,
+			"items": [
+				{
+					"name": "--avatar-size",
+					"kind": "token"
+				},
+				{
+					"name": "--bg",
+					"kind": "token"
+				},
+				{
+					"name": "--bg-muted",
+					"kind": "token"
+				},
+				{
+					"name": "--bg-primary",
+					"kind": "token"
+				},
+				{
+					"name": "--bg-secondary",
+					"kind": "token"
+				},
+				{
+					"name": "--border",
+					"kind": "token"
+				},
+				{
+					"name": "--border-strong",
+					"kind": "token"
+				},
+				{
+					"name": "--border-subtle",
+					"kind": "token"
+				},
+				{
+					"name": "--content-clamp",
+					"kind": "token"
+				},
+				{
+					"name": "--control-h-bs",
+					"kind": "token"
+				},
+				{
+					"name": "--control-h-lg",
+					"kind": "token"
+				},
+				{
+					"name": "--control-h-sm",
+					"kind": "token"
+				},
+				{
+					"name": "--ease-out",
+					"kind": "token"
+				},
+				{
+					"name": "--ease-spring",
+					"kind": "token"
+				},
+				{
+					"name": "--font-mono",
+					"kind": "token"
+				},
+				{
+					"name": "--font-sans",
+					"kind": "token"
+				},
+				{
+					"name": "--footer-height",
+					"kind": "token"
+				},
+				{
+					"name": "--header-height",
+					"kind": "token"
+				},
+				{
+					"name": "--motion-base",
+					"kind": "token"
+				},
+				{
+					"name": "--motion-fast",
+					"kind": "token"
+				},
+				{
+					"name": "--motion-slow",
+					"kind": "token"
+				},
+				{
+					"name": "--prose-clamp",
+					"kind": "token"
+				},
+				{
+					"name": "--radius-bs",
+					"kind": "token"
+				},
+				{
+					"name": "--radius-lg",
+					"kind": "token"
+				},
+				{
+					"name": "--radius-md",
+					"kind": "token"
+				},
+				{
+					"name": "--radius-sm",
+					"kind": "token"
+				},
+				{
+					"name": "--radius-xl",
+					"kind": "token"
+				},
+				{
+					"name": "--radius-xs",
+					"kind": "token"
+				},
+				{
+					"name": "--shadow-bs",
+					"kind": "token"
+				},
+				{
+					"name": "--shadow-lg",
+					"kind": "token"
+				},
+				{
+					"name": "--shadow-md",
+					"kind": "token"
+				},
+				{
+					"name": "--sidebar-width",
+					"kind": "token"
+				},
+				{
+					"name": "--space-bs",
+					"kind": "token"
+				},
+				{
+					"name": "--space-lg",
+					"kind": "token"
+				},
+				{
+					"name": "--space-md",
+					"kind": "token"
+				},
+				{
+					"name": "--space-sm",
+					"kind": "token"
+				},
+				{
+					"name": "--space-xl",
+					"kind": "token"
+				},
+				{
+					"name": "--space-xs",
+					"kind": "token"
+				},
+				{
+					"name": "--speed-0",
+					"kind": "token"
+				},
+				{
+					"name": "--speed-1",
+					"kind": "token"
+				},
+				{
+					"name": "--speed-2",
+					"kind": "token"
+				},
+				{
+					"name": "--speed-3",
+					"kind": "token"
+				},
+				{
+					"name": "--switch-h",
+					"kind": "token"
+				},
+				{
+					"name": "--switch-thumb",
+					"kind": "token"
+				},
+				{
+					"name": "--switch-w",
+					"kind": "token"
+				},
+				{
+					"name": "--text-2xl",
+					"kind": "token"
+				},
+				{
+					"name": "--text-3xl",
+					"kind": "token"
+				},
+				{
+					"name": "--text-4xl",
+					"kind": "token"
+				},
+				{
+					"name": "--text-5xl",
+					"kind": "token"
+				},
+				{
+					"name": "--text-bs",
+					"kind": "token"
+				},
+				{
+					"name": "--text-inverse",
+					"kind": "token"
+				},
+				{
+					"name": "--text-lg",
+					"kind": "token"
+				},
+				{
+					"name": "--text-md",
+					"kind": "token"
+				},
+				{
+					"name": "--text-muted",
+					"kind": "token"
+				},
+				{
+					"name": "--text-primary",
+					"kind": "token"
+				},
+				{
+					"name": "--text-secondary",
+					"kind": "token"
+				},
+				{
+					"name": "--text-sm",
+					"kind": "token"
+				},
+				{
+					"name": "--text-xl",
+					"kind": "token"
+				},
+				{
+					"name": "--text-xs",
+					"kind": "token"
+				},
+				{
+					"name": "--theme-color",
+					"kind": "token"
+				},
+				{
+					"name": "--theme-color-hover",
+					"kind": "token"
+				},
+				{
+					"name": "--transin-1",
+					"kind": "token"
+				},
+				{
+					"name": "--transin-2",
+					"kind": "token"
+				},
+				{
+					"name": "--transin-3",
+					"kind": "token"
+				},
+				{
+					"name": "--transout-1",
+					"kind": "token"
+				},
+				{
+					"name": "--transout-2",
+					"kind": "token"
+				},
+				{
+					"name": "--transout-3",
+					"kind": "token"
+				},
+				{
+					"name": "--z-modal",
+					"kind": "token"
+				},
+				{
+					"name": "--z-raised",
+					"kind": "token"
+				},
+				{
+					"name": "--z-sticky",
+					"kind": "token"
+				}
+			]
+		},
+		{
+			"id": "01_config",
+			"label": "config",
+			"file": "config",
+			"order": 1,
+			"items": []
+		},
+		{
+			"id": "01_base",
+			"label": "base",
+			"file": "base",
+			"order": 2,
+			"items": [
+				{
+					"name": "*",
+					"kind": "element"
+				},
+				{
+					"name": "a",
+					"kind": "element"
+				},
+				{
+					"name": "blockquote",
+					"kind": "element"
+				},
+				{
+					"name": "body",
+					"kind": "element"
+				},
+				{
+					"name": "button",
+					"kind": "element"
+				},
+				{
+					"name": "h1",
+					"kind": "element"
+				},
+				{
+					"name": "h2",
+					"kind": "element"
+				},
+				{
+					"name": "h3",
+					"kind": "element"
+				},
+				{
+					"name": "h4",
+					"kind": "element"
+				},
+				{
+					"name": "h5",
+					"kind": "element"
+				},
+				{
+					"name": "h6",
+					"kind": "element"
+				},
+				{
+					"name": "html",
+					"kind": "element"
+				},
+				{
+					"name": "li",
+					"kind": "element"
+				},
+				{
+					"name": "ol",
+					"kind": "element"
+				},
+				{
+					"name": "p",
+					"kind": "element"
+				},
+				{
+					"name": "small",
+					"kind": "element"
+				},
+				{
+					"name": "svg",
+					"kind": "element"
+				},
+				{
+					"name": "ul",
+					"kind": "element"
+				}
+			]
+		},
+		{
+			"id": "02_dimensions",
+			"label": "dimensions",
+			"file": "dimensions",
+			"order": 3,
+			"items": [
+				{
+					"name": ".cgp-0",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-0-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-0-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-16",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-16-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-16-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-2xl",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-2xl-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-2xl-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-32",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-32-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-32-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-3xl",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-3xl-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-3xl-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-4",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-4-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-4-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-4xl",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-4xl-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-4xl-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-5xl",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-5xl-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-5xl-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-64",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-64-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-64-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-8",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-8-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-8-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-bs",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-bs-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-bs-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-lg",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-lg-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-lg-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-md",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-md-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-md-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-sm",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-sm-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-sm-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-xl",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-xl-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-xl-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-xs",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-xs-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".cgp-xs-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".full",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".full-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".full-mob",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".gp-0",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-0-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-0-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-16",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-16-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-16-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-2xl",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-2xl-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-2xl-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-32",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-32-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-32-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-3xl",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-3xl-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-3xl-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-4",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-4-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-4-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-4xl",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-4xl-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-4xl-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-5xl",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-5xl-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-5xl-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-64",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-64-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-64-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-8",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-8-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-8-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-bs",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-bs-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-bs-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-lg",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-lg-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-lg-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-md",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-md-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-md-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-sm",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-sm-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-sm-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-xl",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-xl-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-xl-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-xs",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-xs-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".gp-xs-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".h-0",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".h-0-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".h-0-mob",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".h-16",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".h-16-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".h-16-mob",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".h-32",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".h-32-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".h-32-mob",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".h-4",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".h-4-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".h-4-mob",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".h-64",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".h-64-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".h-64-mob",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".h-8",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".h-8-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".h-8-mob",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".h88-vh",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".hfull",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".hfull-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".hfull-mob",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".hfull-vh",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".hfull-vh-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".hfull-vh-fitted",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".hfull-vh-fitted-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".hfull-vh-fitted-mob",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".hfull-vh-mob",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".mar-0",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-0-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-0-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-16",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-16-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-16-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-2xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-2xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-2xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-32",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-32-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-32-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-3xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-3xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-3xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-4",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-4-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-4-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-4xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-4xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-4xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-5xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-5xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-5xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-64",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-64-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-64-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-8",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-8-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-8-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-bs",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-bs-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-bs-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-lg",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-lg-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-lg-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-md",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-md-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-md-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-sm",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-sm-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-sm-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-xs",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-xs-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mar-xs-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-0",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-0-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-0-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-16",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-16-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-16-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-2xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-2xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-2xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-32",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-32-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-32-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-3xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-3xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-3xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-4",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-4-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-4-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-4xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-4xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-4xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-5xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-5xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-5xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-64",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-64-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-64-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-8",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-8-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-8-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-bs",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-bs-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-bs-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-lg",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-lg-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-lg-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-md",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-md-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-md-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-sm",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-sm-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-sm-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-xs",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-xs-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mb-xs-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".min-h0",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".min-w0",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".min0-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".min0-mob",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".ml-0",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-0-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-0-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-16",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-16-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-16-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-2xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-2xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-2xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-32",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-32-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-32-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-3xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-3xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-3xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-4",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-4-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-4-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-4xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-4xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-4xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-5xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-5xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-5xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-64",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-64-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-64-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-8",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-8-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-8-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-bs",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-bs-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-bs-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-lg",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-lg-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-lg-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-md",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-md-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-md-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-sm",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-sm-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-sm-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-xs",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-xs-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".ml-xs-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-0",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-0-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-0-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-16",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-16-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-16-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-2xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-2xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-2xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-32",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-32-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-32-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-3xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-3xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-3xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-4",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-4-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-4-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-4xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-4xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-4xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-5xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-5xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-5xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-64",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-64-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-64-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-8",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-8-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-8-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-bs",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-bs-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-bs-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-lg",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-lg-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-lg-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-md",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-md-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-md-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-sm",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-sm-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-sm-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-xs",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-xs-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mr-xs-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-0",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-0-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-0-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-16",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-16-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-16-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-2xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-2xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-2xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-32",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-32-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-32-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-3xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-3xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-3xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-4",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-4-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-4-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-4xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-4xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-4xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-5xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-5xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-5xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-64",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-64-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-64-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-8",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-8-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-8-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-bs",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-bs-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-bs-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-lg",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-lg-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-lg-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-md",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-md-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-md-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-sm",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-sm-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-sm-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-xs",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-xs-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mt-xs-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-0",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-0-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-0-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-16",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-16-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-16-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-2xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-2xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-2xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-32",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-32-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-32-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-3xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-3xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-3xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-4",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-4-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-4-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-4xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-4xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-4xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-5xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-5xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-5xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-64",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-64-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-64-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-8",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-8-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-8-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-bs",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-bs-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-bs-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-lg",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-lg-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-lg-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-md",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-md-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-md-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-sm",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-sm-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-sm-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-xs",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-xs-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".mx-xs-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-0",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-0-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-0-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-16",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-16-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-16-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-2xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-2xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-2xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-32",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-32-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-32-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-3xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-3xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-3xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-4",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-4-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-4-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-4xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-4xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-4xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-5xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-5xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-5xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-64",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-64-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-64-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-8",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-8-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-8-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-bs",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-bs-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-bs-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-lg",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-lg-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-lg-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-md",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-md-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-md-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-sm",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-sm-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-sm-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-xl",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-xl-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-xl-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-xs",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-xs-desk",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".my-xs-mob",
+					"kind": "class",
+					"group": "margins"
+				},
+				{
+					"name": ".pad-0",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-0-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-0-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-16",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-16-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-16-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-2xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-2xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-2xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-32",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-32-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-32-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-3xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-3xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-3xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-4",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-4-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-4-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-4xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-4xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-4xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-5xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-5xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-5xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-64",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-64-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-64-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-8",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-8-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-8-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-bs",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-bs-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-bs-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-lg",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-lg-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-lg-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-md",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-md-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-md-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-sm",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-sm-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-sm-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-xs",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-xs-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pad-xs-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-0",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-0-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-0-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-16",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-16-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-16-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-2xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-2xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-2xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-32",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-32-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-32-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-3xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-3xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-3xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-4",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-4-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-4-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-4xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-4xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-4xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-5xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-5xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-5xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-64",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-64-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-64-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-8",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-8-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-8-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-bs",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-bs-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-bs-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-lg",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-lg-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-lg-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-md",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-md-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-md-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-sm",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-sm-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-sm-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-xs",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-xs-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pb-xs-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-0",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-0-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-0-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-16",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-16-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-16-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-2xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-2xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-2xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-32",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-32-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-32-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-3xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-3xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-3xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-4",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-4-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-4-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-4xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-4xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-4xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-5xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-5xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-5xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-64",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-64-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-64-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-8",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-8-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-8-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-bs",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-bs-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-bs-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-lg",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-lg-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-lg-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-md",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-md-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-md-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-sm",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-sm-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-sm-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-xs",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-xs-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pl-xs-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-0",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-0-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-0-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-16",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-16-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-16-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-2xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-2xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-2xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-32",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-32-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-32-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-3xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-3xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-3xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-4",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-4-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-4-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-4xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-4xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-4xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-5xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-5xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-5xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-64",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-64-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-64-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-8",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-8-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-8-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-bs",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-bs-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-bs-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-lg",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-lg-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-lg-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-md",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-md-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-md-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-sm",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-sm-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-sm-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-xs",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-xs-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pr-xs-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-0",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-0-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-0-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-16",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-16-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-16-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-2xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-2xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-2xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-32",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-32-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-32-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-3xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-3xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-3xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-4",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-4-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-4-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-4xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-4xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-4xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-5xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-5xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-5xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-64",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-64-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-64-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-8",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-8-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-8-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-bs",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-bs-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-bs-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-lg",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-lg-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-lg-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-md",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-md-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-md-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-sm",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-sm-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-sm-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-xs",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-xs-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".pt-xs-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-0",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-0-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-0-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-16",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-16-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-16-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-2xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-2xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-2xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-32",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-32-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-32-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-3xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-3xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-3xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-4",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-4-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-4-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-4xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-4xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-4xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-5xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-5xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-5xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-64",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-64-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-64-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-8",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-8-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-8-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-bs",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-bs-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-bs-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-lg",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-lg-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-lg-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-md",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-md-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-md-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-sm",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-sm-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-sm-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-xs",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-xs-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".px-xs-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-0",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-0-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-0-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-16",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-16-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-16-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-2xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-2xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-2xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-32",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-32-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-32-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-3xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-3xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-3xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-4",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-4-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-4-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-4xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-4xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-4xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-5xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-5xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-5xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-64",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-64-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-64-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-8",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-8-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-8-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-bs",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-bs-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-bs-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-lg",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-lg-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-lg-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-md",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-md-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-md-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-sm",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-sm-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-sm-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-xl",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-xl-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-xl-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-xs",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-xs-desk",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".py-xs-mob",
+					"kind": "class",
+					"group": "pads"
+				},
+				{
+					"name": ".radius-0",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-0-desk",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-0-mob",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-16",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-16-desk",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-16-mob",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-32",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-32-desk",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-32-mob",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-4",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-4-desk",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-4-mob",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-8",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-8-desk",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-8-mob",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-bs",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-bs-desk",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-bs-mob",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-full",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-full-desk",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-full-mob",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-lg",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-lg-desk",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-lg-mob",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-md",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-md-desk",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-md-mob",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-sm",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-sm-desk",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-sm-mob",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-xl",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-xl-desk",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".radius-xl-mob",
+					"kind": "class",
+					"group": "radius"
+				},
+				{
+					"name": ".rgp-0",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-0-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-0-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-16",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-16-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-16-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-2xl",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-2xl-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-2xl-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-32",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-32-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-32-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-3xl",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-3xl-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-3xl-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-4",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-4-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-4-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-4xl",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-4xl-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-4xl-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-5xl",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-5xl-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-5xl-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-64",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-64-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-64-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-8",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-8-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-8-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-bs",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-bs-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-bs-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-lg",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-lg-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-lg-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-md",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-md-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-md-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-sm",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-sm-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-sm-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-xl",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-xl-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-xl-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-xs",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-xs-desk",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".rgp-xs-mob",
+					"kind": "class",
+					"group": "gaps"
+				},
+				{
+					"name": ".square-0",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".square-0-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".square-0-mob",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".square-16",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".square-16-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".square-16-mob",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".square-32",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".square-32-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".square-32-mob",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".square-4",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".square-4-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".square-4-mob",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".square-64",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".square-64-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".square-64-mob",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".square-8",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".square-8-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".square-8-mob",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".w-0",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".w-0-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".w-0-mob",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".w-16",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".w-16-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".w-16-mob",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".w-32",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".w-32-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".w-32-mob",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".w-4",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".w-4-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".w-4-mob",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".w-64",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".w-64-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".w-64-mob",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".w-8",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".w-8-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".w-8-mob",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".wfull",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".wfull-desk",
+					"kind": "class",
+					"group": "size"
+				},
+				{
+					"name": ".wfull-mob",
+					"kind": "class",
+					"group": "size"
+				}
+			],
+			"groups": [
+				{
+					"id": "gaps",
+					"label": "gaps"
+				},
+				{
+					"id": "pads",
+					"label": "pads"
+				},
+				{
+					"id": "margins",
+					"label": "margins"
+				},
+				{
+					"id": "radius",
+					"label": "radius"
+				},
+				{
+					"id": "size",
+					"label": "size (height & width)"
+				}
+			]
+		},
+		{
+			"id": "03_containers",
+			"label": "containers",
+			"file": "containers",
+			"order": 4,
+			"items": [
+				{
+					"name": ".absolute",
+					"kind": "class"
+				},
+				{
+					"name": ".box",
+					"kind": "class"
+				},
+				{
+					"name": ".center",
+					"kind": "class"
+				},
+				{
+					"name": ".fixed",
+					"kind": "class"
+				},
+				{
+					"name": ".grid",
+					"kind": "class"
+				},
+				{
+					"name": ".grow",
+					"kind": "class"
+				},
+				{
+					"name": ".relative",
+					"kind": "class"
+				},
+				{
+					"name": ".row",
+					"kind": "class"
+				},
+				{
+					"name": ".shrink-0",
+					"kind": "class"
+				},
+				{
+					"name": ".sticky",
+					"kind": "class"
+				},
+				{
+					"name": ".wrap",
+					"kind": "class"
+				},
+				{
+					"name": ".xaround",
+					"kind": "class"
+				},
+				{
+					"name": ".xbetween",
+					"kind": "class"
+				},
+				{
+					"name": ".xcenter",
+					"kind": "class"
+				},
+				{
+					"name": ".xevenly",
+					"kind": "class"
+				},
+				{
+					"name": ".xleft",
+					"kind": "class"
+				},
+				{
+					"name": ".xright",
+					"kind": "class"
+				},
+				{
+					"name": ".xstretch",
+					"kind": "class"
+				},
+				{
+					"name": ".yaround",
+					"kind": "class"
+				},
+				{
+					"name": ".ybetween",
+					"kind": "class"
+				},
+				{
+					"name": ".ybot",
+					"kind": "class"
+				},
+				{
+					"name": ".ycenter",
+					"kind": "class"
+				},
+				{
+					"name": ".yevenly",
+					"kind": "class"
+				},
+				{
+					"name": ".ystretch",
+					"kind": "class"
+				},
+				{
+					"name": ".ytop",
+					"kind": "class"
+				}
+			]
+		},
+		{
+			"id": "04_layouts",
+			"label": "layouts",
+			"file": "layouts",
+			"order": 5,
+			"items": [
+				{
+					"name": ".auto-grid",
+					"kind": "class"
+				},
+				{
+					"name": ".card-grid",
+					"kind": "class"
+				},
+				{
+					"name": ".center-item",
+					"kind": "class"
+				},
+				{
+					"name": ".content-clamp",
+					"kind": "class"
+				},
+				{
+					"name": ".frame-1-1",
+					"kind": "class"
+				},
+				{
+					"name": ".frame-16-9",
+					"kind": "class"
+				},
+				{
+					"name": ".frame-2-3",
+					"kind": "class"
+				},
+				{
+					"name": ".frame-3-2",
+					"kind": "class"
+				},
+				{
+					"name": ".frame-3-4",
+					"kind": "class"
+				},
+				{
+					"name": ".frame-4-3",
+					"kind": "class"
+				},
+				{
+					"name": ".frame-9-16",
+					"kind": "class"
+				},
+				{
+					"name": ".grid-1",
+					"kind": "class"
+				},
+				{
+					"name": ".grid-2",
+					"kind": "class"
+				},
+				{
+					"name": ".grid-3",
+					"kind": "class"
+				},
+				{
+					"name": ".grid-4",
+					"kind": "class"
+				},
+				{
+					"name": ".grid-6",
+					"kind": "class"
+				},
+				{
+					"name": ".prose",
+					"kind": "class"
+				},
+				{
+					"name": ".reel",
+					"kind": "class"
+				}
+			]
+		},
+		{
+			"id": "05_shells",
+			"label": "shells",
+			"file": "shells",
+			"order": 6,
+			"items": [
+				{
+					"name": ".accordion",
+					"kind": "class"
+				},
+				{
+					"name": ".accordion-content",
+					"kind": "class"
+				},
+				{
+					"name": ".accordion-item",
+					"kind": "class"
+				},
+				{
+					"name": ".accordion-panel",
+					"kind": "class"
+				},
+				{
+					"name": ".accordion-trigger",
+					"kind": "class"
+				},
+				{
+					"name": ".active",
+					"kind": "class"
+				},
+				{
+					"name": ".app-footer",
+					"kind": "class"
+				},
+				{
+					"name": ".app-header",
+					"kind": "class"
+				},
+				{
+					"name": ".app-main",
+					"kind": "class"
+				},
+				{
+					"name": ".app-shell",
+					"kind": "class"
+				},
+				{
+					"name": ".content-section",
+					"kind": "class"
+				},
+				{
+					"name": ".dialog",
+					"kind": "class"
+				},
+				{
+					"name": ".drawer",
+					"kind": "class"
+				},
+				{
+					"name": ".hero",
+					"kind": "class"
+				},
+				{
+					"name": ".main-section",
+					"kind": "class"
+				},
+				{
+					"name": ".mobile-toc",
+					"kind": "class"
+				},
+				{
+					"name": ".narrow-full",
+					"kind": "class"
+				},
+				{
+					"name": ".narrow-half",
+					"kind": "class"
+				},
+				{
+					"name": ".narrow-wide",
+					"kind": "class"
+				},
+				{
+					"name": ".nav-header",
+					"kind": "class"
+				},
+				{
+					"name": ".nav-l1",
+					"kind": "class"
+				},
+				{
+					"name": ".nav-l2",
+					"kind": "class"
+				},
+				{
+					"name": ".nav-label",
+					"kind": "class"
+				},
+				{
+					"name": ".navtree",
+					"kind": "class"
+				},
+				{
+					"name": ".navtree-sub",
+					"kind": "class"
+				},
+				{
+					"name": ".navtree-title",
+					"kind": "class"
+				},
+				{
+					"name": ".null",
+					"kind": "class"
+				},
+				{
+					"name": ".open",
+					"kind": "class"
+				},
+				{
+					"name": ".page-main",
+					"kind": "class"
+				},
+				{
+					"name": ".page-shell",
+					"kind": "class"
+				},
+				{
+					"name": ".page-sidebar",
+					"kind": "class"
+				},
+				{
+					"name": ".page-split",
+					"kind": "class"
+				},
+				{
+					"name": ".pop-main",
+					"kind": "class"
+				},
+				{
+					"name": ".pop-shell",
+					"kind": "class"
+				},
+				{
+					"name": ".popover",
+					"kind": "class"
+				},
+				{
+					"name": ".sidebar-left",
+					"kind": "class"
+				},
+				{
+					"name": ".sidebar-right",
+					"kind": "class"
+				},
+				{
+					"name": ".tab-list",
+					"kind": "class"
+				},
+				{
+					"name": ".tab-trigger",
+					"kind": "class"
+				},
+				{
+					"name": ".toc",
+					"kind": "class"
+				},
+				{
+					"name": ".toc-footer",
+					"kind": "class"
+				},
+				{
+					"name": ".toc-link",
+					"kind": "class"
+				},
+				{
+					"name": ".toc-list",
+					"kind": "class"
+				},
+				{
+					"name": ".toc-title",
+					"kind": "class"
+				}
+			]
+		},
+		{
+			"id": "06_visuals",
+			"label": "visuals",
+			"file": "visuals",
+			"order": 7,
+			"items": [
+				{
+					"name": ".avatar",
+					"kind": "class"
+				},
+				{
+					"name": ".bb",
+					"kind": "class"
+				},
+				{
+					"name": ".bb-desk",
+					"kind": "class"
+				},
+				{
+					"name": ".bb-mob",
+					"kind": "class"
+				},
+				{
+					"name": ".bg",
+					"kind": "class"
+				},
+				{
+					"name": ".bg-danger",
+					"kind": "class"
+				},
+				{
+					"name": ".bg-info",
+					"kind": "class"
+				},
+				{
+					"name": ".bg-success",
+					"kind": "class"
+				},
+				{
+					"name": ".bg-warning",
+					"kind": "class"
+				},
+				{
+					"name": ".bl",
+					"kind": "class"
+				},
+				{
+					"name": ".bl-desk",
+					"kind": "class"
+				},
+				{
+					"name": ".bl-mob",
+					"kind": "class"
+				},
+				{
+					"name": ".bold",
+					"kind": "class"
+				},
+				{
+					"name": ".border",
+					"kind": "class"
+				},
+				{
+					"name": ".border-desk",
+					"kind": "class"
+				},
+				{
+					"name": ".border-mob",
+					"kind": "class"
+				},
+				{
+					"name": ".border-strong",
+					"kind": "class"
+				},
+				{
+					"name": ".border-subtle",
+					"kind": "class"
+				},
+				{
+					"name": ".br",
+					"kind": "class"
+				},
+				{
+					"name": ".br-desk",
+					"kind": "class"
+				},
+				{
+					"name": ".br-mob",
+					"kind": "class"
+				},
+				{
+					"name": ".bt",
+					"kind": "class"
+				},
+				{
+					"name": ".bt-desk",
+					"kind": "class"
+				},
+				{
+					"name": ".bt-mob",
+					"kind": "class"
+				},
+				{
+					"name": ".canvas",
+					"kind": "class"
+				},
+				{
+					"name": ".checked",
+					"kind": "class"
+				},
+				{
+					"name": ".clamp-1",
+					"kind": "class"
+				},
+				{
+					"name": ".clamp-2",
+					"kind": "class"
+				},
+				{
+					"name": ".clamp-3",
+					"kind": "class"
+				},
+				{
+					"name": ".divider",
+					"kind": "class"
+				},
+				{
+					"name": ".field",
+					"kind": "class"
+				},
+				{
+					"name": ".field-error",
+					"kind": "class"
+				},
+				{
+					"name": ".field-label",
+					"kind": "class"
+				},
+				{
+					"name": ".footer",
+					"kind": "class"
+				},
+				{
+					"name": ".hide-desktop",
+					"kind": "class"
+				},
+				{
+					"name": ".hide-mobile",
+					"kind": "class"
+				},
+				{
+					"name": ".italic",
+					"kind": "class"
+				},
+				{
+					"name": ".kbd",
+					"kind": "class"
+				},
+				{
+					"name": ".mono",
+					"kind": "class"
+				},
+				{
+					"name": ".only-mobile",
+					"kind": "class"
+				},
+				{
+					"name": ".panel",
+					"kind": "class"
+				},
+				{
+					"name": ".raised",
+					"kind": "class"
+				},
+				{
+					"name": ".sans",
+					"kind": "class"
+				},
+				{
+					"name": ".shadow-bs",
+					"kind": "class"
+				},
+				{
+					"name": ".shadow-bs-desk",
+					"kind": "class"
+				},
+				{
+					"name": ".shadow-bs-mob",
+					"kind": "class"
+				},
+				{
+					"name": ".shadow-lg",
+					"kind": "class"
+				},
+				{
+					"name": ".shadow-lg-desk",
+					"kind": "class"
+				},
+				{
+					"name": ".shadow-lg-mob",
+					"kind": "class"
+				},
+				{
+					"name": ".shadow-md",
+					"kind": "class"
+				},
+				{
+					"name": ".shadow-md-desk",
+					"kind": "class"
+				},
+				{
+					"name": ".shadow-md-mob",
+					"kind": "class"
+				},
+				{
+					"name": ".surface",
+					"kind": "class"
+				},
+				{
+					"name": ".switch-thumb",
+					"kind": "class"
+				},
+				{
+					"name": ".switch-track",
+					"kind": "class"
+				},
+				{
+					"name": ".ta-c",
+					"kind": "class"
+				},
+				{
+					"name": ".terminal",
+					"kind": "class"
+				},
+				{
+					"name": ".text-2xl",
+					"kind": "class"
+				},
+				{
+					"name": ".text-3xl",
+					"kind": "class"
+				},
+				{
+					"name": ".text-4xl",
+					"kind": "class"
+				},
+				{
+					"name": ".text-5xl",
+					"kind": "class"
+				},
+				{
+					"name": ".text-bs",
+					"kind": "class"
+				},
+				{
+					"name": ".text-danger",
+					"kind": "class"
+				},
+				{
+					"name": ".text-info",
+					"kind": "class"
+				},
+				{
+					"name": ".text-inverse",
+					"kind": "class"
+				},
+				{
+					"name": ".text-lg",
+					"kind": "class"
+				},
+				{
+					"name": ".text-md",
+					"kind": "class"
+				},
+				{
+					"name": ".text-muted",
+					"kind": "class"
+				},
+				{
+					"name": ".text-primary",
+					"kind": "class"
+				},
+				{
+					"name": ".text-secondary",
+					"kind": "class"
+				},
+				{
+					"name": ".text-sm",
+					"kind": "class"
+				},
+				{
+					"name": ".text-success",
+					"kind": "class"
+				},
+				{
+					"name": ".text-theme",
+					"kind": "class"
+				},
+				{
+					"name": ".text-theme-hover",
+					"kind": "class"
+				},
+				{
+					"name": ".text-warning",
+					"kind": "class"
+				},
+				{
+					"name": ".text-xl",
+					"kind": "class"
+				},
+				{
+					"name": ".text-xs",
+					"kind": "class"
+				},
+				{
+					"name": ".truncate",
+					"kind": "class"
+				},
+				{
+					"name": ".tt-c",
+					"kind": "class"
+				},
+				{
+					"name": ".tt-u",
+					"kind": "class"
+				},
+				{
+					"name": ".weight-300",
+					"kind": "class"
+				},
+				{
+					"name": ".weight-400",
+					"kind": "class"
+				},
+				{
+					"name": ".weight-500",
+					"kind": "class"
+				},
+				{
+					"name": ".weight-600",
+					"kind": "class"
+				},
+				{
+					"name": ".weight-700",
+					"kind": "class"
+				},
+				{
+					"name": ".weight-800",
+					"kind": "class"
+				}
+			]
+		},
+		{
+			"id": "07_interactions",
+			"label": "interactions",
+			"file": "interactions",
+			"order": 8,
+			"items": [
+				{
+					"name": ".badge",
+					"kind": "class",
+					"group": "components"
+				},
+				{
+					"name": ".bs",
+					"kind": "class",
+					"group": "sizes"
+				},
+				{
+					"name": ".bs-desk",
+					"kind": "class",
+					"group": "sizes"
+				},
+				{
+					"name": ".bs-mob",
+					"kind": "class",
+					"group": "sizes"
+				},
+				{
+					"name": ".btn",
+					"kind": "class",
+					"group": "components"
+				},
+				{
+					"name": ".card",
+					"kind": "class",
+					"group": "components"
+				},
+				{
+					"name": ".curved",
+					"kind": "class",
+					"group": "shapes"
+				},
+				{
+					"name": ".curved-desk",
+					"kind": "class",
+					"group": "shapes"
+				},
+				{
+					"name": ".curved-mob",
+					"kind": "class",
+					"group": "shapes"
+				},
+				{
+					"name": ".ghost",
+					"kind": "class",
+					"group": "variants"
+				},
+				{
+					"name": ".ghost-desk",
+					"kind": "class",
+					"group": "variants"
+				},
+				{
+					"name": ".ghost-mob",
+					"kind": "class",
+					"group": "variants"
+				},
+				{
+					"name": ".lg",
+					"kind": "class",
+					"group": "sizes"
+				},
+				{
+					"name": ".lg-desk",
+					"kind": "class",
+					"group": "sizes"
+				},
+				{
+					"name": ".lg-mob",
+					"kind": "class",
+					"group": "sizes"
+				},
+				{
+					"name": ".link",
+					"kind": "class",
+					"group": "components"
+				},
+				{
+					"name": ".outline",
+					"kind": "class",
+					"group": "variants"
+				},
+				{
+					"name": ".outline-desk",
+					"kind": "class",
+					"group": "variants"
+				},
+				{
+					"name": ".outline-mob",
+					"kind": "class",
+					"group": "variants"
+				},
+				{
+					"name": ".pill",
+					"kind": "class",
+					"group": "components"
+				},
+				{
+					"name": ".primary",
+					"kind": "class",
+					"group": "variants"
+				},
+				{
+					"name": ".primary-desk",
+					"kind": "class",
+					"group": "variants"
+				},
+				{
+					"name": ".primary-mob",
+					"kind": "class",
+					"group": "variants"
+				},
+				{
+					"name": ".round",
+					"kind": "class",
+					"group": "shapes"
+				},
+				{
+					"name": ".round-desk",
+					"kind": "class",
+					"group": "shapes"
+				},
+				{
+					"name": ".round-mob",
+					"kind": "class",
+					"group": "shapes"
+				},
+				{
+					"name": ".sm",
+					"kind": "class",
+					"group": "sizes"
+				},
+				{
+					"name": ".sm-desk",
+					"kind": "class",
+					"group": "sizes"
+				},
+				{
+					"name": ".sm-mob",
+					"kind": "class",
+					"group": "sizes"
+				},
+				{
+					"name": ".soft",
+					"kind": "class",
+					"group": "variants"
+				},
+				{
+					"name": ".soft-desk",
+					"kind": "class",
+					"group": "variants"
+				},
+				{
+					"name": ".soft-mob",
+					"kind": "class",
+					"group": "variants"
+				},
+				{
+					"name": ".square",
+					"kind": "class",
+					"group": "shapes"
+				},
+				{
+					"name": ".square-desk",
+					"kind": "class",
+					"group": "shapes"
+				},
+				{
+					"name": ".square-mob",
+					"kind": "class",
+					"group": "shapes"
+				}
+			],
+			"groups": [
+				{
+					"id": "components",
+					"label": "components"
+				},
+				{
+					"id": "variants",
+					"label": "variants (paint)"
+				},
+				{
+					"id": "sizes",
+					"label": "sizes (metrics)"
+				},
+				{
+					"id": "shapes",
+					"label": "shapes (corners)"
+				}
+			]
+		},
+		{
+			"id": "08_own",
+			"label": "own",
+			"file": "own",
+			"order": 9,
+			"items": [
+				{
+					"name": ".bdr",
+					"kind": "class"
+				},
+				{
+					"name": ".logo-link",
+					"kind": "class"
+				},
+				{
+					"name": ".marg-auto",
+					"kind": "class"
+				}
+			]
+		}
+	]
+}

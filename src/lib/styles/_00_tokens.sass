@@ -1,0 +1,124 @@
+// =============================================================================
+// 00_TOKENS — the single source of truth for runtime CSS custom properties.
+// -----------------------------------------------------------------------------
+// Light is the marker-free default so tokens stay defined during SSR and with
+// JS disabled; dark comes from prefers-color-scheme and explicit [data-mode='dark'].
+// =============================================================================
+
+// Palette source. Private $-names cannot cross a module boundary, so allsets
+// exports them public and this file names only the handful it needs.
+@use '../palette/allsets' as *
+
+
+=light-theme-tokens
+	color-scheme: light
+	--theme-color: #{$green-9}
+	--theme-color-hover: #{$green-7}
+	--text-primary: #{$gray-9}
+	--text-secondary: #{$gray-7}
+	--text-muted: #{$gray-6}
+	--text-inverse: #{$gray-0}
+	--bg: #FFFFFF
+	--bg-primary: #FFFFFF
+	--bg-secondary: #{$gray-1}
+	--bg-muted: #{$gray-0}
+	--border: #{$gray-3}
+	--border-strong: #{$gray-5}
+	--border-subtle: #{$gray-2}
+
+=dark-theme-tokens
+	color-scheme: dark
+	--theme-color: #{$green-9}
+	--theme-color-hover: #{$green-7}
+	--text-primary: #{$gray-0}
+	--text-secondary: #{$gray-4}
+	--text-muted: #{$gray-6}
+	--text-inverse: #{$gray-0}
+	--bg: #FFFFFF #{$gray-0}
+	--bg-primary: #{$gray-9}
+	--bg-secondary: #{$gray-7}
+	--bg-muted: #{$gray-5}
+	--border: #{$gray-7}
+	--border-strong: #{$gray-6}
+	--border-subtle: #{$gray-8}
+
+[data-mode='dark']
+	+dark-theme-tokens
+
+[data-mode='light']
+	+light-theme-tokens
+
+:root
+	--font-sans: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif
+	--font-mono: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace
+
+	--text-xs: 0.67rem
+	--text-sm: 0.75rem
+	--text-md: 0.875rem
+	--text-bs: 1rem
+	--text-lg: 1.125rem
+	--text-xl: 1.25rem
+	--text-2xl: 1.5rem
+	--text-3xl: 1.875rem
+	--text-4xl: 2.25rem
+	--text-5xl: 2.75rem
+
+	--space-xs: 0.25rem
+	--space-sm: 0.5rem
+	--space-md: 0.75rem
+	--space-bs: 1rem
+	--space-lg: 1.5rem
+	--space-xl: 2rem
+
+	--radius-xs: 2px
+	--radius-sm: 4px
+	--radius-md: 8px
+	--radius-bs: 16px
+	--radius-lg: 32px
+	--radius-xl: 9999px
+
+	--control-h-sm: 21px
+	--control-h-bs: 32px
+	--control-h-lg: 38px
+
+	// Avatar and switch channels. The switch numbers are load-bearing: the thumb
+	// must travel exactly the 18px hard-coded on .switch-track.checked, and the
+	// track is border-box (1px border + 2px padding), so w = 16 + 18 + 4 + 2.
+	--avatar-size: 32px
+	--switch-w: 40px
+	--switch-h: 22px
+	--switch-thumb: 16px
+
+	--shadow-md: 0 1px 2px rgba(0, 0, 0, 0.1)
+	--shadow-bs: 0 4px 6px rgba(0, 0, 0, 0.15)
+	--shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2)
+
+	// Motion language (registry v1) — durations and easings all compositions read.
+	--motion-fast: 120ms
+	--motion-base: 160ms
+	--motion-slow: 240ms
+	--ease-out: cubic-bezier(0.16, 1, 0.3, 1)
+	--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1)
+
+	--header-height: 48px
+	--footer-height: 32px
+	--prose-clamp: 65ch
+	--content-clamp: 1280px
+
+	// Shell rail width and the stacking scale: sticky chrome < raised floating
+	// layers (popovers, dropdowns) < modal overlays.
+	--sidebar-width: 400px
+	--z-sticky: 100
+	--z-raised: 200
+	--z-modal: 300
+
+	--transin-2: cubic-bezier(0.550, 0.055, 0.675, 0.190)
+	--transin-3: cubic-bezier(0.755, 0.050, 0.855, 0.060)
+	--transin-1: cubic-bezier(0.470, 0.000, 0.745, 0.715)
+	--transout-1: cubic-bezier(0.390, 0.575, 0.565, 1.000)
+	--transout-2: cubic-bezier(0.215, 0.610, 0.355, 1.000)
+	--transout-3: cubic-bezier(0.230, 1.000, 0.320, 1.000)
+	--speed-1: 90ms
+	--speed-2: 140ms
+	--speed-3: 220ms
+	--speed-0: 40ms

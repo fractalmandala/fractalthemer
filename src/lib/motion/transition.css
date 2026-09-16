@@ -1,0 +1,13 @@
+/* ============================================================================
+ * transition — view-transition defaults, switched off.
+ *
+ * The engine in transitions.ts drives the ::view-transition snapshots
+ * explicitly with the Web Animations API. The UA's built-in cross-fade must
+ * not also run, or every wipe arrives smeared with a fade. WAAPI animations
+ * are unaffected by `animation: none` — that only silences the UA keyframes.
+ * ==========================================================================*/
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation: none;
+	mix-blend-mode: normal;
+}

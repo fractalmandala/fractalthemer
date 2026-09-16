@@ -1,0 +1,181 @@
+// ============================================================================
+// interactions — L6. One shared vocabulary of three orthogonal axes for every
+// interactive surface: paint (variant), metrics (size) and corner (shape).
+//
+//   .btn .primary .lg .curved
+//   .card .soft .bs .round
+//   .badge .outline .sm .round
+//
+// The axes compose because each rung is a single, self-contained class: a
+// component opts into an axis alongside its base class ("btn primary lg curved").
+// Each axis is a !default config map, so a consumer skin reroutes a rung — or the
+// component roster — at compile time without editing a rule in this file.
+//
+// Every axis rung is emitted in the base band and both responsive bands (Contract 7).
+// ============================================================================
+
+@use 'sass:string'
+@use 'sass:map'
+@use '01_config' as *
+
+// The roster. Each entry is a component class; adding a surface here is the whole
+// of what it takes to include it in the interaction system.
+$interaction-components: ('btn' 'link' 'pill' 'card' 'badge') !default
+
+// Base surface definitions for interactive components
+$interaction-component-bases: (
+	'btn': (
+		display: inline-flex,
+		align-items: center,
+		justify-content: center,
+		user-select: none,
+		text-decoration: none,
+		font-weight: 500,
+		white-space: nowrap,
+		vertical-align: middle,
+		cursor: pointer,
+		border: 1px solid transparent
+	),
+	'link': (
+		display: inline-flex,
+		align-items: center,
+		color: var(--theme-color),
+		text-decoration: none,
+		cursor: pointer
+	),
+	'pill': (
+		display: inline-flex,
+		align-items: center,
+		justify-content: center,
+		white-space: nowrap,
+		cursor: pointer,
+		user-select: none,
+		border: 1px solid transparent,
+		border-radius: var(--radius-xl)
+	),
+	'card': (
+		display: flex,
+		flex-direction: column,
+		background: var(--bg-surface),
+		border: 1px solid var(--border),
+		border-radius: var(--radius-md)
+	),
+	'badge': (
+		display: inline-flex,
+		align-items: center,
+		justify-content: center,
+		white-space: nowrap,
+		width: max-content,
+		user-select: none,
+		font-weight: 500,
+		border: 1px solid transparent,
+		border-radius: var(--radius-sm)
+	)
+) !default
+
+// Axis 1 — paint. outline and ghost carry an explicit `background: none` so a
+// rung is authoritative rather than merely silent: a component wearing it must
+// not also have to clear whatever fill its own base rule set.
+$interaction-variants: (
+	'primary': (background: var(--bg-primary)),
+	'outline': (background: none, border: 1px solid var(--border)),
+	'soft': (background: var(--bg-secondary)),
+	'ghost': (background: none, border: 0)
+) !default
+
+// Axis 2 — metrics. Padding rides the shared --pad-scale so a rung still
+// respects a consumer's density setting; the control-height channel is what
+// keeps the three rungs on one baseline across buttons, pills and badges.
+$interaction-sizes: (
+	'sm': (
+		font-size: var(--text-sm),
+		padding: calc(var(--space-xs) * var(--pad-scale, 1)) calc(var(--space-sm) * var(--pad-scale, 1)),
+		min-height: var(--control-h-sm)
+	),
+	'bs': (
+		font-size: var(--text-bs),
+		padding: calc(var(--space-sm) * var(--pad-scale, 1)) calc(var(--space-bs) * var(--pad-scale, 1)),
+		min-height: var(--control-h-bs)
+	),
+	'lg': (
+		font-size: var(--text-lg),
+		padding: calc(var(--space-md) * var(--pad-scale, 1)) calc(var(--space-lg) * var(--pad-scale, 1)),
+		min-height: var(--control-h-lg)
+	)
+) !default
+
+// Axis 3 — corner templates. round and curved read the radius channels, so they
+// follow the active shape preset exactly as .radius-* does; square is the
+// literal reset, because no preset makes a sharp corner less sharp.
+$interaction-shapes: (
+	'round': (border-radius: var(--radius-xl)),
+	'square': (border-radius: 0),
+	'curved': (border-radius: var(--radius-md))
+) !default
+
+// --- Class registry ----------------------------------------------------------
+// What compiles from this file:
+//
+//   components: .btn, .link, .pill, .card, .badge
+//   variant:    .primary, .outline, .soft, .ghost
+//   size:       .sm, .bs, .lg
+//   shape:      .round, .square, .curved
+//
+// Usage:
+//   "btn primary lg curved"
+//   "badge outline sm round"
+//   "card soft bs curved"
+//
+// Responsive bands (Contract 7):
+//   Variants, sizes and shapes ship bare, plus -mob and -desk.
+
+// --- Component base rules ----------------------------------------------------
+@each $component in $interaction-components
+	.#{$component}
+		@if map.has-key($interaction-component-bases, $component)
+			@each $prop, $value in map.get($interaction-component-bases, $component)
+				#{$prop}: #{$value}
+
+.btn
+	transition: background var(--motion-fast) ease, border-color var(--motion-fast) ease, color var(--motion-fast) ease, opacity var(--motion-fast) ease
+	&:hover
+		opacity: 0.9
+	&:focus-visible
+		outline: 2px solid var(--ring, var(--theme-color))
+		outline-offset: 1px
+	&:disabled
+		opacity: 0.5
+		cursor: not-allowed
+		pointer-events: none
+
+.link
+	&:hover
+		text-decoration: underline
+
+.pill
+	&:hover
+		opacity: 0.9
+
+// --- Axis rungs mixin --------------------------------------------------------
+=interaction-axes($suffix: '')
+	@each $variant, $decls in $interaction-variants
+		.#{$variant}#{$suffix}
+			@each $prop, $value in $decls
+				#{$prop}: #{$value}
+	@each $size, $decls in $interaction-sizes
+		.#{$size}#{$suffix}
+			@each $prop, $value in $decls
+				#{$prop}: #{$value}
+	@each $shape, $decls in $interaction-shapes
+		.#{$shape}#{$suffix}
+			@each $prop, $value in $decls
+				#{$prop}: #{$value}
+
+// --- Base band ---------------------------------------------------------------
++interaction-axes
+
+// --- Responsive bands: -mob / -desk, generated wholesale (Contract 7) --------
+@each $mode, $query in $responsive-modes
+	@media #{string.unquote($query)}
+		+interaction-axes('-#{$mode}')
+
