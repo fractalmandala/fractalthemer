@@ -1,8 +1,8 @@
 {
-	"generatedAt": "2026-09-16T06:39:03.222Z",
+	"generatedAt": "2026-09-16T18:55:38.929Z",
 	"totals": {
-		"class": 1134,
-		"token": 70,
+		"class": 1148,
+		"token": 74,
 		"element": 18,
 		"keyframes": 0
 	},
@@ -62,6 +62,10 @@
 					"kind": "token"
 				},
 				{
+					"name": "--danger",
+					"kind": "token"
+				},
+				{
 					"name": "--ease-out",
 					"kind": "token"
 				},
@@ -83,6 +87,10 @@
 				},
 				{
 					"name": "--header-height",
+					"kind": "token"
+				},
+				{
+					"name": "--info",
 					"kind": "token"
 				},
 				{
@@ -179,6 +187,10 @@
 				},
 				{
 					"name": "--speed-3",
+					"kind": "token"
+				},
+				{
+					"name": "--success",
 					"kind": "token"
 				},
 				{
@@ -279,6 +291,10 @@
 				},
 				{
 					"name": "--transout-3",
+					"kind": "token"
+				},
+				{
+					"name": "--warning",
 					"kind": "token"
 				},
 				{
@@ -5024,6 +5040,10 @@
 				{
 					"id": "size",
 					"label": "size (height & width)"
+				},
+				{
+					"id": "other",
+					"label": "other"
 				}
 			]
 		},
@@ -5803,6 +5823,21 @@
 					"group": "shapes"
 				},
 				{
+					"name": ".danger",
+					"kind": "class",
+					"group": "other"
+				},
+				{
+					"name": ".danger-desk",
+					"kind": "class",
+					"group": "other"
+				},
+				{
+					"name": ".danger-mob",
+					"kind": "class",
+					"group": "other"
+				},
+				{
 					"name": ".ghost",
 					"kind": "class",
 					"group": "variants"
@@ -5949,6 +5984,10 @@
 				{
 					"id": "shapes",
 					"label": "shapes (corners)"
+				},
+				{
+					"id": "other",
+					"label": "other"
 				}
 			]
 		},
@@ -5968,6 +6007,58 @@
 				},
 				{
 					"name": ".marg-auto",
+					"kind": "class"
+				}
+			]
+		},
+		{
+			"id": "09_modifiers",
+			"label": "modifiers",
+			"file": "modifiers",
+			"order": 10,
+			"items": [
+				{
+					"name": ".density-comfort",
+					"kind": "class"
+				},
+				{
+					"name": ".density-normal",
+					"kind": "class"
+				},
+				{
+					"name": ".density-tight",
+					"kind": "class"
+				},
+				{
+					"name": ".radius-modern",
+					"kind": "class"
+				},
+				{
+					"name": ".radius-pill",
+					"kind": "class"
+				},
+				{
+					"name": ".radius-round",
+					"kind": "class"
+				},
+				{
+					"name": ".radius-square",
+					"kind": "class"
+				},
+				{
+					"name": ".radius-subtle",
+					"kind": "class"
+				},
+				{
+					"name": ".scale-compact",
+					"kind": "class"
+				},
+				{
+					"name": ".scale-expanded",
+					"kind": "class"
+				},
+				{
+					"name": ".scale-normal",
 					"kind": "class"
 				}
 			]

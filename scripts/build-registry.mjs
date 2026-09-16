@@ -18,6 +18,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import * as sass from 'sass';
+import { renderApiMarkdown } from './class-vocab.mjs';
 
 /**
  * @typedef {'class' | 'token' | 'element' | 'keyframes'} Kind
@@ -33,6 +34,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const STYLES = path.join(ROOT, 'src', 'lib', 'styles');
 const INDEX = path.join(STYLES, 'index.sass');
 const OUT = path.join(ROOT, 'src', 'lib', 'data', 'registry.json');
+const API_OUT = path.join(ROOT, 'src', 'lib', 'data', 'registry.api.md');
 
 // Emission order of the kind buckets, and the order the page renders filters.
 /** @type {Kind[]} */
@@ -187,6 +189,7 @@ async function readPrevious() {
  * @param {{ quiet?: boolean }} [options]
  * @returns {Promise<{
  *   changed: boolean,
+ *   apiChanged: boolean,
  *   total: number,
  *   failures: number,
  *   totals: Record<string, number>,
@@ -265,17 +268,29 @@ export async function buildRegistry({ quiet = false } = {}) {
 	const payload = { totals, layers: built };
 	const total = Object.values(totals).reduce((a, b) => a + b, 0);
 
+	// The human-readable class API rides along with every build. Its content
+	// depends only on the payload (never on generatedAt), so it is written
+	// only when it actually differs — same no-churn rule as the JSON above.
+	const apiMarkdown = renderApiMarkdown({ totals, layers: built });
+	let apiChanged = true;
+	try {
+		apiChanged = (await readFile(API_OUT, 'utf8')) !== apiMarkdown;
+	} catch {
+		/* first build — write it */
+	}
+	if (apiChanged) await writeFile(API_OUT, apiMarkdown, 'utf8');
+
 	// Only stamp a new generatedAt when something actually changed, so a dev
 	// restart — or the dev server regenerating after your own manual run — does
 	// not churn the committed file.
 	if (previous && JSON.stringify(payload) === JSON.stringify({ totals: previous.data.totals, layers: previous.data.layers })) {
-		return { changed: false, ...payload, total, failures };
+		return { changed: false, apiChanged, ...payload, total, failures };
 	}
 
 	const registry = { generatedAt: new Date().toISOString(), ...payload };
 	await writeFile(OUT, `${JSON.stringify(registry, null, '\t')}\n`, 'utf8');
 
-	return { changed: true, ...payload, total, failures };
+	return { changed: true, apiChanged, ...payload, total, failures };
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
@@ -287,4 +302,5 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
 			`${result.changed ? '' : ' — already fresh, nothing written'}`
 	);
 	console.log(`[registry] ${path.relative(ROOT, OUT)}`);
+	console.log(`[registry] ${path.relative(ROOT, API_OUT)}${result.apiChanged ? '' : ' (unchanged)'}`);
 }

@@ -43,3 +43,4 @@ when done. Do not leave them running background.
 - [docs/contract.md](./docs/contract.md) — the rules and configuration knobs
 - [docs/registry.md](./docs/registry.md) — the registry and its build
 - [docs/lint.md](./docs/lint.md) — linter rules, modes, allowlists
+- [docs/skins.md](./docs/skins.md) — the skin contract: how component skins attach to the variant axes

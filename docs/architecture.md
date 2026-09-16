@@ -12,6 +12,13 @@ never ad-hoc CSS. This document maps the pieces; the rules live in
 layer order — adding a line there adds a layer everywhere it matters. Indented
 SASS only (single tab, no braces, no semicolons).
 
+Every layer partial also carries `@use '00_tokens' as *` in its own header.
+At runtime this is a no-op — custom properties resolve in the browser, and
+Sass emits a module's CSS once no matter how many files load it — but it
+links every partial to the token declarations so editors resolve `var(--…)`
+hovers and completions per file, and any future Sass-level token member is
+already in scope. Keep the line when adding a new layer.
+
 | File | Owns |
 | --- | --- |
 | `_00_configsteps.sass` | `@font-face` declarations (Areal) |

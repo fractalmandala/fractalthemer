@@ -26,6 +26,15 @@
 	--border-strong: #{$gray-5}
 	--border-subtle: #{$gray-2}
 
+	// Status channels. Themes deliberately have no opinion on these (see
+	// palette/themes.sass), so the mode defaults live here. Consumer
+	// components (danger buttons, callouts, toasts, progress states) consume
+	// them.
+	--danger: #{$red-9}
+	--success: #{$green-9}
+	--warning: #{$yellow-9}
+	--info: #{$blue-9}
+
 =dark-theme-tokens
 	color-scheme: dark
 	--theme-color: #{$green-9}
@@ -41,6 +50,13 @@
 	--border: #{$gray-7}
 	--border-strong: #{$gray-6}
 	--border-subtle: #{$gray-8}
+
+	// Status channels — dark mode reads the lighter palette rungs for
+	// contrast against dark surfaces.
+	--danger: #{$red-5}
+	--success: #{$green-5}
+	--warning: #{$yellow-5}
+	--info: #{$blue-5}
 
 [data-mode='dark']
 	+dark-theme-tokens

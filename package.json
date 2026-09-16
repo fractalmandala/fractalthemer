@@ -1,6 +1,6 @@
 {
   "name": "fractalthemer",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "A class-based styling system: layered indented SASS with a generated class registry, semantic tokens, themes and auras, a Svelte 5 mode store with animated view transitions, and a shipped contract linter",
   "license": "MIT",
   "author": "Amritanshu",
@@ -64,7 +64,14 @@
     "scripts/build-registry.mjs",
     "src/lib/data/registry.json",
     "!dist/**/*.test.*",
-    "!dist/**/*.spec.*"
+    "!dist/**/*.spec.*",
+    "src/lib/motion",
+    "src/lib/state",
+    "src/lib/mode",
+    "src/lib/icons/Sun.svelte",
+    "src/lib/icons/Moon.svelte",
+    "scripts/class-vocab.mjs",
+    "src/lib/data/registry.api.md"
   ],
   "sideEffects": [
     "**/*.css",

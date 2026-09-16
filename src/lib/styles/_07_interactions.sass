@@ -17,6 +17,7 @@
 @use 'sass:string'
 @use 'sass:map'
 @use '01_config' as *
+@use '00_tokens' as *
 
 // The roster. Each entry is a component class; adding a surface here is the whole
 // of what it takes to include it in the interaction system.
@@ -80,7 +81,8 @@ $interaction-variants: (
 	'primary': (background: var(--bg-primary)),
 	'outline': (background: none, border: 1px solid var(--border)),
 	'soft': (background: var(--bg-secondary)),
-	'ghost': (background: none, border: 0)
+	'ghost': (background: none, border: 0),
+	'danger': (background: var(--danger), color: var(--text-inverse))
 ) !default
 
 // Axis 2 — metrics. Padding rides the shared --pad-scale so a rung still

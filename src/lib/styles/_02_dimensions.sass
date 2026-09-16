@@ -10,6 +10,7 @@
 @use '01_config' as *
 @use 'configvocab' as *
 @forward 'configvocab' show $steps, $gap-families, $pad-families
+@use '00_tokens' as *
 
 // The literal ladder, built once: the fine tail, then every $literal-step up to
 // $literal-max. A step already present in the fine tail is skipped, so no rung
@@ -76,7 +77,9 @@ $marg-families: (mar: margin, mx: margin-inline, my: margin-block, mt: margin-to
 
 // The radius CHANNELS as classes. Unlike the numeric ladder these follow
 // data-shape, so a card on .radius-md goes round -> curved -> pro -> sharp with
-// the preset. Reach for these first; the literals are for exact requirements.
+// the active shape set — written by 09_modifiers (the data-shape/data-radius
+// attributes and the .radius-* set aliases). Reach for these first; the
+// literals are for exact requirements.
 @each $step in ('sm' 'md' 'bs' 'lg' 'xl')
 	.radius-#{$step}
 		border-radius: var(--radius-#{$step})

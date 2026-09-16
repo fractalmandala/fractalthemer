@@ -65,8 +65,9 @@ export async function runEject(argv = []) {
 	const srcStyles = path.join(PKG_ROOT, 'dist', 'styles');
 	const srcPalette = path.join(PKG_ROOT, 'dist', 'palette');
 	const srcRegistryScript = path.join(PKG_ROOT, 'scripts', 'build-registry.mjs');
+	const srcVocabScript = path.join(PKG_ROOT, 'scripts', 'class-vocab.mjs');
 
-	for (const required of [srcStyles, srcPalette, srcRegistryScript]) {
+	for (const required of [srcStyles, srcPalette, srcRegistryScript, srcVocabScript]) {
 		if (!fs.existsSync(required)) {
 			console.error(`[eject] missing ${required} — the package appears incomplete.`);
 			process.exit(2);
@@ -98,12 +99,20 @@ export async function runEject(argv = []) {
 		fs.copyFileSync(srcRegistryScript, registryDest);
 		registryAction = 'copied';
 	}
+	// build-registry imports class-vocab (the meanings) — it must travel too.
+	const vocabDest = path.join(scriptsDir, 'class-vocab.mjs');
+	let vocabAction = 'kept existing';
+	if (!fs.existsSync(vocabDest) || force) {
+		fs.copyFileSync(srcVocabScript, vocabDest);
+		vocabAction = 'copied';
+	}
 	fs.mkdirSync(path.join(target, 'src', 'lib', 'data'), { recursive: true });
 
 	console.log(`[eject] styles: ${styles.copied.length} file(s) copied, ${styles.skipped.length} already present`);
 	console.log(`[eject] palette: ${palette.copied.length} file(s) copied, ${palette.skipped.length} already present`);
 	console.log(`[eject] _08_own.sass: ${ownAction}`);
 	console.log(`[eject] scripts/build-registry.mjs: ${registryAction}`);
+	console.log(`[eject] scripts/class-vocab.mjs: ${vocabAction}`);
 
 	// If sass is already installed, generate their registry immediately.
 	if (fs.existsSync(path.join(target, 'node_modules', 'sass'))) {
@@ -122,5 +131,7 @@ export async function runEject(argv = []) {
   - import them relatively, e.g. import './lib/styles/index.sass'
   - configure the !default knobs by editing _01_config.sass in place
   - regenerate your registry after edits: node scripts/build-registry.mjs
-  - lint against it:                       npx fractalthemer lint src/`);
+    (also writes src/lib/data/registry.api.md — the human-readable class API)
+  - lint against it:                       npx fractalthemer lint src/
+  - browse the classes:                    npx fractalthemer browser`);
 }

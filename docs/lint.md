@@ -49,6 +49,8 @@ After `npx fractalthemer eject`, a project owns the styles (see the README's
 | `ft/no-inline-styles` | all `.svelte` | No `style="…"` attributes. An inline style is ad-hoc CSS by definition. |
 | `ft/unknown-class` | all `.svelte` | Every static class (`class="…"`, `class:name` directives) must be in the allowlist (see below). Fuzzy suggestions on miss. Dynamic `class={expr}` is skipped. |
 | `ft/token-purity` | consumer stylesheets (not `_08_own.sass`) | No raw hex. No px above the 1–2px border/hairline budget. Every `var(--x)` resolves to a registry token or a custom property defined somewhere in the scanned project. |
+| `ft/sass-interpolation` | every stylesheet, self + consumer (privileged files included) | A Sass function call inside a custom-property value without `#{…}` interpolation. Sass parses those values literally — the call ships to the browser as text instead of evaluating. Born from a real `list.nth()` that landed verbatim in `_09_modifiers.sass`'s compiled output. |
+| `ft/hardcoded-radius` | consumer stylesheets (not `_08_own.sass`) | A `border-radius` literal. Skins shape corners through the `--radius-*` ladder so the shape axis (`data-shape`/`data-radius`, `_09_modifiers.sass`) reaches them; `0`, `inherit` and `var(--radius-*)` are the sanctioned forms. See [skins.md](./skins.md). |
 | `ft/own-conflict` | `_08_own.sass` | A declared class must not collide with a registry class name — layer 08 extends the system, never shadows it. |
 | `ft/registry-stale` | self mode only | Rebuilding the registry must be a no-op ("already fresh, nothing written"); otherwise the committed registry lies. |
 

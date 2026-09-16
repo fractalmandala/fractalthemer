@@ -10,6 +10,16 @@ data behind the registry browser on `/`.
 pnpm registry   # regenerate on demand
 ```
 
+`pnpm registry` regenerates **two** files:
+
+- `src/lib/data/registry.json` — the machine inventory (linter, browser page)
+- `src/lib/data/registry.api.md` — the human-readable **class API**: every
+  class with a one-line meaning, decoded from the layer generators
+  (`scripts/class-vocab.mjs`) plus curated intent lines. Shipped in the
+  package, so npm consumers can read what each class means offline at
+  `node_modules/fractalthemer/src/lib/data/registry.api.md`. Like the JSON,
+  it is only written when its content actually changes — no churn.
+
 ## How it is built
 
 `scripts/build-registry.mjs` uses **provenance by per-layer standalone
@@ -60,3 +70,18 @@ fresh, nothing written"), which `ft-lint` uses as its freshness check.
 rack pinned in the sidebar, section-wise (gaps / pads / margins / radius /
 size / other); every other layer as filterable cards in the main section,
 with Layer and Family filters.
+
+## The standalone browser command
+
+The dev-server page only exists in this repository. For any other project:
+
+```sh
+npx fractalthemer browser          # resolve registry, generate, open
+npx fractalthemer browser --out classes.html   # write it instead of opening
+```
+
+This generates a self-contained HTML page (data embedded, no server, works
+from `file://`) with search and layer/kind filters over class names **and**
+meanings. It resolves the same way the linter does: the project's own
+`src/lib/data/registry.json` first (ejected), the shipped package registry
+as fallback.

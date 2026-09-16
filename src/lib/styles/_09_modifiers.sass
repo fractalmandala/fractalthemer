@@ -1,0 +1,111 @@
+// ============================================================================
+// 09_MODIFIERS — variant axes as token remaps. Three axes:
+//
+//   shape    corner geometry — rewrites the --radius-* ladder
+//   density  airiness — rewrites the --space-* ladder and --control-h-*
+//   scale    font scale — font-size percentage (universal only)
+//
+// A set is a TOKEN REMAP: nothing here styles an element directly. Every
+// utility and consumer component skin reads the rungs, so setting the
+// attribute (or class) on <html> re-shapes the whole page, and setting it on
+// any container re-shapes just that subtree — custom-property inheritance
+// does the scoping, so no !important is needed. The unset state is exactly
+// the default ladder from 00_tokens.
+//
+// This layer is the writer for the data-shape radius-channel contract
+// documented in 02_dimensions (the .radius-* channel classes). Density
+// remaps the rungs directly and coexists with the --gap-scale/--pad-scale
+// utility knobs in 02_dimensions, which stay untouched. The consumer side of
+// the contract is recipe/component variants emitting data-shape /
+// data-density on a component root and scoping +shape-tokens /
+// +density-tokens to it (see the fractalsvelte component skins for the
+// reference pattern).
+// ============================================================================
+
+@use 'sass:map'
+@use 'sass:list'
+@use '00_tokens' as *
+
+$shape-sets: 'square' 'subtle' 'modern' 'round' 'pill' !default
+$density-sets: 'tight' 'normal' 'comfort' !default
+
+// Corner-geometry values per rung: xs, sm, md, bs, lg, xl. The default
+// (unset) ladder is 2/4/8/16/32/9999px — 'modern' sits just inside it,
+// 'pill' pushes every rung to the full round.
+$shape-values: (
+	'square': (0px, 0px, 0px, 0px, 0px, 0px),
+	'subtle': (1px, 2px, 4px, 6px, 8px, 9999px),
+	'modern': (2px, 4px, 8px, 12px, 16px, 9999px),
+	'round': (4px, 8px, 16px, 24px, 36px, 9999px),
+	'pill': (9999px, 9999px, 9999px, 9999px, 9999px, 9999px)
+) !default
+
+// Density values. Space rungs scale ~0.65 (tight) and ~1.4 (comfort) around
+// the defaults; control heights move with them so inputs, buttons and
+// selects actually breathe with the axis. Ladder order: xs sm md bs lg xl.
+$density-space: (
+	'tight': (0.15rem, 0.3rem, 0.5rem, 0.75rem, 1.125rem, 1.5rem),
+	'normal': (0.25rem, 0.5rem, 0.75rem, 1rem, 1.5rem, 2rem),
+	'comfort': (0.35rem, 0.65rem, 1rem, 1.5rem, 2rem, 2.75rem)
+) !default
+$density-control: (
+	'tight': (20px, 28px, 34px),
+	'normal': (21px, 32px, 38px),
+	'comfort': (24px, 36px, 44px)
+) !default
+
+// Apply a corner-geometry set: rewrite all six radius rungs. NOTE: values
+// assigned to CSS custom properties are parsed literally by Sass — every
+// function call must go through #{} interpolation or it lands in the CSS
+// verbatim (same reason 00_tokens interpolates the palette colors).
+=shape-tokens($set)
+	$vals: map.get($shape-values, $set)
+	--radius-xs: #{list.nth($vals, 1)}
+	--radius-sm: #{list.nth($vals, 2)}
+	--radius-md: #{list.nth($vals, 3)}
+	--radius-bs: #{list.nth($vals, 4)}
+	--radius-lg: #{list.nth($vals, 5)}
+	--radius-xl: #{list.nth($vals, 6)}
+
+// Apply a density set: rewrite the space ladder and the control heights.
+=density-tokens($set)
+	$svals: map.get($density-space, $set)
+	$cvals: map.get($density-control, $set)
+	--space-xs: #{list.nth($svals, 1)}
+	--space-sm: #{list.nth($svals, 2)}
+	--space-md: #{list.nth($svals, 3)}
+	--space-bs: #{list.nth($svals, 4)}
+	--space-lg: #{list.nth($svals, 5)}
+	--space-xl: #{list.nth($svals, 6)}
+	--control-h-sm: #{list.nth($cvals, 1)}
+	--control-h-bs: #{list.nth($cvals, 2)}
+	--control-h-lg: #{list.nth($cvals, 3)}
+
+// --- Global writers ---------------------------------------------------------
+// Two attribute spellings are accepted for shape: data-radius (the affedo
+// name) and data-shape (the radius-channel contract name from the dimensions
+// layer). Class aliases exist for convenience. data-density and data-scale
+// follow the same pattern.
+
+@each $s in $shape-sets
+	[data-radius='#{$s}'],
+	[data-shape='#{$s}'],
+	.radius-#{$s}
+		+shape-tokens($s)
+
+@each $d in $density-sets
+	[data-density='#{$d}'],
+	.density-#{$d}
+		+density-tokens($d)
+
+[data-scale='compact'],
+.scale-compact
+	font-size: 87.5%
+
+[data-scale='normal'],
+.scale-normal
+	font-size: 100%
+
+[data-scale='expanded'],
+.scale-expanded
+	font-size: 112.5%

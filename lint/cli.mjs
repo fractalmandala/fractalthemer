@@ -31,9 +31,12 @@ import { fileURLToPath } from 'node:url';
 import { loadRegistry } from './lib/registry.mjs';
 import { lintSvelteFile } from './lib/svelte-linter.mjs';
 import { TokenLinter } from './lib/token-linter.mjs';
+import { lintUninterpolatedFunctions, lintHardcodedRadius } from './lib/sass-linter.mjs';
 import { findClosestMatches } from './lib/fuzzy.mjs';
 import { reportDiagnostics } from './lib/agent-reporter.mjs';
 import { runEject } from './eject.mjs';
+import { runModeInstall } from './install-mode.mjs';
+import { runBrowser } from './browser.mjs';
 
 const PKG_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const REGISTRY = path.join(PKG_ROOT, 'src', 'lib', 'data', 'registry.json');
@@ -43,6 +46,8 @@ function usage() {
   fractalthemer lint              # self mode: lint this repository
   fractalthemer lint <dir>        # consumer mode: lint a project directory
   fractalthemer eject [dir]       # copy the styles into your project as yours
+  fractalthemer mode [dir]        # install the mode-toggle feature as source
+  fractalthemer browser [dir]     # open the class registry as a searchable page
 Options:
   --own <file>    extension stylesheet (default <dir>/_08_own.sass)
   --registry <f>  registry.json override (consumer mode)
@@ -134,6 +139,13 @@ async function lintSelf() {
 		}
 	}
 
+	// 3. Sass layers: the literal-parse rule guards the system's own layer
+	// partials — the bug class it flags actually shipped inside 09_modifiers
+	// once (a raw list.nth() landing in the compiled CSS verbatim).
+	for (const file of walk(path.join(PKG_ROOT, 'src'), (name) => STYLESHEET.test(name))) {
+		diagnostics.push(...lintUninterpolatedFunctions(rel(PKG_ROOT, file), fs.readFileSync(file, 'utf8')));
+	}
+
 	return diagnostics;
 }
 
@@ -223,10 +235,18 @@ function lintConsumer(targetDir, options) {
 			continue;
 		}
 
-		// Stylesheets: privileged files exempt (the own file and, in an
-		// ejected project, the system directories).
-		if (isOwn || isSystemStylesheet(file)) continue;
-		diagnostics.push(...tokenLinter.lintFile(relPath, fs.readFileSync(file, 'utf8')));
+		// Stylesheets. The literal-parse rule bites EVERYWHERE — including the
+		// privileged files — because a literally-emitted function call is never
+		// legitimate, not even in the system layers. Token purity and
+		// ft/hardcoded-radius exempt the privileged set (the own file and, in
+		// an ejected project, the system directories, which legitimately own
+		// literal radii and raw values).
+		const isPrivileged = isOwn || isSystemStylesheet(file);
+		const stylesheet = fs.readFileSync(file, 'utf8');
+		diagnostics.push(...lintUninterpolatedFunctions(relPath, stylesheet));
+		if (isPrivileged) continue;
+		diagnostics.push(...tokenLinter.lintFile(relPath, stylesheet));
+		diagnostics.push(...lintHardcodedRadius(relPath, stylesheet));
 	}
 
 	return diagnostics;
@@ -242,6 +262,16 @@ if (args.includes('--help') || args.includes('-h')) {
 
 if (args[0] === 'eject') {
 	await runEject(args.slice(1));
+	process.exit(0);
+}
+
+if (args[0] === 'mode') {
+	await runModeInstall(args.slice(1));
+	process.exit(0);
+}
+
+if (args[0] === 'browser') {
+	await runBrowser(args.slice(1));
 	process.exit(0);
 }
 
