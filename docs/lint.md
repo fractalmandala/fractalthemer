@@ -35,11 +35,15 @@ After `npx fractalthemer eject`, a project owns the styles (see the README's
 - `src/lib/styles/` and `src/lib/palette/` are privileged for token purity —
   they ARE the system now, hex in the palette and the px ladder included;
 - everything outside those directories keeps the full rules: templates may
-  use only registry ∪ `_08_own.sass` classes, and app-level stylesheets must
+  use only system ∪ `_08_own.sass` classes, and app-level stylesheets must
   stay token-pure;
 - the `own-conflict` check compares `_08_own.sass` declarations against the
-  registry **excluding layer-08 entries**, so a project's own classes don't
-  collide with themselves.
+  canonical system, so a project's own classes don't collide with themselves;
+- **declaration rights are restricted to `_08_own.sass`**: a class used in
+  markup that lives only in a project-specific registry layer (component
+  skins, docs surfaces — anything not shipped in a canonical layer) violates
+  `ft/declaration-outside-own`. Components must compose system classes;
+  system-layer edits still count (eject mode means "own the files").
 
 ## Rules
 
@@ -48,6 +52,7 @@ After `npx fractalthemer eject`, a project owns the styles (see the README's
 | `ft/no-in-component-styles` | all `.svelte` | No scoped `<style>` blocks. Styles live in the system layers (or the consumer's `_08_own.sass`). |
 | `ft/no-inline-styles` | all `.svelte` | No `style="…"` attributes. An inline style is ad-hoc CSS by definition. |
 | `ft/unknown-class` | all `.svelte` | Every static class (`class="…"`, `class:name` directives) must be in the allowlist (see below). Fuzzy suggestions on miss. Dynamic `class={expr}` is skipped. |
+| `ft/declaration-outside-own` | all `.svelte` (consumer mode) | A class used in markup that is declared in a project-specific registry layer — a component skin or docs surface, not a canonical layer and not `_08_own.sass`. Components compose system classes; new declarations belong in `_08_own.sass` or (better) as a system addition. Names the declaring file. |
 | `ft/token-purity` | consumer stylesheets (not `_08_own.sass`) | No raw hex. No px above the 1–2px border/hairline budget. Every `var(--x)` resolves to a registry token or a custom property defined somewhere in the scanned project. |
 | `ft/sass-interpolation` | every stylesheet, self + consumer (privileged files included) | A Sass function call inside a custom-property value without `#{…}` interpolation. Sass parses those values literally — the call ships to the browser as text instead of evaluating. Born from a real `list.nth()` that landed verbatim in `_09_modifiers.sass`'s compiled output. |
 | `ft/hardcoded-radius` | consumer stylesheets (not `_08_own.sass`) | A `border-radius` literal. Skins shape corners through the `--radius-*` ladder so the shape axis (`data-shape`/`data-radius`, `_09_modifiers.sass`) reaches them; `0`, `inherit` and `var(--radius-*)` are the sanctioned forms. See [skins.md](./skins.md). |
@@ -59,9 +64,14 @@ After `npx fractalthemer eject`, a project owns the styles (see the README's
 - **Self mode**: `registry.json` classes. The system layers are privileged by
   definition (they *are* the contract — hex in the palette and the px ladder
   are the system's own business).
-- **Consumer mode**: registry classes ∪ classes declared in the project's
-  `_08_own.sass`. The `_08_own.sass` file itself is privileged for token
-  purity, mirroring the system layers.
+- **Consumer mode**: the **canonical registry shipped with this package**
+  (minus its own-layer classes, which are this repo's personal extensions)
+  ∪ the project's system-layer classes (same layer ids — eject-mode edits
+  stay the system) ∪ classes declared in the project's `_08_own.sass`.
+  The target's *compiled* registry is deliberately NOT the allowlist — it
+  absorbs every local skin, which would legitimize component-declared
+  classes. The `_08_own.sass` file itself is privileged for token purity,
+  mirroring the system layers.
 
 ## Provenance
 

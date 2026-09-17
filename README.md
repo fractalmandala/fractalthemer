@@ -24,7 +24,7 @@ pnpm add -D fractalthemer
 ## Styles
 
 ```sass
-@use 'fractalthemer/styles' as *;
+@use 'fractalthemer/styles' as *
 ```
 
 The stylesheet is assembled from numbered layers under `src/lib/styles`,
@@ -34,7 +34,7 @@ truth) through `08_own` (the sanctioned extension point). Precompiled CSS is
 also available:
 
 ```ts
-import 'fractalthemer/styles.css';
+import 'fractalthemer/styles.css'
 ```
 
 ## Three ways to use it
@@ -46,7 +46,7 @@ pnpm add -D fractalthemer
 ```
 
 ```sass
-@use 'fractalthemer/styles' as *;
+@use 'fractalthemer/styles' as *
 ```
 
 **2. Eject — the files become yours.** Copy every styles layer, the palette
@@ -357,19 +357,41 @@ completions, so the class names arrive as you type instead of living in a
 reference file:
 
 ```
-node_modules/fractalthemer/src/lib/data/fractalthemer-intellisense-0.2.0.vsix
+node_modules/fractalthemer/src/lib/data/fractalthemer-intellisense-0.2.1.vsix
 ```
 
 Install it straight from the package folder:
 
 ```sh
-code --install-extension node_modules/fractalthemer/src/lib/data/fractalthemer-intellisense-0.2.0.vsix
+code --install-extension node_modules/fractalthemer/src/lib/data/fractalthemer-intellisense-0.2.1.vsix
 ```
 
-(or Extensions panel → ⋯ → *Install from VSIX…*). It provides the 1,148
+(or Extensions panel → ⋯ → *Install from VSIX…*). It provides the 1,692
 canonical class completions with API-derived descriptions and hover
 documentation, works in HTML, Svelte, Vue, Astro, JSX/TSX, CSS, Sass and
 SCSS, and completes Svelte's `class:` directive.
+
+#### Rebuilding the VSIX
+
+The extension bundles the generated registry, so it must be rebuilt whenever
+the class system changes (new classes, renamed rungs, new layers). From the
+repo root:
+
+```sh
+pnpm registry                                          # 1. regenerate registry.json + registry.api.md
+node scripts/build-fractalthemer-intellisense-vsix.mjs # 2. bundle into the VSIX (default version 0.2.1)
+```
+
+The build reads `src/lib/data/registry.json` + `registry.api.md` (descriptions),
+`static/images/fractalthemer-intellisense-icon.png` (marketplace icon) and the
+repo `LICENSE`, then writes
+`src/lib/data/fractalthemer-intellisense-<version>.vsix`. Pass a semver as the
+first argument to write a different versioned filename:
+`node scripts/build-fractalthemer-intellisense-vsix.mjs 0.3.0`. The build fails
+loudly if the registry is missing or internally inconsistent, so it is safe to
+run at any time. Remember that the npm `files` glob `src/lib/data/*.vsix` ships
+whatever VSIX files exist there — delete superseded versions so the tarball
+carries exactly one.
 
 ## Development
 

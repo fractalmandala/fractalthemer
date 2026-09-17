@@ -82,6 +82,7 @@ $interaction-variants: (
 	'outline': (background: none, border: 1px solid var(--border)),
 	'soft': (background: var(--bg-secondary)),
 	'ghost': (background: none, border: 0),
+	'themed': (background: var(--theme-color), color: var(--text-inverse)),
 	'danger': (background: var(--danger), color: var(--text-inverse))
 ) !default
 
@@ -103,6 +104,17 @@ $interaction-sizes: (
 		font-size: var(--text-lg),
 		padding: calc(var(--space-md) * var(--pad-scale, 1)) calc(var(--space-lg) * var(--pad-scale, 1)),
 		min-height: var(--control-h-lg)
+	),
+	// Icon rung — a square, chrome-less control slot for icon-only buttons
+	// (.btn ghost icon). Sized to the base control height, no padding.
+	'icon': (
+		display: inline-flex,
+		align-items: center,
+		justify-content: center,
+		padding: 0,
+		width: var(--control-h-bs),
+		height: var(--control-h-bs),
+		min-height: 0
 	)
 ) !default
 
@@ -119,14 +131,21 @@ $interaction-shapes: (
 // What compiles from this file:
 //
 //   components: .btn, .link, .pill, .card, .badge
-//   variant:    .primary, .outline, .soft, .ghost
-//   size:       .sm, .bs, .lg
+//   variant:    .primary, .outline, .soft, .ghost, .themed, .danger
+//   size:       .sm, .bs, .lg, .icon
 //   shape:      .round, .square, .curved
+//   attributes: [data-variant], [data-size] (data-shape/-radius/-density in 09)
 //
 // Usage:
 //   "btn primary lg curved"
 //   "badge outline sm round"
 //   "card soft bs curved"
+//
+// Precedence: attribute rungs override class rungs — every class band guards
+// itself with :not([data-*]), so a component prop that emits data-variant /
+// data-size beats whatever classes are also present. The condensed one-class
+// combos over all four axes ("pssqt" = primary sm square tight) are generated
+// in 09_modifiers and follow the same precedence.
 //
 // Responsive bands (Contract 7):
 //   Variants, sizes and shapes ship bare, plus -mob and -desk.
@@ -158,18 +177,34 @@ $interaction-shapes: (
 	&:hover
 		opacity: 0.9
 
+// --- State utilities ---------------------------------------------------------
+// Pointer affordances and interaction gates that markup composes onto any
+// element; component-specific states belong in the component bases above.
+.pointer
+	cursor: pointer
+.grab
+	cursor: grab
+	&:active
+		cursor: grabbing
+.no-select
+	user-select: none
+.no-events
+	pointer-events: none
+
 // --- Axis rungs mixin --------------------------------------------------------
+// Every class rung guards itself with :not([data-*]) so the attribute form of
+// its own axis wins whenever it is present (see the attribute rungs below).
 =interaction-axes($suffix: '')
 	@each $variant, $decls in $interaction-variants
-		.#{$variant}#{$suffix}
+		.#{$variant}#{$suffix}:not([data-variant])
 			@each $prop, $value in $decls
 				#{$prop}: #{$value}
 	@each $size, $decls in $interaction-sizes
-		.#{$size}#{$suffix}
+		.#{$size}#{$suffix}:not([data-size])
 			@each $prop, $value in $decls
 				#{$prop}: #{$value}
 	@each $shape, $decls in $interaction-shapes
-		.#{$shape}#{$suffix}
+		.#{$shape}#{$suffix}:not([data-shape]):not([data-radius])
 			@each $prop, $value in $decls
 				#{$prop}: #{$value}
 
@@ -181,3 +216,70 @@ $interaction-shapes: (
 	@media #{string.unquote($query)}
 		+interaction-axes('-#{$mode}')
 
+// --- Attribute rungs — the data-* override channel ---------------------------
+// The variant and size axes keyed on attributes, joining data-shape /
+// data-radius / data-density (token remaps in 09_modifiers). Attribute values
+// follow the affedo prop API: variant `secondary` maps to the soft rung, size
+// `md` to the bs rung. These are bare (not responsive) — an attribute is an
+// explicit override, and it beats every guarded class rung above.
+$data-variant-rungs: (
+	'primary': 'primary',
+	'outline': 'outline',
+	'ghost': 'ghost',
+	'secondary': 'soft',
+	'themed': 'themed',
+	'danger': 'danger'
+) !default
+$data-size-rungs: ('sm': 'sm', 'md': 'bs', 'lg': 'lg') !default
+
+@each $attr, $rung in $data-variant-rungs
+	[data-variant='#{$attr}']
+		@each $prop, $value in map.get($interaction-variants, $rung)
+			#{$prop}: #{$value}
+
+@each $attr, $rung in $data-size-rungs
+	[data-size='#{$attr}']
+		@each $prop, $value in map.get($interaction-sizes, $rung)
+			#{$prop}: #{$value}
+
+// Corner wiring — .btn is the one roster surface with no radius of its own
+// (square by default). When a shape attribute is present — on the button or
+// any ancestor — the corner follows the remapped md rung, so the shape axis
+// drives the corner exactly as it does for card/badge/pill, which already
+// read the radius channels in their bases.
+.btn[data-shape], .btn[data-radius],
+[data-shape] .btn, [data-radius] .btn
+	border-radius: var(--radius-md)
+
+
+// Button group — joins .btn children into one control: interior corners
+// squared, outer corners curved to the md rung (so the data-shape axis on the
+// group remaps them), shared 1px seams merged. Orientation rides
+// data-orientation.
+.btn-group
+	display: inline-flex
+	vertical-align: middle
+	&[data-orientation='horizontal']
+		flex-direction: row
+		> .btn
+			border-radius: 0
+		> .btn:first-child
+			border-top-left-radius: var(--radius-md)
+			border-bottom-left-radius: var(--radius-md)
+		> .btn:last-child
+			border-top-right-radius: var(--radius-md)
+			border-bottom-right-radius: var(--radius-md)
+		> .btn:not(:first-child)
+			margin-left: -1px
+	&[data-orientation='vertical']
+		flex-direction: column
+		> .btn
+			border-radius: 0
+		> .btn:first-child
+			border-top-left-radius: var(--radius-md)
+			border-top-right-radius: var(--radius-md)
+		> .btn:last-child
+			border-bottom-left-radius: var(--radius-md)
+			border-bottom-right-radius: var(--radius-md)
+		> .btn:not(:first-child)
+			margin-top: -1px

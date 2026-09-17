@@ -25,6 +25,9 @@
 	--border: #{$gray-3}
 	--border-strong: #{$gray-5}
 	--border-subtle: #{$gray-2}
+	// Modal backdrop wash. Slightly heavier in dark mode — a 0.5 black scrim
+	// barely reads against dark surfaces.
+	--scrim: rgba(0, 0, 0, 0.5)
 
 	// Status channels. Themes deliberately have no opinion on these (see
 	// palette/themes.sass), so the mode defaults live here. Consumer
@@ -50,6 +53,7 @@
 	--border: #{$gray-7}
 	--border-strong: #{$gray-6}
 	--border-subtle: #{$gray-8}
+	--scrim: rgba(0, 0, 0, 0.6)
 
 	// Status channels — dark mode reads the lighter palette rungs for
 	// contrast against dark surfaces.

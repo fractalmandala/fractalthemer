@@ -103,6 +103,24 @@ function matchFamily(bare, table) {
 
 // --- Per-layer decoders ------------------------------------------------------
 
+// Axis meanings for the condensed combo classes (09_modifiers). Keys are the
+// single/two-character codes; values feed the generated descriptions.
+/** @type {Record<string, string>} */
+const COMBO_VARIANTS = {
+	p: 'primary',
+	o: 'outline',
+	g: 'ghost',
+	s: 'secondary (soft)',
+	t: 'themed',
+	d: 'danger'
+};
+/** @type {Record<string, string>} */
+const COMBO_SIZES = { s: 'sm', m: 'md', l: 'lg' };
+/** @type {Record<string, string>} */
+const COMBO_SHAPES = { sq: 'square', su: 'subtle', m: 'modern', r: 'round', p: 'pill' };
+/** @type {Record<string, string>} */
+const COMBO_DENSITIES = { t: 'tight', n: 'normal', c: 'comfort' };
+
 /** @type {Record<string, (bare: string) => string | undefined>} */
 const DECODERS = {
 	'02_dimensions'(bare) {
@@ -175,10 +193,12 @@ const DECODERS = {
 				outline: 'paint rung: border only, explicit background: none',
 				soft: 'paint rung: soft tinted fill',
 				ghost: 'paint rung: no fill until hover',
+				themed: 'paint rung: theme-colored fill with inverse text',
 				danger: 'paint rung: status-colored fill (var(--danger))',
 				sm: 'size rung: compact metrics on the shared control-height channel',
 				bs: 'size rung: default metrics on the shared control-height channel',
 				lg: 'size rung: large metrics on the shared control-height channel',
+				icon: 'size rung: square chrome-less control slot for icon-only buttons',
 				round: 'shape rung: full round via the radius channels (follows data-shape)',
 				curved: 'shape rung: curved via the radius channels (follows data-shape)',
 				square: 'shape rung: sharp corners (literal reset)'
@@ -189,6 +209,15 @@ const DECODERS = {
 	},
 
 	'09_modifiers'(bare) {
+		// Condensed combo classes — one class per variant × size × shape ×
+		// density combination, fixed axis order, e.g. "pssqt" = primary · sm ·
+		// square · tight. Two-character shape codes (sq, su) make valid combos
+		// four or five characters; the anchor keeps the parse unambiguous.
+		const combo = bare.match(/^([pogstd])([sml])(sq|su|[mrp])([tnc])$/);
+		if (combo) {
+			const [, v, z, sh, d] = combo;
+			return `condensed combo: ${COMBO_VARIANTS[v]} · ${COMBO_SIZES[z]} · ${COMBO_SHAPES[sh]} · ${COMBO_DENSITIES[d]} — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute`;
+		}
 		/** @type {Record<string, string>} */
 		const sets = {
 			'radius-square': 'corner-geometry set: all radii 0 (sharp)',

@@ -1,6 +1,6 @@
 {
   "name": "fractalthemer",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "A class-based styling system: layered indented SASS with a generated class registry, semantic tokens, themes and auras, a Svelte 5 mode store with animated view transitions, and a shipped contract linter",
   "license": "MIT",
   "author": "Amritanshu",
@@ -89,7 +89,8 @@
     "prepack": "node scripts/build-registry.mjs && svelte-kit sync && svelte-package && sass src/lib/styles/index.sass dist/styles/index.css --no-source-map",
     "package": "node scripts/build-registry.mjs && svelte-kit sync && svelte-package && sass src/lib/styles/index.sass dist/styles/index.css --no-source-map",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "build:vsix": "node src/lib/data/build-fractalthemer-intellisense-vsix.mjs"
   },
   "peerDependencies": {
     "svelte": "^5.0.0"

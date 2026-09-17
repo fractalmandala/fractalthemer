@@ -386,7 +386,18 @@ button.nav-l1
 		pointer-events: auto
 		translate: 0 0
 	&::backdrop
-		background: rgba(0, 0, 0, 0.5)
+		background: var(--scrim)
+
+// Modal measures — panel widths for overlay surfaces (dialogs, drawers,
+// command palettes). Named rungs, not a px ladder: three measures cover the
+// modal spectrum; anything wider is a bespoke layout, not a modal. Pair with
+// .wfull on the panel.
+.modal-sm
+	max-width: min(92vw, 18rem)
+.modal-md
+	max-width: min(92vw, 24rem)
+.modal-lg
+	max-width: min(92vw, 32rem)
 
 .popover
 	position: absolute
@@ -461,3 +472,35 @@ button.nav-l1
 	justify-content: center
 	gap: calc(var(--space-lg) * var(--gap-scale, 1))
 	padding-block: calc(var(--space-xl) * var(--pad-scale, 1))
+
+// Breadcrumb — nav + list rhythm. Item, link and current-page chrome style
+// the upstream anatomy (li > a | [aria-current='page']) so plain children
+// compose; the separator is a pseudo-element over li + li.
+.breadcrumb
+	display: flex
+	align-items: center
+	font-size: var(--text-sm)
+	& ol
+		display: flex
+		align-items: center
+		flex-wrap: wrap
+		gap: var(--space-xs)
+		list-style: none
+		margin: 0
+		padding: 0
+	& li
+		display: inline-flex
+		align-items: center
+		gap: var(--space-xs)
+	& li + li::before
+		content: '/'
+		color: var(--text-muted)
+	& a
+		color: var(--text-secondary)
+		text-decoration: none
+		transition: color var(--motion-fast) var(--ease-out)
+		&:hover
+			color: var(--theme-color)
+	& [aria-current='page']
+		color: var(--text-primary)
+		font-weight: 600

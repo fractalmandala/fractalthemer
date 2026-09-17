@@ -17,7 +17,11 @@
 //     - token purity on its stylesheets: no raw hex, >2px budget, every
 //       var() resolves to a registry token or a locally-defined property
 //     - unknown-class check where the allowlist is:
-//         registry.json ∪ classes declared in the project's _08_own.sass
+//         CANONICAL registry layers ∪ classes declared in _08_own.sass
+//       The target's compiled registry is NOT the allowlist — it absorbs
+//       every local skin, which would legitimize component-declared classes.
+//       A class found in a project-specific registry layer (component skins,
+//       docs surfaces) is its own violation: ft/declaration-outside-own.
 //     - a class declared in _08_own.sass that collides with a registry class
 //       is an explicit conflict — layer 08 extends the system, never shadows it
 //
@@ -161,7 +165,15 @@ function lintConsumer(targetDir, options) {
 		(fs.existsSync(path.join(targetDir, 'src', 'lib', 'data', 'registry.json'))
 			? path.join(targetDir, 'src', 'lib', 'data', 'registry.json')
 			: path.join(targetDir, 'node_modules', 'fractalthemer', 'src', 'lib', 'data', 'registry.json'));
-	const { classes, tokens, ownLayerClasses } = loadRegistry(registryFile);
+	const { tokens, ownLayerClasses, layerOf, fileOfLayer } = loadRegistry(registryFile);
+
+	// The canonical base is what THIS package ships — never the target's
+	// compiled registry, which absorbs every local skin and would legitimize
+	// exactly the component-declared classes the contract forbids. Canonical
+	// own-layer classes are the fractalthemer repo's personal extensions, not
+	// consumer vocabulary, so they are excluded too.
+	const canonical = loadRegistry(REGISTRY);
+	const systemClasses = new Set([...canonical.classes].filter((c) => !canonical.ownLayerClasses.has(c)));
 
 	const own = ownPath || path.join(targetDir, 'src', 'lib', 'styles', '_08_own.sass');
 	let ownContent = '';
@@ -170,10 +182,9 @@ function lintConsumer(targetDir, options) {
 	// The extension stylesheet is privileged (like the system layers): its
 	// classes join the allowlist, and its values are the project's sanctioned
 	// own. The ONE thing it cannot do is shadow a system class name — so the
-	// collision base excludes registry entries that came from an _08_own
-	// layer (a project's own declarations enter its own registry).
+	// collision base is the canonical system (own layers excluded).
 	const ownClasses = harvestOwnClasses(ownContent);
-	const collisionBase = new Set([...classes].filter((c) => !ownLayerClasses.has(c)));
+	const collisionBase = systemClasses;
 	for (const name of ownClasses) {
 		if (!collisionBase.has(name)) continue;
 		diagnostics.push({
@@ -186,7 +197,25 @@ function lintConsumer(targetDir, options) {
 		});
 	}
 
-	const allowClasses = new Set([...classes, ...ownClasses]);
+	// Allowlist = canonical system classes ∪ the project's own layer ∪ the
+	// harvested _08_own.sass declarations. Classes that live only in
+	// project-specific layers (skins, docs surfaces) have NO declaration
+	// rights — they are reported as ft/declaration-outside-own, naming the
+	// layer file, instead of a bare unknown-class.
+	const allowed = new Set(systemClasses);
+	const skinDeclared = new Map();
+	for (const [name, layerId] of layerOf) {
+		if (ownLayerClasses.has(name)) {
+			allowed.add(name);
+		} else if (canonical.layerIds.has(layerId)) {
+			// A system layer, possibly edited by the ejected project — still the
+			// system (eject mode means "own the files").
+			allowed.add(name);
+		} else {
+			skinDeclared.set(name, fileOfLayer.get(layerId) || layerId);
+		}
+	}
+	for (const name of ownClasses) allowed.add(name);
 	const localProps = new Set();
 	const files = walk(targetDir, (name) => SVELTE.test(name) || STYLESHEET.test(name));
 
@@ -216,8 +245,20 @@ function lintConsumer(targetDir, options) {
 			diagnostics.push(...svelteDiags);
 
 			for (const name of used) {
-				if (allowClasses.has(name)) continue;
-				const closest = findClosestMatches(name, allowClasses, 3, 4);
+				if (allowed.has(name)) continue;
+				const declaredIn = skinDeclared.get(name);
+				if (declaredIn) {
+					diagnostics.push({
+						rule: 'ft/declaration-outside-own',
+						severity: 'error',
+						file: relPath,
+						found: `.${name}`,
+						rationale: `".${name}" is declared in ${declaredIn}, which is not a system layer. Components must compose fractalthemer's classes — a project-specific declaration beside the system defeats it.`,
+						suggestion: `Delete the declaration in ${declaredIn} and compose the element from registry classes; if a capability is genuinely missing from the system, add it to _08_own.sass (or propose it as a system class).`
+					});
+					continue;
+				}
+				const closest = findClosestMatches(name, allowed, 3, 4);
 				const suggestion =
 					closest.length > 0
 						? `Did you mean '${closest[0]}'?`

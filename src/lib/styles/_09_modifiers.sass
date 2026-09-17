@@ -1,9 +1,15 @@
 // ============================================================================
-// 09_MODIFIERS — variant axes as token remaps. Three axes:
+// 09_MODIFIERS — variant axes as token remaps, plus the condensed combo
+// classes. Three token-remap axes:
 //
 //   shape    corner geometry — rewrites the --radius-* ladder
 //   density  airiness — rewrites the --space-* ladder and --control-h-*
 //   scale    font scale — font-size percentage (universal only)
+//
+// Plus one derived channel: the combo classes at the bottom of this file
+// ("pssqt") collapse the four interaction axes — paint, size, shape, density
+// — into a single class, each axis block guarded so the data-* attribute form
+// overrides it.
 //
 // A set is a TOKEN REMAP: nothing here styles an element directly. Every
 // utility and consumer component skin reads the rungs, so setting the
@@ -25,6 +31,7 @@
 @use 'sass:map'
 @use 'sass:list'
 @use '00_tokens' as *
+@use '07_interactions' as *
 
 $shape-sets: 'square' 'subtle' 'modern' 'round' 'pill' !default
 $density-sets: 'tight' 'normal' 'comfort' !default
@@ -90,22 +97,68 @@ $density-control: (
 @each $s in $shape-sets
 	[data-radius='#{$s}'],
 	[data-shape='#{$s}'],
-	.radius-#{$s}
+	.radius-#{$s}:not([data-shape]):not([data-radius])
 		+shape-tokens($s)
 
 @each $d in $density-sets
 	[data-density='#{$d}'],
-	.density-#{$d}
+	.density-#{$d}:not([data-density])
 		+density-tokens($d)
 
 [data-scale='compact'],
-.scale-compact
+.scale-compact:not([data-scale])
 	font-size: 87.5%
 
 [data-scale='normal'],
-.scale-normal
+.scale-normal:not([data-scale])
 	font-size: 100%
 
 [data-scale='expanded'],
-.scale-expanded
+.scale-expanded:not([data-scale])
 	font-size: 112.5%
+
+// --- Condensed combo classes -------------------------------------------------
+// One class per variant × size × shape × density combination — the four axes
+// collapsed into a single code. Axis order is fixed (variant, size, shape,
+// density), so the code parses unambiguously: shape codes are two characters
+// (sq, su) or one (m, r, p), making every combo four or five characters.
+//
+//   "pssqt" = primary · sm · square · tight
+//   "tmrc"  = themed · md · round · comfort
+//
+// 6 variants × 3 sizes × 5 shapes × 3 densities = 270 classes, shipped bare
+// (no -mob/-desk bands — this is the condensed channel; responsive control
+// stays with the attribute and standalone class rungs).
+//
+// Precedence mirrors the interaction axes: each axis block inside a combo is
+// guarded with :not([data-*]), so a data-variant / data-size / data-shape /
+// data-density attribute on the same element overrides just that axis of the
+// combo and lets the other three stand. The shape block rewrites the radius
+// ladder AND pins the element corner to the remapped md rung, so a single
+// declaration covers all five corner sets (square 0 / subtle 4 / modern 8 /
+// round 16 / pill full). Paint and size declarations are lifted straight from
+// the 07_interaction maps, so a consumer rerouting a rung there reroutes the
+// combos with it.
+$combo-variants: ('p': 'primary', 'o': 'outline', 'g': 'ghost', 's': 'soft', 't': 'themed', 'd': 'danger') !default
+$combo-sizes: ('s': 'sm', 'm': 'bs', 'l': 'lg') !default
+$combo-shapes: ('sq': 'square', 'su': 'subtle', 'm': 'modern', 'r': 'round', 'p': 'pill') !default
+$combo-densities: ('t': 'tight', 'n': 'normal', 'c': 'comfort') !default
+
+@each $vk, $vname in $combo-variants
+	$vdecls: map.get($interaction-variants, $vname)
+	@each $zk, $zname in $combo-sizes
+		$zdecls: map.get($interaction-sizes, $zname)
+		@each $shk, $shname in $combo-shapes
+			@each $dk, $dname in $combo-densities
+				.#{$vk}#{$zk}#{$shk}#{$dk}
+					&:not([data-variant])
+						@each $prop, $value in $vdecls
+							#{$prop}: #{$value}
+					&:not([data-size])
+						@each $prop, $value in $zdecls
+							#{$prop}: #{$value}
+					&:not([data-shape]):not([data-radius])
+						+shape-tokens($shname)
+						border-radius: var(--radius-md)
+					&:not([data-density])
+						+density-tokens($dname)

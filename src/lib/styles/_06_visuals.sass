@@ -179,6 +179,11 @@
 	border-top: 1px solid var(--border)
 	margin-block: calc(var(--space-sm) * var(--gap-scale, 1))
 
+// Scrim — the modal backdrop wash, one token (--scrim) so every overlay
+// dims alike and follows the mode.
+.scrim
+	background: var(--scrim)
+
 .kbd
 	display: inline-block
 	padding-inline: calc(var(--space-2xs) * var(--pad-scale, 1))
@@ -190,6 +195,37 @@
 	color: var(--text-primary)
 	border: 1px solid var(--border)
 	border-radius: var(--radius-sm)
+
+// Chip — small mono inline label for code invocations, tags and counts.
+// Quieter than .kbd: secondary surface, subtle border, secondary text.
+// border-radius rides --radius-sm so the shape axis governs the corners.
+.chip
+	display: inline-block
+	padding-inline: calc(var(--space-2xs) * var(--pad-scale, 1))
+	font-family: var(--font-mono)
+	font-size: var(--text-xs)
+	line-height: 1.8
+	color: var(--text-secondary)
+	background: var(--bg-secondary)
+	border: 1px solid var(--border-subtle)
+	border-radius: var(--radius-sm)
+	white-space: nowrap
+
+// Disclosure — native details/summary. .disclosure on <details> strips the
+// UA marker and arms the pointer; .disclosure-toggle on a span inside the
+// summary renders the +/− affordance, flipping on the open state.
+.disclosure
+	& summary
+		cursor: pointer
+		list-style: none
+		&::-webkit-details-marker
+			display: none
+		&::before
+			content: '+'
+			color: var(--theme-color)
+	&[open] summary
+		&::before
+			content: '−'
 
 .switch-track
 	display: inline-flex
@@ -248,3 +284,143 @@
 			box-shadow: var(--shadow-md)
 		.shadow-lg-#{$mode}
 			box-shadow: var(--shadow-lg)
+
+// Rule — a flex hairline that carries a label between two lines, or collapses
+// to a vertical hairline. NOT the hr-style .divider above. Orientation rides
+// data-orientation; pair with .radius-md when the hairline ends should follow
+// the shape axis.
+.rule
+	display: flex
+	align-items: center
+	color: var(--text-muted)
+	&[data-orientation='horizontal']
+		width: 100%
+		margin: var(--space-md) 0
+		&::before,
+		&::after
+			content: ''
+			flex: 1
+			height: 1px
+			background: var(--border-subtle)
+	&[data-orientation='vertical']
+		width: 1px
+		height: calc(var(--space-bs) * 1.5)
+		background: var(--border-subtle)
+		display: inline-block
+		vertical-align: middle
+		margin: 0 var(--space-sm)
+
+.rule-content
+	padding: 0 var(--space-md)
+	font-size: var(--text-xs)
+	font-weight: 500
+	white-space: nowrap
+
+// Progress — bar fill reading --progress-value (set per-instance via a style:
+// custom property, 0–100%); the indeterminate rung slides instead. Label is
+// the readout inside the fill.
+.progress
+	width: 100%
+	height: var(--space-sm)
+	background: var(--bg-muted)
+	border-radius: var(--radius-xl)
+	overflow: hidden
+	position: relative
+
+.progress-fill
+	width: var(--progress-value, 0%)
+	height: 100%
+	background: var(--theme-color)
+	border-radius: var(--radius-xl)
+	transition: width var(--motion-base) var(--ease-out)
+	display: flex
+	align-items: center
+	justify-content: flex-end
+	padding-right: var(--space-xs)
+
+.progress[data-indeterminate] .progress-fill
+	width: 40%
+	animation: progress-slide 1.5s infinite ease-in-out
+
+.progress-label
+	font-size: var(--text-xs)
+	color: var(--text-inverse)
+	font-weight: 600
+	line-height: 1
+
+@keyframes progress-slide
+	0%
+		transform: translateX(-100%)
+	100%
+		transform: translateX(300%)
+
+// Ring — SVG circular progress; geometry (viewBox, dash array/offset) lives on
+// the circles as attributes, this only paints track vs fill and places the
+// center readout. The canvas rotation to 12 o'clock rides the circle's
+// transform attribute.
+.ring
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	position: relative
+	width: calc(var(--space-xs) * 11)
+	height: calc(var(--space-xs) * 11)
+	vertical-align: middle
+
+.ring-track
+	stroke: var(--border-subtle)
+
+.ring-fill
+	stroke: var(--theme-color)
+	stroke-linecap: round
+	transition: stroke-dashoffset var(--motion-base) var(--ease-out)
+
+.ring-center
+	position: absolute
+	font-size: var(--text-xs)
+	font-weight: 600
+	color: var(--text-primary)
+
+.ring-svg
+	display: block
+	overflow: visible
+
+// Disclosure card — a bordered details/summary card: summary row with hover
+// chrome, chevron flipping on [open], content panel beneath a hairline.
+// .disclosure-card on <details>, .disclosure-chevron on the marker span,
+// .disclosure-content on the panel.
+.disclosure-card
+	border: 1px solid var(--border-subtle)
+	border-radius: var(--radius-md)
+	background: var(--bg)
+	overflow: hidden
+	& summary
+		padding: var(--space-md) var(--space-bs)
+		font-size: var(--text-sm)
+		font-weight: 600
+		cursor: pointer
+		display: flex
+		align-items: center
+		justify-content: space-between
+		color: var(--text-primary)
+		user-select: none
+		list-style: none
+		transition: background var(--motion-fast) var(--ease-out)
+		&::-webkit-details-marker
+			display: none
+		&:hover
+			background: var(--bg-secondary)
+	& .disclosure-chevron
+		display: inline-flex
+		align-items: center
+		justify-content: center
+		color: var(--text-muted)
+		transition: transform var(--motion-fast) var(--ease-out)
+	&[open] .disclosure-chevron
+		transform: rotate(180deg)
+	& > .disclosure-content
+		padding: var(--space-bs)
+		color: var(--text-secondary)
+		font-size: var(--text-sm)
+		line-height: 1.5
+		border-top: 1px solid var(--border-subtle)

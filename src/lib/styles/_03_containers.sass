@@ -106,3 +106,12 @@
 	position: fixed
 .sticky
 	position: sticky
+
+// Layering utilities over the shell z tokens — named for the token, so the
+// stacking order lives in one place (the tokens) instead of magic numbers.
+.z-sticky
+	z-index: var(--z-sticky)
+.z-raised
+	z-index: var(--z-raised)
+.z-modal
+	z-index: var(--z-modal)

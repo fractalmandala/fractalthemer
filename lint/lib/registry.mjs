@@ -9,10 +9,13 @@ import fs from 'node:fs';
 
 /**
  * @param {string} registryPath Absolute path to registry.json.
- * @returns {{ classes: Set<string>, tokens: Set<string>, ownLayerClasses: Set<string> }}
+ * @returns {{ classes: Set<string>, tokens: Set<string>, ownLayerClasses: Set<string>, layerIds: Set<string>, layerOf: Map<string, string>, fileOfLayer: Map<string, string> }}
  *   `ownLayerClasses` are the classes that came from an `_08_own` layer —
  *   excluded from the collision check, since a project's own declarations
  *   legitimately enter its own registry.
+ *   `layerIds`/`layerOf`/`fileOfLayer` carry layer attribution so the linter
+ *   can tell SYSTEM layers from project-specific ones (skins, docs surfaces)
+ *   and name the file that declared a class outside _08_own.sass.
  */
 export function loadRegistry(registryPath) {
 	if (!fs.existsSync(registryPath)) {
@@ -23,13 +26,19 @@ export function loadRegistry(registryPath) {
 	const classes = new Set();
 	const tokens = new Set();
 	const ownLayerClasses = new Set();
+	const layerIds = new Set();
+	const layerOf = new Map();
+	const fileOfLayer = new Map();
 
 	for (const layer of data.layers || []) {
 		const isOwnLayer = /own/.test(layer.id || '') || /own/.test(layer.file || '');
+		layerIds.add(layer.id);
+		if (!fileOfLayer.has(layer.id)) fileOfLayer.set(layer.id, layer.file || layer.id);
 		for (const item of layer.items || []) {
 			if (item.kind === 'class') {
 				const name = item.name.replace(/^\./, '');
 				classes.add(name);
+				if (!layerOf.has(name)) layerOf.set(name, layer.id);
 				if (isOwnLayer) ownLayerClasses.add(name);
 			} else if (item.kind === 'token') {
 				tokens.add(item.name);
@@ -37,5 +46,5 @@ export function loadRegistry(registryPath) {
 		}
 	}
 
-	return { classes, tokens, ownLayerClasses };
+	return { classes, tokens, ownLayerClasses, layerIds, layerOf, fileOfLayer };
 }

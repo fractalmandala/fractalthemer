@@ -4,7 +4,7 @@
 > edit the layers (or `_08_own.sass`) and rebuild. Shipped in the npm package so this reference
 > is available offline in `node_modules/fractalthemer/src/lib/data/registry.api.md`.
 
-**1148** classes · **74** custom properties · **18** element selectors in 11 layers.
+**1692** classes · **75** custom properties · **18** element selectors in 11 layers.
 
 Every generated class decodes from its family; the intro paragraphs are the intent.
 Interactive surfaces compose axes: `btn primary lg curved`.
@@ -17,7 +17,7 @@ Interactive surfaces compose axes: `btn primary lg curved`.
 
 Custom properties — every value the system owns. Themes stamp them under [data-mode] (light/dark have opinions only here); components and utilities only consume them. Never hard-code a value the ladder already has.
 
-### Custom properties (74)
+### Custom properties (75)
 
 | Name | Meaning |
 | --- | --- |
@@ -51,6 +51,7 @@ Custom properties — every value the system owns. Themes stamp them under [data
 | `--radius-sm` | radius channel rung |
 | `--radius-xl` | radius channel, largest rung (full round) |
 | `--radius-xs` | radius channel, smallest rung — the shape axis rewrites these |
+| `--scrim` | — |
 | `--shadow-bs` | subtle shadow |
 | `--shadow-lg` | elevated shadow |
 | `--shadow-md` | medium shadow |
@@ -143,7 +144,7 @@ Element resets for the bare tags — typography rhythm, link ink, list resets. S
 
 The generated half of the registry: 17 space families, radius, and size, each emitted in three bands (bare, -mob below 769px, -desk at 769px+, Contract 7). Step rungs (gp-md) ride the tokens and respect the density knobs --gap-scale / --pad-scale; numeric rungs (gp-32) are px literals for exact requirements. Radius channel rungs follow the shape axis; radius literals never do.
 
-### Classes (923)
+### Classes (1163)
 
 
 **gaps**
@@ -1104,6 +1105,251 @@ _Fixed px sizes, full-bleed helpers, min- resets for flex/grid shrinking, and vi
 | `.wfull-desk` | width: 100% — at the desktop breakpoint and up (769px default) |
 | `.wfull-mob` | width: 100% — below the mobile breakpoint (769px default) |
 
+**other**
+
+| Name | Meaning |
+| --- | --- |
+| `.bottom-0` | — |
+| `.bottom-0-desk` | — |
+| `.bottom-0-mob` | — |
+| `.bottom-16` | — |
+| `.bottom-16-desk` | — |
+| `.bottom-16-mob` | — |
+| `.bottom-2xl` | — |
+| `.bottom-2xl-desk` | — |
+| `.bottom-2xl-mob` | — |
+| `.bottom-32` | — |
+| `.bottom-32-desk` | — |
+| `.bottom-32-mob` | — |
+| `.bottom-3xl` | — |
+| `.bottom-3xl-desk` | — |
+| `.bottom-3xl-mob` | — |
+| `.bottom-4` | — |
+| `.bottom-4-desk` | — |
+| `.bottom-4-mob` | — |
+| `.bottom-4xl` | — |
+| `.bottom-4xl-desk` | — |
+| `.bottom-4xl-mob` | — |
+| `.bottom-5xl` | — |
+| `.bottom-5xl-desk` | — |
+| `.bottom-5xl-mob` | — |
+| `.bottom-64` | — |
+| `.bottom-64-desk` | — |
+| `.bottom-64-mob` | — |
+| `.bottom-8` | — |
+| `.bottom-8-desk` | — |
+| `.bottom-8-mob` | — |
+| `.bottom-bs` | — |
+| `.bottom-bs-desk` | — |
+| `.bottom-bs-mob` | — |
+| `.bottom-lg` | — |
+| `.bottom-lg-desk` | — |
+| `.bottom-lg-mob` | — |
+| `.bottom-md` | — |
+| `.bottom-md-desk` | — |
+| `.bottom-md-mob` | — |
+| `.bottom-sm` | — |
+| `.bottom-sm-desk` | — |
+| `.bottom-sm-mob` | — |
+| `.bottom-xl` | — |
+| `.bottom-xl-desk` | — |
+| `.bottom-xl-mob` | — |
+| `.bottom-xs` | — |
+| `.bottom-xs-desk` | — |
+| `.bottom-xs-mob` | — |
+| `.inset-0` | — |
+| `.inset-0-desk` | — |
+| `.inset-0-mob` | — |
+| `.inset-16` | — |
+| `.inset-16-desk` | — |
+| `.inset-16-mob` | — |
+| `.inset-2xl` | — |
+| `.inset-2xl-desk` | — |
+| `.inset-2xl-mob` | — |
+| `.inset-32` | — |
+| `.inset-32-desk` | — |
+| `.inset-32-mob` | — |
+| `.inset-3xl` | — |
+| `.inset-3xl-desk` | — |
+| `.inset-3xl-mob` | — |
+| `.inset-4` | — |
+| `.inset-4-desk` | — |
+| `.inset-4-mob` | — |
+| `.inset-4xl` | — |
+| `.inset-4xl-desk` | — |
+| `.inset-4xl-mob` | — |
+| `.inset-5xl` | — |
+| `.inset-5xl-desk` | — |
+| `.inset-5xl-mob` | — |
+| `.inset-64` | — |
+| `.inset-64-desk` | — |
+| `.inset-64-mob` | — |
+| `.inset-8` | — |
+| `.inset-8-desk` | — |
+| `.inset-8-mob` | — |
+| `.inset-bs` | — |
+| `.inset-bs-desk` | — |
+| `.inset-bs-mob` | — |
+| `.inset-lg` | — |
+| `.inset-lg-desk` | — |
+| `.inset-lg-mob` | — |
+| `.inset-md` | — |
+| `.inset-md-desk` | — |
+| `.inset-md-mob` | — |
+| `.inset-sm` | — |
+| `.inset-sm-desk` | — |
+| `.inset-sm-mob` | — |
+| `.inset-xl` | — |
+| `.inset-xl-desk` | — |
+| `.inset-xl-mob` | — |
+| `.inset-xs` | — |
+| `.inset-xs-desk` | — |
+| `.inset-xs-mob` | — |
+| `.left-0` | — |
+| `.left-0-desk` | — |
+| `.left-0-mob` | — |
+| `.left-16` | — |
+| `.left-16-desk` | — |
+| `.left-16-mob` | — |
+| `.left-2xl` | — |
+| `.left-2xl-desk` | — |
+| `.left-2xl-mob` | — |
+| `.left-32` | — |
+| `.left-32-desk` | — |
+| `.left-32-mob` | — |
+| `.left-3xl` | — |
+| `.left-3xl-desk` | — |
+| `.left-3xl-mob` | — |
+| `.left-4` | — |
+| `.left-4-desk` | — |
+| `.left-4-mob` | — |
+| `.left-4xl` | — |
+| `.left-4xl-desk` | — |
+| `.left-4xl-mob` | — |
+| `.left-5xl` | — |
+| `.left-5xl-desk` | — |
+| `.left-5xl-mob` | — |
+| `.left-64` | — |
+| `.left-64-desk` | — |
+| `.left-64-mob` | — |
+| `.left-8` | — |
+| `.left-8-desk` | — |
+| `.left-8-mob` | — |
+| `.left-bs` | — |
+| `.left-bs-desk` | — |
+| `.left-bs-mob` | — |
+| `.left-lg` | — |
+| `.left-lg-desk` | — |
+| `.left-lg-mob` | — |
+| `.left-md` | — |
+| `.left-md-desk` | — |
+| `.left-md-mob` | — |
+| `.left-sm` | — |
+| `.left-sm-desk` | — |
+| `.left-sm-mob` | — |
+| `.left-xl` | — |
+| `.left-xl-desk` | — |
+| `.left-xl-mob` | — |
+| `.left-xs` | — |
+| `.left-xs-desk` | — |
+| `.left-xs-mob` | — |
+| `.right-0` | — |
+| `.right-0-desk` | — |
+| `.right-0-mob` | — |
+| `.right-16` | — |
+| `.right-16-desk` | — |
+| `.right-16-mob` | — |
+| `.right-2xl` | — |
+| `.right-2xl-desk` | — |
+| `.right-2xl-mob` | — |
+| `.right-32` | — |
+| `.right-32-desk` | — |
+| `.right-32-mob` | — |
+| `.right-3xl` | — |
+| `.right-3xl-desk` | — |
+| `.right-3xl-mob` | — |
+| `.right-4` | — |
+| `.right-4-desk` | — |
+| `.right-4-mob` | — |
+| `.right-4xl` | — |
+| `.right-4xl-desk` | — |
+| `.right-4xl-mob` | — |
+| `.right-5xl` | — |
+| `.right-5xl-desk` | — |
+| `.right-5xl-mob` | — |
+| `.right-64` | — |
+| `.right-64-desk` | — |
+| `.right-64-mob` | — |
+| `.right-8` | — |
+| `.right-8-desk` | — |
+| `.right-8-mob` | — |
+| `.right-bs` | — |
+| `.right-bs-desk` | — |
+| `.right-bs-mob` | — |
+| `.right-lg` | — |
+| `.right-lg-desk` | — |
+| `.right-lg-mob` | — |
+| `.right-md` | — |
+| `.right-md-desk` | — |
+| `.right-md-mob` | — |
+| `.right-sm` | — |
+| `.right-sm-desk` | — |
+| `.right-sm-mob` | — |
+| `.right-xl` | — |
+| `.right-xl-desk` | — |
+| `.right-xl-mob` | — |
+| `.right-xs` | — |
+| `.right-xs-desk` | — |
+| `.right-xs-mob` | — |
+| `.top-0` | — |
+| `.top-0-desk` | — |
+| `.top-0-mob` | — |
+| `.top-16` | — |
+| `.top-16-desk` | — |
+| `.top-16-mob` | — |
+| `.top-2xl` | — |
+| `.top-2xl-desk` | — |
+| `.top-2xl-mob` | — |
+| `.top-32` | — |
+| `.top-32-desk` | — |
+| `.top-32-mob` | — |
+| `.top-3xl` | — |
+| `.top-3xl-desk` | — |
+| `.top-3xl-mob` | — |
+| `.top-4` | — |
+| `.top-4-desk` | — |
+| `.top-4-mob` | — |
+| `.top-4xl` | — |
+| `.top-4xl-desk` | — |
+| `.top-4xl-mob` | — |
+| `.top-5xl` | — |
+| `.top-5xl-desk` | — |
+| `.top-5xl-mob` | — |
+| `.top-64` | — |
+| `.top-64-desk` | — |
+| `.top-64-mob` | — |
+| `.top-8` | — |
+| `.top-8-desk` | — |
+| `.top-8-mob` | — |
+| `.top-bs` | — |
+| `.top-bs-desk` | — |
+| `.top-bs-mob` | — |
+| `.top-lg` | — |
+| `.top-lg-desk` | — |
+| `.top-lg-mob` | — |
+| `.top-md` | — |
+| `.top-md-desk` | — |
+| `.top-md-mob` | — |
+| `.top-sm` | — |
+| `.top-sm-desk` | — |
+| `.top-sm-mob` | — |
+| `.top-xl` | — |
+| `.top-xl-desk` | — |
+| `.top-xl-mob` | — |
+| `.top-xs` | — |
+| `.top-xs-desk` | — |
+| `.top-xs-mob` | — |
+
 ---
 
 ## 4. containers
@@ -1112,7 +1358,7 @@ _Fixed px sizes, full-bleed helpers, min- resets for flex/grid shrinking, and vi
 
 Containers and the alignment universe. .box / .row / .grid are the three bases; the x*/y* modifiers are NESTED under a base (never standalone) and always physical axes (x = left/right, y = top/bottom — Contract 4), never logical properties.
 
-### Classes (25)
+### Classes (28)
 
 | Name | Meaning |
 | --- | --- |
@@ -1141,6 +1387,9 @@ Containers and the alignment universe. .box / .row / .grid are the three bases; 
 | `.yevenly` | space-evenly along the y axis |
 | `.ystretch` | stretch items along the y axis (grid) |
 | `.ytop` | align/justify toward the top — physical axes, never logical |
+| `.z-modal` | — |
+| `.z-raised` | — |
+| `.z-sticky` | — |
 
 ---
 
@@ -1181,7 +1430,7 @@ Layout presets. Grids are pure stepping — no default gap, compose one with .gp
 
 Canonical markups — every class here implements a registered markup shape (the app-shell frame, role-bound rails, tabs, overlays, accordions). Overlays show via .open and their triggers carry native ARIA. Left rail = nav, right rail = TOC; below their breakpoints they collapse into the drawer and .mobile-toc.
 
-### Classes (44)
+### Classes (48)
 
 | Name | Meaning |
 | --- | --- |
@@ -1195,12 +1444,16 @@ Canonical markups — every class here implements a registered markup shape (the
 | `.app-header` | top bar of the app-shell canon (owns --header-height) |
 | `.app-main` | the app-shell scroll region between header and footer |
 | `.app-shell` | the app frame canon: header + main + footer |
+| `.breadcrumb` | — |
 | `.content-section` | full-width page section; the narrow-* modifiers shrink it to a measure |
 | `.dialog` | modal overlay — shown via .open |
 | `.drawer` | off-canvas overlay panel — shown via .open |
 | `.hero` | documented sugar for .box.ycenter + gap-lg + pad-y-xl |
 | `.main-section` | flex:1 block content region of the app-shell |
 | `.mobile-toc` | <details> TOC dropdown standing in for the right rail below xl |
+| `.modal-lg` | — |
+| `.modal-md` | — |
+| `.modal-sm` | — |
 | `.narrow-full` | content-section modifier: narrow-measure column, centered |
 | `.narrow-half` | content-section modifier: ~half-measure column, centered |
 | `.narrow-wide` | content-section modifier: wide-measure column, centered |
@@ -1238,7 +1491,7 @@ Canonical markups — every class here implements a registered markup shape (the
 
 The dress layer: bare backgrounds (one declaration each), ink, status fills, partition lines, typography, shadows, and small compositions (avatar, kbd, field, switch). All compositions read the --radius-* channels so the shape axis reaches them. Components own their hover states — there is no standalone .hover.
 
-### Classes (86)
+### Classes (102)
 
 | Name | Meaning |
 | --- | --- |
@@ -1268,9 +1521,14 @@ The dress layer: bare backgrounds (one declaration each), ink, status fills, par
 | `.bt-mob` | partition border on top: 1px solid var(--border) — below the mobile breakpoint (769px default) |
 | `.canvas` | background: var(--bg-canvas) — the canvas behind everything |
 | `.checked` | state class: checked switch |
+| `.chip` | — |
 | `.clamp-1` | clamp to 1 line, then ellipsis |
 | `.clamp-2` | clamp to 2 lines, then ellipsis |
 | `.clamp-3` | clamp to 3 lines, then ellipsis |
+| `.disclosure` | — |
+| `.disclosure-card` | — |
+| `.disclosure-chevron` | — |
+| `.disclosure-content` | — |
 | `.divider` | horizontal rule with breathing room |
 | `.field` | form field wrapper: label + control stacked with scale gap |
 | `.field-error` | small danger-colored error line |
@@ -1283,8 +1541,19 @@ The dress layer: bare backgrounds (one declaration each), ink, status fills, par
 | `.mono` | font-family: var(--font-mono) |
 | `.only-mobile` | hidden at the desktop breakpoint and up (i.e. only shows on mobile) |
 | `.panel` | background: var(--bg-panel) — inset panels |
+| `.progress` | — |
+| `.progress-fill` | — |
+| `.progress-label` | — |
 | `.raised` | background: var(--bg-raised) — cards, chips, poppers |
+| `.ring` | — |
+| `.ring-center` | — |
+| `.ring-fill` | — |
+| `.ring-svg` | — |
+| `.ring-track` | — |
+| `.rule` | — |
+| `.rule-content` | — |
 | `.sans` | font-family: var(--font-sans) |
+| `.scrim` | — |
 | `.shadow-bs` | box-shadow: var(--shadow-bs) — the subtle default |
 | `.shadow-bs-desk` | box-shadow: var(--shadow-bs) — the subtle default — at the desktop breakpoint and up (769px default) |
 | `.shadow-bs-mob` | box-shadow: var(--shadow-bs) — the subtle default — below the mobile breakpoint (769px default) |
@@ -1329,6 +1598,12 @@ The dress layer: bare backgrounds (one declaration each), ink, status fills, par
 | `.weight-700` | font-weight: 700 |
 | `.weight-800` | font-weight: 800 |
 
+### Keyframes (1)
+
+| Name | Meaning |
+| --- | --- |
+| `progress-slide` | — |
+
 ---
 
 ## 8. interactions
@@ -1337,7 +1612,7 @@ The dress layer: bare backgrounds (one declaration each), ink, status fills, par
 
 One shared vocabulary of three ORTHOGONAL axes for every interactive surface: paint (primary/outline/soft/ghost/danger), metrics (sm/bs/lg on the shared control-height channel), corners (round/square/curved). The rungs compose because each is a single self-contained class: "btn primary lg curved". Every rung also ships -mob and -desk bands.
 
-### Classes (38)
+### Classes (49)
 
 
 **components**
@@ -1348,6 +1623,7 @@ _The interactive roster: btn, link, pill, card, badge. Adding a surface to $inte
 | --- | --- |
 | `.badge` | interactive surface base — composes with the paint / size / shape axes |
 | `.btn` | interactive surface base — composes with the paint / size / shape axes |
+| `.btn-group` | — |
 | `.card` | interactive surface base — composes with the paint / size / shape axes |
 | `.link` | interactive surface base — composes with the paint / size / shape axes |
 | `.pill` | interactive surface base — composes with the paint / size / shape axes |
@@ -1410,6 +1686,16 @@ _round and curved read the radius channels (they follow data-shape); square is t
 | `.danger` | paint rung: status-colored fill (var(--danger)) |
 | `.danger-desk` | paint rung: status-colored fill (var(--danger)) — at the desktop breakpoint and up (769px default) |
 | `.danger-mob` | paint rung: status-colored fill (var(--danger)) — below the mobile breakpoint (769px default) |
+| `.grab` | — |
+| `.icon` | size rung: square chrome-less control slot for icon-only buttons |
+| `.icon-desk` | size rung: square chrome-less control slot for icon-only buttons — at the desktop breakpoint and up (769px default) |
+| `.icon-mob` | size rung: square chrome-less control slot for icon-only buttons — below the mobile breakpoint (769px default) |
+| `.no-events` | — |
+| `.no-select` | — |
+| `.pointer` | — |
+| `.themed` | paint rung: theme-colored fill with inverse text |
+| `.themed-desk` | paint rung: theme-colored fill with inverse text — at the desktop breakpoint and up (769px default) |
+| `.themed-mob` | paint rung: theme-colored fill with inverse text — below the mobile breakpoint (769px default) |
 
 ---
 
@@ -1427,13 +1713,193 @@ The sanctioned extension point — classes a project declares for itself. Its co
 
 The variant axes as pure token remaps (ported from affedo): data-shape / data-radius / .radius-* sets rewrite the radius ladder, data-density / .density-* rewrite space + control heights, data-scale shifts the root font size. Set on <html> for the whole page or any subtree for a scope; every component skin that consumes the rungs follows instantly. Per-component shape/density props are the consumer side of this contract.
 
-### Classes (11)
+### Classes (281)
 
 | Name | Meaning |
 | --- | --- |
 | `.density-comfort` | density set: airy spacing and control heights (~1.4×); set it (or the data-shape/data-density/data-scale attribute) on <html> or any subtree |
 | `.density-normal` | density set: the default ladder; set it (or the data-shape/data-density/data-scale attribute) on <html> or any subtree |
 | `.density-tight` | density set: compact spacing and control heights (~0.65×); set it (or the data-shape/data-density/data-scale attribute) on <html> or any subtree |
+| `.dlmc` | condensed combo: danger · lg · modern · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dlmn` | condensed combo: danger · lg · modern · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dlmt` | condensed combo: danger · lg · modern · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dlpc` | condensed combo: danger · lg · pill · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dlpn` | condensed combo: danger · lg · pill · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dlpt` | condensed combo: danger · lg · pill · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dlrc` | condensed combo: danger · lg · round · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dlrn` | condensed combo: danger · lg · round · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dlrt` | condensed combo: danger · lg · round · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dlsqc` | condensed combo: danger · lg · square · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dlsqn` | condensed combo: danger · lg · square · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dlsqt` | condensed combo: danger · lg · square · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dlsuc` | condensed combo: danger · lg · subtle · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dlsun` | condensed combo: danger · lg · subtle · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dlsut` | condensed combo: danger · lg · subtle · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dmmc` | condensed combo: danger · md · modern · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dmmn` | condensed combo: danger · md · modern · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dmmt` | condensed combo: danger · md · modern · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dmpc` | condensed combo: danger · md · pill · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dmpn` | condensed combo: danger · md · pill · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dmpt` | condensed combo: danger · md · pill · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dmrc` | condensed combo: danger · md · round · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dmrn` | condensed combo: danger · md · round · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dmrt` | condensed combo: danger · md · round · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dmsqc` | condensed combo: danger · md · square · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dmsqn` | condensed combo: danger · md · square · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dmsqt` | condensed combo: danger · md · square · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dmsuc` | condensed combo: danger · md · subtle · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dmsun` | condensed combo: danger · md · subtle · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dmsut` | condensed combo: danger · md · subtle · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dsmc` | condensed combo: danger · sm · modern · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dsmn` | condensed combo: danger · sm · modern · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dsmt` | condensed combo: danger · sm · modern · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dspc` | condensed combo: danger · sm · pill · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dspn` | condensed combo: danger · sm · pill · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dspt` | condensed combo: danger · sm · pill · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dsrc` | condensed combo: danger · sm · round · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dsrn` | condensed combo: danger · sm · round · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dsrt` | condensed combo: danger · sm · round · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dssqc` | condensed combo: danger · sm · square · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dssqn` | condensed combo: danger · sm · square · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dssqt` | condensed combo: danger · sm · square · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dssuc` | condensed combo: danger · sm · subtle · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dssun` | condensed combo: danger · sm · subtle · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.dssut` | condensed combo: danger · sm · subtle · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.glmc` | condensed combo: ghost · lg · modern · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.glmn` | condensed combo: ghost · lg · modern · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.glmt` | condensed combo: ghost · lg · modern · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.glpc` | condensed combo: ghost · lg · pill · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.glpn` | condensed combo: ghost · lg · pill · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.glpt` | condensed combo: ghost · lg · pill · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.glrc` | condensed combo: ghost · lg · round · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.glrn` | condensed combo: ghost · lg · round · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.glrt` | condensed combo: ghost · lg · round · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.glsqc` | condensed combo: ghost · lg · square · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.glsqn` | condensed combo: ghost · lg · square · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.glsqt` | condensed combo: ghost · lg · square · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.glsuc` | condensed combo: ghost · lg · subtle · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.glsun` | condensed combo: ghost · lg · subtle · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.glsut` | condensed combo: ghost · lg · subtle · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gmmc` | condensed combo: ghost · md · modern · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gmmn` | condensed combo: ghost · md · modern · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gmmt` | condensed combo: ghost · md · modern · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gmpc` | condensed combo: ghost · md · pill · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gmpn` | condensed combo: ghost · md · pill · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gmpt` | condensed combo: ghost · md · pill · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gmrc` | condensed combo: ghost · md · round · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gmrn` | condensed combo: ghost · md · round · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gmrt` | condensed combo: ghost · md · round · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gmsqc` | condensed combo: ghost · md · square · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gmsqn` | condensed combo: ghost · md · square · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gmsqt` | condensed combo: ghost · md · square · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gmsuc` | condensed combo: ghost · md · subtle · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gmsun` | condensed combo: ghost · md · subtle · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gmsut` | condensed combo: ghost · md · subtle · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gsmc` | condensed combo: ghost · sm · modern · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gsmn` | condensed combo: ghost · sm · modern · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gsmt` | condensed combo: ghost · sm · modern · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gspc` | condensed combo: ghost · sm · pill · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gspn` | condensed combo: ghost · sm · pill · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gspt` | condensed combo: ghost · sm · pill · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gsrc` | condensed combo: ghost · sm · round · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gsrn` | condensed combo: ghost · sm · round · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gsrt` | condensed combo: ghost · sm · round · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gssqc` | condensed combo: ghost · sm · square · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gssqn` | condensed combo: ghost · sm · square · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gssqt` | condensed combo: ghost · sm · square · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gssuc` | condensed combo: ghost · sm · subtle · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gssun` | condensed combo: ghost · sm · subtle · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.gssut` | condensed combo: ghost · sm · subtle · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.olmc` | condensed combo: outline · lg · modern · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.olmn` | condensed combo: outline · lg · modern · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.olmt` | condensed combo: outline · lg · modern · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.olpc` | condensed combo: outline · lg · pill · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.olpn` | condensed combo: outline · lg · pill · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.olpt` | condensed combo: outline · lg · pill · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.olrc` | condensed combo: outline · lg · round · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.olrn` | condensed combo: outline · lg · round · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.olrt` | condensed combo: outline · lg · round · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.olsqc` | condensed combo: outline · lg · square · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.olsqn` | condensed combo: outline · lg · square · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.olsqt` | condensed combo: outline · lg · square · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.olsuc` | condensed combo: outline · lg · subtle · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.olsun` | condensed combo: outline · lg · subtle · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.olsut` | condensed combo: outline · lg · subtle · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.ommc` | condensed combo: outline · md · modern · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.ommn` | condensed combo: outline · md · modern · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.ommt` | condensed combo: outline · md · modern · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.ompc` | condensed combo: outline · md · pill · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.ompn` | condensed combo: outline · md · pill · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.ompt` | condensed combo: outline · md · pill · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.omrc` | condensed combo: outline · md · round · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.omrn` | condensed combo: outline · md · round · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.omrt` | condensed combo: outline · md · round · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.omsqc` | condensed combo: outline · md · square · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.omsqn` | condensed combo: outline · md · square · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.omsqt` | condensed combo: outline · md · square · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.omsuc` | condensed combo: outline · md · subtle · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.omsun` | condensed combo: outline · md · subtle · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.omsut` | condensed combo: outline · md · subtle · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.osmc` | condensed combo: outline · sm · modern · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.osmn` | condensed combo: outline · sm · modern · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.osmt` | condensed combo: outline · sm · modern · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.ospc` | condensed combo: outline · sm · pill · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.ospn` | condensed combo: outline · sm · pill · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.ospt` | condensed combo: outline · sm · pill · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.osrc` | condensed combo: outline · sm · round · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.osrn` | condensed combo: outline · sm · round · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.osrt` | condensed combo: outline · sm · round · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.ossqc` | condensed combo: outline · sm · square · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.ossqn` | condensed combo: outline · sm · square · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.ossqt` | condensed combo: outline · sm · square · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.ossuc` | condensed combo: outline · sm · subtle · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.ossun` | condensed combo: outline · sm · subtle · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.ossut` | condensed combo: outline · sm · subtle · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.plmc` | condensed combo: primary · lg · modern · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.plmn` | condensed combo: primary · lg · modern · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.plmt` | condensed combo: primary · lg · modern · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.plpc` | condensed combo: primary · lg · pill · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.plpn` | condensed combo: primary · lg · pill · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.plpt` | condensed combo: primary · lg · pill · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.plrc` | condensed combo: primary · lg · round · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.plrn` | condensed combo: primary · lg · round · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.plrt` | condensed combo: primary · lg · round · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.plsqc` | condensed combo: primary · lg · square · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.plsqn` | condensed combo: primary · lg · square · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.plsqt` | condensed combo: primary · lg · square · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.plsuc` | condensed combo: primary · lg · subtle · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.plsun` | condensed combo: primary · lg · subtle · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.plsut` | condensed combo: primary · lg · subtle · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pmmc` | condensed combo: primary · md · modern · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pmmn` | condensed combo: primary · md · modern · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pmmt` | condensed combo: primary · md · modern · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pmpc` | condensed combo: primary · md · pill · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pmpn` | condensed combo: primary · md · pill · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pmpt` | condensed combo: primary · md · pill · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pmrc` | condensed combo: primary · md · round · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pmrn` | condensed combo: primary · md · round · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pmrt` | condensed combo: primary · md · round · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pmsqc` | condensed combo: primary · md · square · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pmsqn` | condensed combo: primary · md · square · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pmsqt` | condensed combo: primary · md · square · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pmsuc` | condensed combo: primary · md · subtle · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pmsun` | condensed combo: primary · md · subtle · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pmsut` | condensed combo: primary · md · subtle · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.psmc` | condensed combo: primary · sm · modern · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.psmn` | condensed combo: primary · sm · modern · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.psmt` | condensed combo: primary · sm · modern · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pspc` | condensed combo: primary · sm · pill · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pspn` | condensed combo: primary · sm · pill · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pspt` | condensed combo: primary · sm · pill · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.psrc` | condensed combo: primary · sm · round · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.psrn` | condensed combo: primary · sm · round · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.psrt` | condensed combo: primary · sm · round · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pssqc` | condensed combo: primary · sm · square · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pssqn` | condensed combo: primary · sm · square · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pssqt` | condensed combo: primary · sm · square · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pssuc` | condensed combo: primary · sm · subtle · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pssun` | condensed combo: primary · sm · subtle · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.pssut` | condensed combo: primary · sm · subtle · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
 | `.radius-modern` | corner-geometry set: modern radii (2–16px); set it (or the data-shape/data-density/data-scale attribute) on <html> or any subtree |
 | `.radius-pill` | corner-geometry set: everything fully round (9999px); set it (or the data-shape/data-density/data-scale attribute) on <html> or any subtree |
 | `.radius-round` | corner-geometry set: generous radii (4–36px); set it (or the data-shape/data-density/data-scale attribute) on <html> or any subtree |
@@ -1442,4 +1908,94 @@ The variant axes as pure token remaps (ported from affedo): data-shape / data-ra
 | `.scale-compact` | font-scale set: 87.5% root font-size; set it (or the data-shape/data-density/data-scale attribute) on <html> or any subtree |
 | `.scale-expanded` | font-scale set: 112.5% root font-size; set it (or the data-shape/data-density/data-scale attribute) on <html> or any subtree |
 | `.scale-normal` | font-scale set: 100% root font-size; set it (or the data-shape/data-density/data-scale attribute) on <html> or any subtree |
+| `.slmc` | condensed combo: secondary (soft) · lg · modern · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.slmn` | condensed combo: secondary (soft) · lg · modern · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.slmt` | condensed combo: secondary (soft) · lg · modern · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.slpc` | condensed combo: secondary (soft) · lg · pill · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.slpn` | condensed combo: secondary (soft) · lg · pill · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.slpt` | condensed combo: secondary (soft) · lg · pill · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.slrc` | condensed combo: secondary (soft) · lg · round · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.slrn` | condensed combo: secondary (soft) · lg · round · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.slrt` | condensed combo: secondary (soft) · lg · round · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.slsqc` | condensed combo: secondary (soft) · lg · square · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.slsqn` | condensed combo: secondary (soft) · lg · square · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.slsqt` | condensed combo: secondary (soft) · lg · square · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.slsuc` | condensed combo: secondary (soft) · lg · subtle · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.slsun` | condensed combo: secondary (soft) · lg · subtle · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.slsut` | condensed combo: secondary (soft) · lg · subtle · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.smmc` | condensed combo: secondary (soft) · md · modern · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.smmn` | condensed combo: secondary (soft) · md · modern · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.smmt` | condensed combo: secondary (soft) · md · modern · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.smpc` | condensed combo: secondary (soft) · md · pill · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.smpn` | condensed combo: secondary (soft) · md · pill · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.smpt` | condensed combo: secondary (soft) · md · pill · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.smrc` | condensed combo: secondary (soft) · md · round · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.smrn` | condensed combo: secondary (soft) · md · round · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.smrt` | condensed combo: secondary (soft) · md · round · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.smsqc` | condensed combo: secondary (soft) · md · square · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.smsqn` | condensed combo: secondary (soft) · md · square · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.smsqt` | condensed combo: secondary (soft) · md · square · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.smsuc` | condensed combo: secondary (soft) · md · subtle · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.smsun` | condensed combo: secondary (soft) · md · subtle · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.smsut` | condensed combo: secondary (soft) · md · subtle · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.ssmc` | condensed combo: secondary (soft) · sm · modern · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.ssmn` | condensed combo: secondary (soft) · sm · modern · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.ssmt` | condensed combo: secondary (soft) · sm · modern · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.sspc` | condensed combo: secondary (soft) · sm · pill · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.sspn` | condensed combo: secondary (soft) · sm · pill · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.sspt` | condensed combo: secondary (soft) · sm · pill · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.ssrc` | condensed combo: secondary (soft) · sm · round · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.ssrn` | condensed combo: secondary (soft) · sm · round · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.ssrt` | condensed combo: secondary (soft) · sm · round · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.sssqc` | condensed combo: secondary (soft) · sm · square · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.sssqn` | condensed combo: secondary (soft) · sm · square · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.sssqt` | condensed combo: secondary (soft) · sm · square · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.sssuc` | condensed combo: secondary (soft) · sm · subtle · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.sssun` | condensed combo: secondary (soft) · sm · subtle · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.sssut` | condensed combo: secondary (soft) · sm · subtle · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tlmc` | condensed combo: themed · lg · modern · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tlmn` | condensed combo: themed · lg · modern · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tlmt` | condensed combo: themed · lg · modern · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tlpc` | condensed combo: themed · lg · pill · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tlpn` | condensed combo: themed · lg · pill · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tlpt` | condensed combo: themed · lg · pill · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tlrc` | condensed combo: themed · lg · round · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tlrn` | condensed combo: themed · lg · round · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tlrt` | condensed combo: themed · lg · round · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tlsqc` | condensed combo: themed · lg · square · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tlsqn` | condensed combo: themed · lg · square · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tlsqt` | condensed combo: themed · lg · square · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tlsuc` | condensed combo: themed · lg · subtle · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tlsun` | condensed combo: themed · lg · subtle · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tlsut` | condensed combo: themed · lg · subtle · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tmmc` | condensed combo: themed · md · modern · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tmmn` | condensed combo: themed · md · modern · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tmmt` | condensed combo: themed · md · modern · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tmpc` | condensed combo: themed · md · pill · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tmpn` | condensed combo: themed · md · pill · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tmpt` | condensed combo: themed · md · pill · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tmrc` | condensed combo: themed · md · round · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tmrn` | condensed combo: themed · md · round · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tmrt` | condensed combo: themed · md · round · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tmsqc` | condensed combo: themed · md · square · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tmsqn` | condensed combo: themed · md · square · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tmsqt` | condensed combo: themed · md · square · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tmsuc` | condensed combo: themed · md · subtle · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tmsun` | condensed combo: themed · md · subtle · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tmsut` | condensed combo: themed · md · subtle · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tsmc` | condensed combo: themed · sm · modern · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tsmn` | condensed combo: themed · sm · modern · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tsmt` | condensed combo: themed · sm · modern · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tspc` | condensed combo: themed · sm · pill · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tspn` | condensed combo: themed · sm · pill · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tspt` | condensed combo: themed · sm · pill · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tsrc` | condensed combo: themed · sm · round · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tsrn` | condensed combo: themed · sm · round · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tsrt` | condensed combo: themed · sm · round · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tssqc` | condensed combo: themed · sm · square · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tssqn` | condensed combo: themed · sm · square · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tssqt` | condensed combo: themed · sm · square · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tssuc` | condensed combo: themed · sm · subtle · comfort — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tssun` | condensed combo: themed · sm · subtle · normal — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
+| `.tssut` | condensed combo: themed · sm · subtle · tight — all four axes in one class; each axis yields to its data-variant / data-size / data-shape / data-density attribute |
 

@@ -9,7 +9,7 @@
 @use 'sass:math'
 @use '01_config' as *
 @use 'configvocab' as *
-@forward 'configvocab' show $steps, $gap-families, $pad-families
+@forward 'configvocab' show $steps, $gap-families, $pad-families, $pos-families
 @use '00_tokens' as *
 
 // The literal ladder, built once: the fine tail, then every $literal-step up to
@@ -63,6 +63,17 @@ $marg-families: (mar: margin, mx: margin-inline, my: margin-block, mt: margin-to
 	@each $step in $steps
 		.#{$name}-#{$step}
 			#{$prop}: calc(var(--space-#{$step}) * var(--gap-scale, 1))
+	@each $n in $space-literals
+		.#{$name}-#{$n}
+			#{$prop}: #{$n}px
+
+// Positioning offsets — geometry, not breathing: the PLAIN space rung (no
+// scale multiplier), so an overlay pinned at inset-0 or a tooltip at top-xs
+// stays put when the layout scale knobs move. inset rides the shorthand.
+@each $name, $prop in $pos-families
+	@each $step in $steps
+		.#{$name}-#{$step}
+			#{$prop}: var(--space-#{$step})
 	@each $n in $space-literals
 		.#{$name}-#{$n}
 			#{$prop}: #{$n}px
@@ -141,6 +152,13 @@ $marg-families: (mar: margin, mx: margin-inline, my: margin-block, mt: margin-to
 			@each $step in $steps
 				.#{$name}-#{$step}-#{$mode}
 					#{$prop}: calc(var(--space-#{$step}) * var(--gap-scale, 1))
+			@each $n in $space-literals
+				.#{$name}-#{$n}-#{$mode}
+					#{$prop}: #{$n}px
+		@each $name, $prop in $pos-families
+			@each $step in $steps
+				.#{$name}-#{$step}-#{$mode}
+					#{$prop}: var(--space-#{$step})
 			@each $n in $space-literals
 				.#{$name}-#{$n}-#{$mode}
 					#{$prop}: #{$n}px
